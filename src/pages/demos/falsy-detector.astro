@@ -1,0 +1,527 @@
+---
+/**
+ * Falsy Detector Demo
+ *
+ * Interactive tool to test truthy/falsy values in JavaScript.
+ * Students can type any value and see if JavaScript treats it as truthy or falsy.
+ */
+
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const introContent = `
+    <p><strong>Test any value!</strong> Type something in the box below and click "Test" to see if JavaScript considers it truthy or falsy. Try the quick-test buttons to explore all 7 falsy values and some surprising truthy ones!</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<MainLayout
+    title="Falsy Detector | HAP's Learning Lab"
+    description="Interactive demo to test JavaScript truthy and falsy values. Explore the 7 falsy values and discover surprising truthy values."
+    headerTitle="Falsy Detector"
+    headerSubtitle="Station 1 Demo"
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1763230817/hap-scientist_safwtg.jpg"
+    avatarAlt="HAP in scientist mode with lab equipment"
+    introContent={introContent}
+    showNavigation={false}
+    footerReminder="Remember: Only 7 values are falsy in JavaScript. Everything else is truthy!"
+>
+
+    <section class="content-section">
+        <div class="topic-section">
+            <!-- Test Input Section -->
+            <div class="demo-container">
+                <h2>Test a Value</h2>
+
+                <div class="demo-input-group">
+                    <label for="value-input" class="demo-label">Enter a value to test:</label>
+                    <div class="demo-input-row">
+                        <input
+                            type="text"
+                            id="value-input"
+                            class="demo-input"
+                            placeholder="Type a value (e.g., 0, '', null, 'hello')"
+                            aria-describedby="input-hint"
+                        >
+                        <button id="test-btn" class="demo-button">Test</button>
+                    </div>
+                    <p id="input-hint" class="demo-hint">Tip: Use quotes for strings, no quotes for numbers/keywords</p>
+                </div>
+
+                <!-- Result Display -->
+                <div id="result-display" class="demo-result" aria-live="polite" aria-atomic="true">
+                    <div class="result-placeholder">Enter a value and click "Test" to see the result</div>
+                </div>
+            </div>
+
+            <!-- Quick Test Buttons: Falsy Values -->
+            <div class="demo-section mt-2">
+                <h3>Quick Test: The 7 Falsy Values</h3>
+                <p class="mb-1">Click any button to test these falsy values:</p>
+                <div class="quick-test-grid">
+                    <button class="quick-test-btn falsy-btn" data-value="false" data-type="boolean">false</button>
+                    <button class="quick-test-btn falsy-btn" data-value="0" data-type="number">0</button>
+                    <button class="quick-test-btn falsy-btn" data-value="-0" data-type="number">-0</button>
+                    <button class="quick-test-btn falsy-btn" data-value="" data-type="string">""</button>
+                    <button class="quick-test-btn falsy-btn" data-value="null" data-type="null">null</button>
+                    <button class="quick-test-btn falsy-btn" data-value="undefined" data-type="undefined">undefined</button>
+                    <button class="quick-test-btn falsy-btn" data-value="NaN" data-type="nan">NaN</button>
+                </div>
+            </div>
+
+            <!-- Quick Test Buttons: Truthy Gotchas -->
+            <div class="demo-section mt-2">
+                <h3>Quick Test: Surprising Truthy Values</h3>
+                <p class="mb-1">These look falsy but are actually truthy!</p>
+                <div class="quick-test-grid">
+                    <button class="quick-test-btn truthy-btn" data-value="false" data-type="string-false">"false"</button>
+                    <button class="quick-test-btn truthy-btn" data-value="0" data-type="string-zero">"0"</button>
+                    <button class="quick-test-btn truthy-btn" data-value="[]" data-type="array">[]</button>
+                    <button class="quick-test-btn truthy-btn" data-value="{}" data-type="object">{}</button>
+                    <button class="quick-test-btn truthy-btn" data-value=" " data-type="string-space">" "</button>
+                </div>
+            </div>
+
+            <!-- Robot ID Card Section -->
+            <div class="demo-section mt-2">
+                <h3>Robot ID Card Variables</h3>
+                <p class="mb-1">See how HAP's new variables behave:</p>
+
+                <div class="robot-card-demo">
+                    <div class="robot-var-row">
+                        <code>nickname = ""</code>
+                        <span class="var-result falsy-indicator">FALSY</span>
+                        <span class="var-explanation">Empty string — no nickname set</span>
+                    </div>
+                    <div class="robot-var-row">
+                        <code>backupBattery = 0</code>
+                        <span class="var-result falsy-indicator">FALSY</span>
+                        <span class="var-explanation">Zero — no backup power</span>
+                    </div>
+                    <div class="robot-var-row">
+                        <code>secondaryMission = null</code>
+                        <span class="var-result falsy-indicator">FALSY</span>
+                        <span class="var-explanation">Null — intentionally empty</span>
+                    </div>
+                    <div class="robot-var-row">
+                        <code>energyLevel = 100</code>
+                        <span class="var-result truthy-indicator">TRUTHY</span>
+                        <span class="var-explanation">Non-zero number — has power!</span>
+                    </div>
+                    <div class="robot-var-row">
+                        <code>robotName = "HyBit A. ProtoBot"</code>
+                        <span class="var-result truthy-indicator">TRUTHY</span>
+                        <span class="var-explanation">Non-empty string — has a name</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Station Link -->
+            <div class="demo-nav mt-2">
+                <a href="/stations/station1/" class="demo-back-link">← Back to Station 1: The Truth About Values</a>
+            </div>
+        </div>
+    </section>
+
+</MainLayout>
+
+<style>
+    .demo-container {
+        background: hsl(220, 20%, 97%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .demo-input-group {
+        margin-bottom: 1rem;
+    }
+
+    .demo-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .demo-input-row {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .demo-input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        border: 2px solid hsl(220, 20%, 80%);
+        border-radius: 8px;
+        background: hsl(0, 0%, 100%);
+        transition: border-color 0.2s ease;
+    }
+
+    .demo-input:focus {
+        outline: none;
+        border-color: hsl(32, 76%, 63%);
+        box-shadow: 0 0 0 3px hsl(32, 76%, 63%, 0.2);
+    }
+
+    .demo-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        background: hsl(32, 76%, 63%);
+        color: hsl(0, 0%, 100%);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .demo-button:hover {
+        background: hsl(32, 76%, 53%);
+    }
+
+    .demo-button:active {
+        transform: scale(0.98);
+    }
+
+    .demo-hint {
+        font-size: 0.875rem;
+        color: hsl(220, 20%, 50%);
+        margin-top: 0.5rem;
+    }
+
+    .demo-result {
+        margin-top: 1rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .result-placeholder {
+        color: hsl(220, 20%, 60%);
+        font-style: italic;
+    }
+
+    .result-truthy {
+        background: hsl(142, 52%, 95%);
+        border: 2px solid hsl(142, 52%, 50%);
+    }
+
+    .result-falsy {
+        background: hsl(0, 52%, 95%);
+        border: 2px solid hsl(0, 52%, 50%);
+    }
+
+    .result-icon {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .result-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .result-truthy .result-text {
+        color: hsl(142, 52%, 35%);
+    }
+
+    .result-falsy .result-text {
+        color: hsl(0, 52%, 40%);
+    }
+
+    .result-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        color: hsl(220, 20%, 40%);
+    }
+
+    .result-explanation {
+        font-size: 0.875rem;
+        color: hsl(220, 20%, 50%);
+        margin-top: 0.5rem;
+    }
+
+    .demo-section h3 {
+        color: hsl(220, 20%, 30%);
+        margin-bottom: 0.5rem;
+    }
+
+    .quick-test-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .quick-test-btn {
+        padding: 0.5rem 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        border: 2px solid;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .falsy-btn {
+        background: hsl(0, 52%, 97%);
+        border-color: hsl(0, 52%, 70%);
+        color: hsl(0, 52%, 40%);
+    }
+
+    .falsy-btn:hover {
+        background: hsl(0, 52%, 93%);
+        border-color: hsl(0, 52%, 50%);
+    }
+
+    .truthy-btn {
+        background: hsl(142, 52%, 97%);
+        border-color: hsl(142, 52%, 60%);
+        color: hsl(142, 52%, 30%);
+    }
+
+    .truthy-btn:hover {
+        background: hsl(142, 52%, 93%);
+        border-color: hsl(142, 52%, 45%);
+    }
+
+    .robot-card-demo {
+        background: hsl(220, 20%, 98%);
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .robot-var-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.75rem;
+        border-bottom: 1px solid hsl(220, 20%, 92%);
+    }
+
+    .robot-var-row:last-child {
+        border-bottom: none;
+    }
+
+    .robot-var-row code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .var-result {
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .falsy-indicator {
+        background: hsl(0, 52%, 90%);
+        color: hsl(0, 52%, 40%);
+    }
+
+    .truthy-indicator {
+        background: hsl(142, 52%, 90%);
+        color: hsl(142, 52%, 30%);
+    }
+
+    .var-explanation {
+        font-size: 0.75rem;
+        color: hsl(220, 20%, 50%);
+    }
+
+    .demo-nav {
+        text-align: center;
+    }
+
+    .demo-back-link {
+        color: hsl(32, 76%, 50%);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .demo-back-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+        .demo-input-row {
+            flex-direction: column;
+        }
+
+        .robot-var-row {
+            grid-template-columns: 1fr;
+            gap: 0.25rem;
+        }
+
+        .var-result {
+            justify-self: start;
+        }
+    }
+</style>
+
+<script>
+    // Falsy Detector Logic
+    const input = document.getElementById('value-input') as HTMLInputElement;
+    const testBtn = document.getElementById('test-btn');
+    const resultDisplay = document.getElementById('result-display');
+    const quickTestBtns = document.querySelectorAll('.quick-test-btn');
+
+    function parseValue(str: string, type?: string): { value: any; display: string; explanation: string } {
+        // Handle special quick-test types
+        if (type === 'boolean') {
+            return { value: false, display: 'false', explanation: 'The boolean false' };
+        }
+        if (type === 'number') {
+            const num = parseFloat(str);
+            return { value: num, display: str, explanation: `The number ${str}` };
+        }
+        if (type === 'string' && str === '') {
+            return { value: '', display: '""', explanation: 'An empty string' };
+        }
+        if (type === 'null') {
+            return { value: null, display: 'null', explanation: 'The null value' };
+        }
+        if (type === 'undefined') {
+            return { value: undefined, display: 'undefined', explanation: 'The undefined value' };
+        }
+        if (type === 'nan') {
+            return { value: NaN, display: 'NaN', explanation: 'Not a Number' };
+        }
+        if (type === 'string-false') {
+            return { value: 'false', display: '"false"', explanation: 'The string "false" (not the boolean!)' };
+        }
+        if (type === 'string-zero') {
+            return { value: '0', display: '"0"', explanation: 'The string "0" (not the number!)' };
+        }
+        if (type === 'array') {
+            return { value: [], display: '[]', explanation: 'An empty array (still an object!)' };
+        }
+        if (type === 'object') {
+            return { value: {}, display: '{}', explanation: 'An empty object (still exists!)' };
+        }
+        if (type === 'string-space') {
+            return { value: ' ', display: '" "', explanation: 'A string with a space (not empty!)' };
+        }
+
+        // Parse user input
+        const trimmed = str.trim();
+
+        // Check for quoted strings
+        if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+            (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+            const stringVal = trimmed.slice(1, -1);
+            return { value: stringVal, display: `"${stringVal}"`, explanation: stringVal === '' ? 'An empty string' : `The string "${stringVal}"` };
+        }
+
+        // Check for keywords
+        if (trimmed === 'false') {
+            return { value: false, display: 'false', explanation: 'The boolean false' };
+        }
+        if (trimmed === 'true') {
+            return { value: true, display: 'true', explanation: 'The boolean true' };
+        }
+        if (trimmed === 'null') {
+            return { value: null, display: 'null', explanation: 'The null value' };
+        }
+        if (trimmed === 'undefined') {
+            return { value: undefined, display: 'undefined', explanation: 'The undefined value' };
+        }
+        if (trimmed === 'NaN') {
+            return { value: NaN, display: 'NaN', explanation: 'Not a Number' };
+        }
+        if (trimmed === '[]') {
+            return { value: [], display: '[]', explanation: 'An empty array' };
+        }
+        if (trimmed === '{}') {
+            return { value: {}, display: '{}', explanation: 'An empty object' };
+        }
+
+        // Check for numbers
+        if (!isNaN(Number(trimmed)) && trimmed !== '') {
+            const num = Number(trimmed);
+            return { value: num, display: trimmed, explanation: `The number ${trimmed}` };
+        }
+
+        // Treat as string
+        return { value: trimmed, display: `"${trimmed}"`, explanation: `The string "${trimmed}"` };
+    }
+
+    function displayResult(value: any, display: string, explanation: string) {
+        const isTruthy = Boolean(value);
+
+        if (resultDisplay) {
+            resultDisplay.className = `demo-result ${isTruthy ? 'result-truthy' : 'result-falsy'}`;
+
+            // Clear previous content
+            resultDisplay.innerHTML = '';
+
+            // Create elements with textContent for user-derived values (XSS prevention)
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'result-icon';
+            iconDiv.textContent = isTruthy ? '✅' : '❌';
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'result-text';
+            textDiv.textContent = isTruthy ? 'TRUTHY' : 'FALSY';
+
+            const valueDiv = document.createElement('div');
+            valueDiv.className = 'result-value';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = display;  // Safe: textContent escapes HTML
+            valueDiv.appendChild(codeEl);
+
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'result-explanation';
+            explanationDiv.textContent = explanation;  // Safe: textContent escapes HTML
+
+            resultDisplay.appendChild(iconDiv);
+            resultDisplay.appendChild(textDiv);
+            resultDisplay.appendChild(valueDiv);
+            resultDisplay.appendChild(explanationDiv);
+        }
+    }
+
+    // Test button click
+    testBtn?.addEventListener('click', () => {
+        const { value, display, explanation } = parseValue(input.value);
+        displayResult(value, display, explanation);
+    });
+
+    // Enter key in input
+    input?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const { value, display, explanation } = parseValue(input.value);
+            displayResult(value, display, explanation);
+        }
+    });
+
+    // Quick test buttons
+    quickTestBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const dataValue = btn.getAttribute('data-value') || '';
+            const dataType = btn.getAttribute('data-type') || '';
+            const { value, display, explanation } = parseValue(dataValue, dataType);
+            displayResult(value, display, explanation);
+
+            // Update input to show what was tested
+            if (input) {
+                input.value = display;
+            }
+        });
+    });
+</script>

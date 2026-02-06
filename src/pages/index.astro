@@ -1,107 +1,136 @@
 ---
 /**
- * Placeholder Hub Page
+ * Hub Page - HAP's Learning Lab: JavaScript Control Flow
  *
- * Replace this file with content from src/templates/hub-template.astro
- *
- * GETTING STARTED:
- * 1. Read docs/designing-labs/hap-narrative-and-scene-design.md
- * 2. Fill out a station blueprint for each station (docs/reference-cards/station-blueprint-template.md)
- * 3. Copy src/templates/hub-template.astro to this location
- * 4. Replace all [PLACEHOLDER_*] markers with your content
+ * This is the landing page for the JS Control Flow learning lab.
+ * Students arrive here from JS Foundations and continue their Robot ID Card journey.
  */
 
 import MainLayout from '../layouts/MainLayout.astro';
 
 const introContent = `
-    <p><strong>Welcome to your new HAP Learning Lab!</strong></p>
-    <p>This is a placeholder page. To get started, copy the hub template from
-    <code>src/templates/hub-template.astro</code> and replace this file.</p>
-    <p class="mt-1">Check out the documentation in the <code>docs/</code> folder for guidance
-    on creating your learning lab content. 🟠</p>
+    <p><strong>I'm back, and I have so much to share!</strong></p>
+    <p>After learning variables and data types in JS Foundations, I thought I understood JavaScript. Then Prof. Teeters asked me a question that changed everything: "HAP, what happens when your code needs to make a decision?"</p>
+    <p class="mt-1">That's when I discovered control flow — the way JavaScript chooses which code to run based on conditions. It's like giving my Robot ID Card a brain that can think and respond!</p>
+    <p class="mt-1">Let me show you what I learned about making my code smarter... 🟠</p>
 `;
 ---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
 
 <MainLayout
-    title="HAP's Learning Lab | Getting Started"
-    description="A placeholder page for your new HAP Learning Lab. Replace with your content."
+    title="JavaScript Control Flow | HAP's Learning Lab"
+    description="Learn JavaScript control flow with HAP! Master truthy/falsy values, logical operators, conditionals, functions, and loops through the Robot ID Card project."
+    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
     headerTitle="HAP's Learning Lab"
-    headerSubtitle="Your Learning Lab Topic Here"
-    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-waving_dgzacg.jpg"
-    avatarAlt="HAP waving hello"
+    headerSubtitle="JavaScript Control Flow"
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
+    avatarAlt="HAP studying on his laptop"
     introContent={introContent}
+    showIntroImage={true}
+    introImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_240,c_limit/v1759495998/hap-waving_dgzacg.jpg"
+    introImageAlt="HAP waving hello"
     showNavigation={false}
-    footerReminder="Start by reading the documentation in docs/designing-labs/"
+    footerReminder="Control flow is how your code makes decisions — and decisions make programs come alive!"
 >
 
+    <!-- ============================================================
+         About This Lab Section
+         ============================================================ -->
     <section class="content-section">
         <div class="topic-section">
-            <h2>Getting Started</h2>
+            <h2>About HAP's Learning Lab</h2>
 
             <div class="analysis-grid">
                 <div class="analysis-point">
-                    <h3>📚 Step 1: Read the docs</h3>
-                    <p>Start with <code>docs/designing-labs/hap-narrative-and-scene-design.md</code></p>
-                    <p class="mt-1">This will help you understand HAP's voice and the station structure.</p>
+                    <h3>🔬 What I Learned</h3>
+                    <p>JavaScript doesn't run every line of code — it makes choices. With control flow, I can make my Robot ID Card respond differently based on energy levels, status, and more.</p>
+                    <p class="mt-1">Prof. Teeters showed me that variables store data, but control flow brings that data to life.</p>
                 </div>
 
                 <div class="analysis-point">
-                    <h3>📝 Step 2: Plan your stations</h3>
-                    <p>Use the blueprint template in <code>docs/reference-cards/station-blueprint-template.md</code></p>
-                    <p class="mt-1">Fill out one blueprint for each of your 6 stations before writing content.</p>
+                    <h3>🎯 How I Practiced</h3>
+                    <p>I extended my Robot ID Card with new variables like <code>nickname</code>, <code>isOnline</code>, and <code>coreTemperature</code>. Each one taught me something different about control flow.</p>
+                    <p class="mt-1">The interactive demos at each station helped me see exactly how JavaScript evaluates conditions.</p>
                 </div>
 
                 <div class="analysis-point">
-                    <h3>🏗️ Step 3: Create your pages</h3>
-                    <p>Copy templates from <code>src/templates/</code> to <code>src/pages/</code></p>
-                    <p class="mt-1">Replace all <code>[PLACEHOLDER_*]</code> markers with your content.</p>
+                    <h3>🎨 My Philosophy</h3>
+                    <p>I believe the best way to learn is by making mistakes and understanding why they happened. That's why I share my confessions at each station.</p>
+                    <p class="mt-1">Every bug I encountered taught me something important about how JavaScript really works.</p>
                 </div>
 
                 <div class="analysis-point">
-                    <h3>✅ Step 4: Validate</h3>
-                    <p>Use the Claude Skills in <code>skills/</code> to validate your content</p>
-                    <p class="mt-1">Run <code>npm run build</code> to check for errors.</p>
+                    <h3>🤔 My Advice</h3>
+                    <p>Don't skip the demos! When I tried the Falsy Detector, I finally understood why my if statements weren't working the way I expected.</p>
+                    <p class="mt-1">Take your time with each station — control flow concepts build on each other.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
-        <div class="tips-container">
-            <h2 class="section-heading-centered">🎓 Quick Reference</h2>
+    <!-- ============================================================
+         Learning Stations Grid
+         ============================================================ -->
+    <div class="content-container">
+        <section class="content-section">
+            <h2 class="section-heading-centered">Learning Stations</h2>
+            <nav aria-label="Learning stations">
+                <div class="overview-grid">
 
-            <div class="tip-card">
-                <div class="tip-number">1</div>
-                <div>
-                    <h3>Hub template</h3>
-                    <p><code>src/templates/hub-template.astro</code> → <code>src/pages/index.astro</code></p>
-                </div>
-            </div>
+                    <!-- Station 1 -->
+                    <a href="/stations/station1/" class="insight-card station-card-link">
+                        <h3><span class="insight-icon">🔍</span> Station 1: The Truth About Values</h3>
+                        <p><strong>Focus:</strong> Truthy and falsy values</p>
+                        <p class="station-description">I was shocked to learn that JavaScript has only 7 falsy values — everything else is truthy! This station changed how I think about if statements.</p>
+                        <p class="station-cta">→ Visit Station 1</p>
+                    </a>
 
-            <div class="tip-card">
-                <div class="tip-number">2</div>
-                <div>
-                    <h3>Station template</h3>
-                    <p><code>src/templates/station-template.astro</code> → <code>src/pages/stations/station[1-6].astro</code></p>
-                </div>
-            </div>
+                    <!-- Station 2 -->
+                    <a href="/stations/station2/" class="insight-card station-card-link">
+                        <h3><span class="insight-icon">🔗</span> Station 2: Combining Conditions</h3>
+                        <p><strong>Focus:</strong> Logical operators (AND, OR, NOT)</p>
+                        <p class="station-description">What if I need to check multiple things at once? Prof. Teeters taught me about && and || — and the sneaky way they short-circuit!</p>
+                        <p class="station-cta">→ Visit Station 2</p>
+                    </a>
 
-            <div class="tip-card">
-                <div class="tip-number">3</div>
-                <div>
-                    <h3>HAP images</h3>
-                    <p>See the image inventory in <code>skills/hap-image-validation/</code></p>
-                </div>
-            </div>
+                    <!-- Station 3 -->
+                    <a href="/stations/station3/" class="insight-card station-card-link">
+                        <h3><span class="insight-icon">🚦</span> Station 3: Making Decisions</h3>
+                        <p><strong>Focus:</strong> if, else if, and else</p>
+                        <p class="station-description">When my Robot ID Card needs to classify temperature into zones, one if statement isn't enough. Here's where I learned to chain decisions together.</p>
+                        <p class="station-cta">→ Visit Station 3</p>
+                    </a>
 
-            <div class="tip-card">
-                <div class="tip-number">4</div>
-                <div>
-                    <h3>Development server</h3>
-                    <p>Run <code>npm run dev</code> to start the development server at localhost:4321</p>
+                    <!-- Station 4 -->
+                    <a href="/stations/station4/" class="insight-card station-card-link">
+                        <h3><span class="insight-icon">📦</span> Station 4: Reusable Code with Functions</h3>
+                        <p><strong>Focus:</strong> Functions, parameters, and return values</p>
+                        <p class="station-description">I was copying the same code over and over until Prof. Teeters said, "HAP, there's a better way." Functions let me write code once and use it anywhere!</p>
+                        <p class="station-cta">→ Visit Station 4</p>
+                    </a>
+
+                    <!-- Station 5 -->
+                    <a href="/stations/station5/" class="insight-card station-card-link">
+                        <h3><span class="insight-icon">🔁</span> Station 5: Repeating Actions</h3>
+                        <p><strong>Focus:</strong> for loops and while loops</p>
+                        <p class="station-description">When I needed to scan through all my skills, I didn't want to write the same line 10 times. Loops changed everything about how I process lists.</p>
+                        <p class="station-cta">→ Visit Station 5</p>
+                    </a>
+
+                    <!-- Station 6 -->
+                    <a href="/stations/station6/" class="insight-card station-card-link">
+                        <h3><span class="insight-icon">🤖</span> Station 6: AI-Assisted Debugging</h3>
+                        <p><strong>Focus:</strong> Using AI to understand bugs</p>
+                        <p class="station-description">When my loops went infinite and my conditions failed, I learned how to ask AI the right questions. It's not about getting answers — it's about understanding.</p>
+                        <p class="station-cta">→ Visit Station 6</p>
+                    </a>
+
                 </div>
-            </div>
-        </div>
-    </section>
+            </nav>
+        </section>
+    </div>
 
 </MainLayout>

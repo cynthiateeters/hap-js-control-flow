@@ -1,0 +1,645 @@
+---
+/**
+ * Skill Scanner Demo
+ *
+ * Interactive tool to visualize how for loops process arrays step by step.
+ * Students can step through or auto-play to see the loop counter, current item, and output.
+ */
+
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const introContent = `
+    <p><strong>Watch the loop in action!</strong> Step through each iteration to see how the index changes, which item gets processed, and how output builds up. Use the controls to go at your own pace!</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<MainLayout
+    title="Skill Scanner | HAP's Learning Lab"
+    description="Interactive demo to visualize JavaScript for loops processing arrays. Watch step by step as the loop iterates through HAP's skills."
+    headerTitle="Skill Scanner"
+    headerSubtitle="Station 5 Demo"
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1763230577/hap-juggles_v2zxeq.jpg"
+    avatarAlt="HAP juggling web technologies"
+    introContent={introContent}
+    showNavigation={false}
+    footerReminder="Remember: Arrays start at index 0, and use i < array.length to loop through all items!"
+>
+
+    <section class="content-section">
+        <div class="topic-section">
+            <!-- Array Display -->
+            <div class="demo-container">
+                <h2>The Array</h2>
+                <p class="mb-1">HAP's skills to scan:</p>
+
+                <div class="array-display">
+                    <div class="array-bracket">[</div>
+                    <div class="array-items" id="array-items">
+                        <div class="array-item" data-index="0">
+                            <span class="item-index">0</span>
+                            <span class="item-value">"navigation"</span>
+                        </div>
+                        <div class="array-item" data-index="1">
+                            <span class="item-index">1</span>
+                            <span class="item-value">"calculation"</span>
+                        </div>
+                        <div class="array-item" data-index="2">
+                            <span class="item-index">2</span>
+                            <span class="item-value">"communication"</span>
+                        </div>
+                        <div class="array-item" data-index="3">
+                            <span class="item-index">3</span>
+                            <span class="item-value">"analysis"</span>
+                        </div>
+                        <div class="array-item" data-index="4">
+                            <span class="item-index">4</span>
+                            <span class="item-value">"learning"</span>
+                        </div>
+                    </div>
+                    <div class="array-bracket">]</div>
+                </div>
+
+                <p class="array-length"><code>skills.length = 5</code></p>
+            </div>
+
+            <!-- Loop Visualization -->
+            <div class="loop-container mt-2">
+                <h3>The Loop</h3>
+
+                <div class="code-panel">
+                    <pre class="code-display"><code set:html={`<span class="keyword">for</span> (<span class="keyword">let</span> <span class="loop-var">i</span> = <span class="number">0</span>; <span class="loop-var">i</span> &lt; skills.length; <span class="loop-var">i</span>++) {`} />
+<code>    console.log(<span class="string">"Scanning: "</span> + skills[<span class="loop-var">i</span>]);</code>
+<code set:html="}" /></pre>
+                </div>
+
+                <!-- Loop State -->
+                <div class="loop-state" id="loop-state">
+                    <div class="state-item">
+                        <span class="state-label">Index (i):</span>
+                        <span class="state-value" id="current-index">—</span>
+                    </div>
+                    <div class="state-item">
+                        <span class="state-label">Condition:</span>
+                        <span class="state-value" id="condition-check">—</span>
+                    </div>
+                    <div class="state-item">
+                        <span class="state-label">Current item:</span>
+                        <span class="state-value" id="current-item">—</span>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="loop-controls">
+                    <button class="control-btn" id="reset-btn">Reset</button>
+                    <button class="control-btn primary" id="step-btn">Step →</button>
+                    <button class="control-btn" id="play-btn">▶ Auto Play</button>
+                </div>
+
+                <!-- Status Message -->
+                <div class="loop-status" id="loop-status">
+                    Click "Step" to begin the loop
+                </div>
+            </div>
+
+            <!-- Output Console -->
+            <div class="output-container mt-2">
+                <h3>Console Output</h3>
+                <div class="console-output" id="console-output">
+                    <div class="console-placeholder">Output will appear here...</div>
+                </div>
+            </div>
+
+            <!-- Execution Trace -->
+            <div class="trace-container mt-2">
+                <h3>Execution Trace</h3>
+                <div class="trace-list" id="trace-list">
+                    <div class="trace-placeholder">Step through the loop to see the trace...</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="demo-section mt-2">
+                <h3>Try Different Arrays</h3>
+                <p class="mb-1">Click to load a different array:</p>
+                <div class="quick-test-grid">
+                    <button class="quick-array-btn" data-array='["navigation", "calculation", "communication", "analysis", "learning"]'>5 Skills (default)</button>
+                    <button class="quick-array-btn" data-array='["scan", "analyze", "report"]'>3 Tasks</button>
+                    <button class="quick-array-btn" data-array='[85, 92, 78, 95, 88, 91, 87]'>7 Scores</button>
+                    <button class="quick-array-btn" data-array='["A"]'>1 Item</button>
+                </div>
+            </div>
+
+            <!-- Back to Station Link -->
+            <div class="demo-nav mt-2">
+                <a href="/stations/station5/" class="demo-back-link">← Back to Station 5: Repeating Actions</a>
+            </div>
+        </div>
+    </section>
+
+</MainLayout>
+
+<style>
+    .demo-container {
+        background: hsl(220, 20%, 97%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .array-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: hsl(0, 0%, 100%);
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+
+    .array-bracket {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        color: hsl(220, 20%, 50%);
+    }
+
+    .array-items {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .array-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        background: hsl(220, 20%, 95%);
+        border: 2px solid hsl(220, 20%, 85%);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .array-item.active {
+        background: hsl(32, 76%, 95%);
+        border-color: hsl(32, 76%, 63%);
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px hsl(32, 76%, 63%, 0.3);
+    }
+
+    .array-item.processed {
+        background: hsl(142, 52%, 95%);
+        border-color: hsl(142, 52%, 60%);
+    }
+
+    .item-index {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: hsl(220, 20%, 50%);
+    }
+
+    .item-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        color: hsl(100, 60%, 35%);
+    }
+
+    .array-length {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: hsl(220, 20%, 50%);
+    }
+
+    .loop-container {
+        background: hsl(220, 20%, 98%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .loop-container h3 {
+        margin-bottom: 1rem;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .code-panel {
+        background: hsl(220, 20%, 15%);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .code-display {
+        margin: 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: hsl(220, 20%, 80%);
+    }
+
+    .keyword {
+        color: hsl(280, 70%, 70%);
+    }
+
+    .string {
+        color: hsl(100, 60%, 60%);
+    }
+
+    .number {
+        color: hsl(30, 80%, 60%);
+    }
+
+    .loop-var {
+        color: hsl(200, 70%, 70%);
+        font-weight: 600;
+    }
+
+    .loop-state {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: hsl(0, 0%, 100%);
+        border-radius: 8px;
+    }
+
+    .state-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .state-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: hsl(220, 20%, 50%);
+    }
+
+    .state-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.25rem;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .loop-controls {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .control-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        background: hsl(220, 20%, 90%);
+        color: hsl(220, 20%, 30%);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .control-btn:hover {
+        background: hsl(220, 20%, 85%);
+    }
+
+    .control-btn.primary {
+        background: hsl(32, 76%, 63%);
+        color: hsl(0, 0%, 100%);
+    }
+
+    .control-btn.primary:hover {
+        background: hsl(32, 76%, 53%);
+    }
+
+    .control-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .loop-status {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background: hsl(200, 70%, 95%);
+        border-radius: 6px;
+        color: hsl(200, 70%, 30%);
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .loop-status.complete {
+        background: hsl(142, 52%, 95%);
+        color: hsl(142, 52%, 30%);
+    }
+
+    .output-container, .trace-container {
+        background: hsl(220, 20%, 98%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .output-container h3, .trace-container h3 {
+        margin-bottom: 1rem;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .console-output {
+        background: hsl(220, 20%, 12%);
+        border-radius: 8px;
+        padding: 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        color: hsl(142, 52%, 70%);
+        min-height: 100px;
+    }
+
+    .console-placeholder, .trace-placeholder {
+        color: hsl(220, 20%, 50%);
+        font-style: italic;
+    }
+
+    .console-line {
+        padding: 0.25rem 0;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateX(-10px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .trace-list {
+        background: hsl(0, 0%, 100%);
+        border-radius: 8px;
+        padding: 1rem;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .trace-item {
+        padding: 0.5rem;
+        border-bottom: 1px solid hsl(220, 20%, 92%);
+        font-size: 0.875rem;
+    }
+
+    .trace-item:last-child {
+        border-bottom: none;
+    }
+
+    .trace-item .step-num {
+        font-weight: 700;
+        color: hsl(32, 76%, 50%);
+        margin-right: 0.5rem;
+    }
+
+    .demo-section h3 {
+        color: hsl(220, 20%, 30%);
+        margin-bottom: 0.5rem;
+    }
+
+    .quick-test-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .quick-array-btn {
+        padding: 0.5rem 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        background: hsl(200, 70%, 95%);
+        border: 2px solid hsl(200, 70%, 70%);
+        color: hsl(200, 70%, 30%);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .quick-array-btn:hover {
+        background: hsl(200, 70%, 90%);
+        border-color: hsl(200, 70%, 50%);
+    }
+
+    .demo-nav {
+        text-align: center;
+    }
+
+    .demo-back-link {
+        color: hsl(32, 76%, 50%);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .demo-back-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+        .loop-controls {
+            flex-direction: column;
+        }
+
+        .control-btn {
+            width: 100%;
+        }
+
+        .array-items {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script>
+    // Skill Scanner Logic
+    let currentArray: (string | number)[] = ["navigation", "calculation", "communication", "analysis", "learning"];
+    let currentIndex = -1;
+    let isPlaying = false;
+    let playInterval: number | null = null;
+
+    // DOM Elements
+    const arrayItemsContainer = document.getElementById('array-items');
+    const currentIndexEl = document.getElementById('current-index');
+    const conditionCheckEl = document.getElementById('condition-check');
+    const currentItemEl = document.getElementById('current-item');
+    const loopStatusEl = document.getElementById('loop-status');
+    const consoleOutputEl = document.getElementById('console-output');
+    const traceListEl = document.getElementById('trace-list');
+    const stepBtn = document.getElementById('step-btn') as HTMLButtonElement;
+    const resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
+    const playBtn = document.getElementById('play-btn') as HTMLButtonElement;
+    const quickArrayBtns = document.querySelectorAll('.quick-array-btn');
+
+    function renderArray() {
+        if (!arrayItemsContainer) return;
+
+        arrayItemsContainer.innerHTML = currentArray.map((item, index) => `
+            <div class="array-item" data-index="${index}">
+                <span class="item-index">${index}</span>
+                <span class="item-value">${typeof item === 'string' ? `"${item}"` : item}</span>
+            </div>
+        `).join('');
+
+        // Update length display
+        const lengthEl = document.querySelector('.array-length code');
+        if (lengthEl) {
+            lengthEl.textContent = `skills.length = ${currentArray.length}`;
+        }
+    }
+
+    function updateDisplay() {
+        // Update array item highlighting
+        const items = arrayItemsContainer?.querySelectorAll('.array-item');
+        items?.forEach((item, index) => {
+            item.classList.remove('active', 'processed');
+            if (index === currentIndex) {
+                item.classList.add('active');
+            } else if (index < currentIndex) {
+                item.classList.add('processed');
+            }
+        });
+
+        // Update loop state
+        if (currentIndex === -1) {
+            if (currentIndexEl) currentIndexEl.textContent = '—';
+            if (conditionCheckEl) conditionCheckEl.textContent = '—';
+            if (currentItemEl) currentItemEl.textContent = '—';
+        } else if (currentIndex >= currentArray.length) {
+            if (currentIndexEl) currentIndexEl.textContent = String(currentIndex);
+            if (conditionCheckEl) conditionCheckEl.textContent = `${currentIndex} < ${currentArray.length}? NO`;
+            if (currentItemEl) currentItemEl.textContent = 'Loop complete!';
+            if (loopStatusEl) {
+                loopStatusEl.textContent = `✅ Loop finished after ${currentArray.length} iterations`;
+                loopStatusEl.classList.add('complete');
+            }
+            stepBtn.disabled = true;
+        } else {
+            const item = currentArray[currentIndex];
+            if (currentIndexEl) currentIndexEl.textContent = String(currentIndex);
+            if (conditionCheckEl) conditionCheckEl.textContent = `${currentIndex} < ${currentArray.length}? YES`;
+            if (currentItemEl) currentItemEl.textContent = typeof item === 'string' ? `"${item}"` : String(item);
+        }
+    }
+
+    function step() {
+        if (currentIndex >= currentArray.length) return;
+
+        currentIndex++;
+
+        if (currentIndex < currentArray.length) {
+            // Add console output
+            const item = currentArray[currentIndex];
+            const displayItem = typeof item === 'string' ? `"${item}"` : item;
+
+            if (consoleOutputEl) {
+                if (currentIndex === 0) {
+                    consoleOutputEl.innerHTML = '';
+                }
+                const line = document.createElement('div');
+                line.className = 'console-line';
+                line.textContent = `Scanning: ${displayItem}`;
+                consoleOutputEl.appendChild(line);
+            }
+
+            // Add trace
+            if (traceListEl) {
+                if (currentIndex === 0) {
+                    traceListEl.innerHTML = '';
+                }
+                const trace = document.createElement('div');
+                trace.className = 'trace-item';
+                trace.innerHTML = `<span class="step-num">Step ${currentIndex + 1}:</span> i = ${currentIndex}, skills[${currentIndex}] = ${displayItem}`;
+                traceListEl.appendChild(trace);
+            }
+
+            if (loopStatusEl) {
+                loopStatusEl.textContent = `Iteration ${currentIndex + 1} of ${currentArray.length}`;
+                loopStatusEl.classList.remove('complete');
+            }
+        }
+
+        updateDisplay();
+
+        if (currentIndex >= currentArray.length && isPlaying) {
+            stopPlay();
+        }
+    }
+
+    function reset() {
+        stopPlay();
+        currentIndex = -1;
+        if (consoleOutputEl) {
+            consoleOutputEl.innerHTML = '<div class="console-placeholder">Output will appear here...</div>';
+        }
+        if (traceListEl) {
+            traceListEl.innerHTML = '<div class="trace-placeholder">Step through the loop to see the trace...</div>';
+        }
+        if (loopStatusEl) {
+            loopStatusEl.textContent = 'Click "Step" to begin the loop';
+            loopStatusEl.classList.remove('complete');
+        }
+        stepBtn.disabled = false;
+        updateDisplay();
+    }
+
+    function startPlay() {
+        isPlaying = true;
+        playBtn.textContent = '⏸ Pause';
+        playInterval = window.setInterval(() => {
+            step();
+        }, 1000);
+    }
+
+    function stopPlay() {
+        isPlaying = false;
+        playBtn.textContent = '▶ Auto Play';
+        if (playInterval !== null) {
+            clearInterval(playInterval);
+            playInterval = null;
+        }
+    }
+
+    function togglePlay() {
+        if (currentIndex >= currentArray.length) {
+            reset();
+        }
+
+        if (isPlaying) {
+            stopPlay();
+        } else {
+            startPlay();
+        }
+    }
+
+    function loadArray(arrayStr: string) {
+        try {
+            currentArray = JSON.parse(arrayStr);
+            renderArray();
+            reset();
+        } catch (e) {
+            console.error('Invalid array:', e);
+        }
+    }
+
+    // Event listeners
+    stepBtn?.addEventListener('click', step);
+    resetBtn?.addEventListener('click', reset);
+    playBtn?.addEventListener('click', togglePlay);
+
+    quickArrayBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const arrayData = btn.getAttribute('data-array');
+            if (arrayData) loadArray(arrayData);
+        });
+    });
+
+    // Initialize
+    renderArray();
+    updateDisplay();
+</script>

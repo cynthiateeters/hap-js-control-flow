@@ -1,0 +1,708 @@
+---
+/**
+ * Function Factory Demo
+ *
+ * Interactive tool to explore how functions work with parameters and return values.
+ * Students can adjust inputs and watch the function "factory" process them.
+ */
+
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const introContent = `
+    <p><strong>Watch the function factory in action!</strong> Adjust the inputs and see how parameters receive values, the function body executes, and return values come out. Try different Robot ID Card values!</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<MainLayout
+    title="Function Factory | HAP's Learning Lab"
+    description="Interactive demo to explore JavaScript functions. Watch parameters receive arguments and return values emerge from the function factory."
+    headerTitle="Function Factory"
+    headerSubtitle="Station 4 Demo"
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759331578/hap-chef.jpg"
+    avatarAlt="HAP ready to create like a chef"
+    introContent={introContent}
+    showNavigation={false}
+    footerReminder="Remember: Parameters are placeholders, arguments are actual values. Return sends the result back!"
+>
+
+    <section class="content-section">
+        <div class="topic-section">
+            <!-- Function Selector -->
+            <div class="demo-container">
+                <h2>Choose a Function</h2>
+
+                <div class="function-selector">
+                    <button class="function-btn active" data-function="getStatus">getStatus(value)</button>
+                    <button class="function-btn" data-function="makeGreeting">makeGreeting(name)</button>
+                    <button class="function-btn" data-function="formatEnergy">formatEnergy(level)</button>
+                    <button class="function-btn" data-function="isReadyForTask">isReadyForTask(energy)</button>
+                </div>
+            </div>
+
+            <!-- Function Factory Visualization -->
+            <div class="factory-container mt-2">
+                <h3>The Function Factory</h3>
+
+                <!-- Input Section -->
+                <div class="factory-section input-section">
+                    <div class="section-label">INPUT (Argument)</div>
+                    <div class="input-controls">
+                        <label for="arg-input" class="input-label" id="arg-label">Value:</label>
+                        <input type="range" id="arg-slider" min="0" max="100" value="72" class="arg-slider">
+                        <input type="text" id="arg-input" value="72" class="arg-input" aria-labelledby="arg-label">
+                    </div>
+                    <div class="input-preview">
+                        <code id="function-call">getStatus(<span class="arg-highlight">72</span>)</code>
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="factory-arrow">
+                    <span class="arrow-icon">⬇️</span>
+                    <span class="arrow-label">argument becomes parameter</span>
+                </div>
+
+                <!-- Function Body -->
+                <div class="factory-section body-section">
+                    <div class="section-label">FUNCTION BODY</div>
+                    <div class="code-panel">
+                        <pre class="code-display"><code id="function-body" set:html={`function getStatus(<span class="param-highlight">value</span>) {
+    <span class="comment">// value = 72</span>
+    <span class="code-line" id="line-1"><span class="keyword">if</span> (<span class="param-highlight">value</span> &gt; 75) <span class="keyword">return</span> <span class="string">"High"</span>;</span>
+    <span class="code-line" id="line-2"><span class="keyword">if</span> (<span class="param-highlight">value</span> &gt; 25) <span class="keyword">return</span> <span class="string">"Medium"</span>;</span>
+    <span class="code-line" id="line-3"><span class="keyword">return</span> <span class="string">"Low"</span>;</span>
+}`} /></pre>
+                    </div>
+                    <div class="execution-trace" id="execution-trace">
+                        <span class="trace-icon">🔍</span>
+                        <span class="trace-text">72 > 75? No. 72 > 25? Yes! → return "Medium"</span>
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="factory-arrow">
+                    <span class="arrow-icon">⬇️</span>
+                    <span class="arrow-label">return sends back the result</span>
+                </div>
+
+                <!-- Output Section -->
+                <div class="factory-section output-section">
+                    <div class="section-label">OUTPUT (Return Value)</div>
+                    <div class="output-display" id="output-display">
+                        <span class="output-value">"Medium"</span>
+                    </div>
+                    <div class="output-assignment">
+                        <code>let result = <span id="output-call">getStatus(72)</span>;  <span class="comment">// result = "Medium"</span></code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Robot ID Card Quick Values -->
+            <div class="demo-section mt-2">
+                <h3>Quick Test: Robot ID Card Values</h3>
+                <p class="mb-1">Click to test with HAP's actual values:</p>
+                <div class="quick-test-grid">
+                    <button class="quick-value-btn" data-value="100" data-label="energyLevel">energyLevel (100)</button>
+                    <button class="quick-value-btn" data-value="72" data-label="coreTemperature">coreTemperature (72)</button>
+                    <button class="quick-value-btn" data-value="0" data-label="backupBattery">backupBattery (0)</button>
+                    <button class="quick-value-btn" data-value="0" data-label="tasksDone">tasksDone (0)</button>
+                    <button class="quick-value-btn" data-value="15" data-label="lowEnergy">Low energy (15)</button>
+                    <button class="quick-value-btn" data-value="95" data-label="highTemp">High temp (95)</button>
+                </div>
+            </div>
+
+            <!-- Scope Demonstration -->
+            <div class="demo-section mt-2">
+                <h3>Scope: Variables Inside Stay Inside</h3>
+                <div class="scope-demo">
+                    <div class="scope-box scope-outer">
+                        <div class="scope-label">Outside the function</div>
+                        <code class="scope-var">let result = getStatus(72);  <span class="comment">// "Medium"</span></code>
+                        <code class="scope-var scope-error">console.log(value);  <span class="comment">// ❌ Error! value is not defined</span></code>
+
+                        <div class="scope-box scope-inner">
+                            <div class="scope-label">Inside getStatus()</div>
+                            <code class="scope-var scope-ok">let value = 72;  <span class="comment">// ✅ Exists here</span></code>
+                            <code class="scope-var scope-ok">return "Medium";  <span class="comment">// ✅ Sent back</span></code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Station Link -->
+            <div class="demo-nav mt-2">
+                <a href="/stations/station4/" class="demo-back-link">← Back to Station 4: Reusable Code with Functions</a>
+            </div>
+        </div>
+    </section>
+
+</MainLayout>
+
+<style>
+    .demo-container {
+        background: hsl(220, 20%, 97%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .function-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .function-btn {
+        padding: 0.75rem 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        background: hsl(220, 20%, 95%);
+        border: 2px solid hsl(220, 20%, 80%);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .function-btn:hover {
+        background: hsl(220, 20%, 90%);
+        border-color: hsl(220, 20%, 70%);
+    }
+
+    .function-btn.active {
+        background: hsl(32, 76%, 95%);
+        border-color: hsl(32, 76%, 63%);
+        color: hsl(32, 76%, 35%);
+    }
+
+    .factory-container {
+        background: hsl(220, 20%, 98%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .factory-container h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .factory-section {
+        background: hsl(0, 0%, 100%);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .input-section {
+        border: 2px solid hsl(200, 70%, 60%);
+    }
+
+    .input-section .section-label {
+        background: hsl(200, 70%, 90%);
+        color: hsl(200, 70%, 30%);
+    }
+
+    .input-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .input-label {
+        font-weight: 600;
+        color: hsl(220, 20%, 40%);
+        min-width: 50px;
+    }
+
+    .arg-slider {
+        flex: 1;
+        height: 8px;
+        -webkit-appearance: none;
+        background: hsl(220, 20%, 90%);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .arg-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        background: hsl(200, 70%, 50%);
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .arg-input {
+        width: 80px;
+        padding: 0.5rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1rem;
+        text-align: center;
+        border: 2px solid hsl(200, 70%, 60%);
+        border-radius: 6px;
+    }
+
+    .input-preview {
+        text-align: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.25rem;
+    }
+
+    .arg-highlight {
+        background: hsl(200, 70%, 90%);
+        padding: 0.125rem 0.5rem;
+        border-radius: 4px;
+        color: hsl(200, 70%, 30%);
+        font-weight: 600;
+    }
+
+    .body-section {
+        border: 2px solid hsl(32, 76%, 63%);
+    }
+
+    .body-section .section-label {
+        background: hsl(32, 76%, 90%);
+        color: hsl(32, 76%, 35%);
+    }
+
+    .code-panel {
+        background: hsl(220, 20%, 15%);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .code-display {
+        margin: 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: hsl(220, 20%, 80%);
+    }
+
+    .code-line {
+        display: block;
+        padding: 0.125rem 0.5rem;
+        margin: 0.125rem 0;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+    }
+
+    .code-line.active {
+        background: hsl(142, 52%, 25%);
+    }
+
+    .code-line.skipped {
+        opacity: 0.5;
+    }
+
+    .keyword {
+        color: hsl(280, 70%, 70%);
+    }
+
+    .string {
+        color: hsl(100, 60%, 60%);
+    }
+
+    .comment {
+        color: hsl(220, 20%, 50%);
+        font-style: italic;
+    }
+
+    .param-highlight {
+        color: hsl(200, 70%, 70%);
+        font-weight: 600;
+    }
+
+    .execution-trace {
+        margin-top: 0.75rem;
+        padding: 0.75rem;
+        background: hsl(32, 76%, 95%);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .trace-icon {
+        font-size: 1.25rem;
+    }
+
+    .trace-text {
+        font-size: 0.875rem;
+        color: hsl(32, 76%, 30%);
+    }
+
+    .output-section {
+        border: 2px solid hsl(142, 52%, 50%);
+    }
+
+    .output-section .section-label {
+        background: hsl(142, 52%, 90%);
+        color: hsl(142, 52%, 30%);
+    }
+
+    .output-display {
+        text-align: center;
+        padding: 1rem;
+        background: hsl(142, 52%, 95%);
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+    }
+
+    .output-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 2rem;
+        font-weight: 700;
+        color: hsl(142, 52%, 35%);
+    }
+
+    .output-assignment {
+        text-align: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        color: hsl(220, 20%, 40%);
+    }
+
+    .factory-arrow {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+    }
+
+    .arrow-icon {
+        font-size: 1.5rem;
+    }
+
+    .arrow-label {
+        font-size: 0.75rem;
+        color: hsl(220, 20%, 50%);
+        font-style: italic;
+    }
+
+    .demo-section h3 {
+        color: hsl(220, 20%, 30%);
+        margin-bottom: 0.5rem;
+    }
+
+    .quick-test-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .quick-value-btn {
+        padding: 0.5rem 1rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        background: hsl(200, 70%, 95%);
+        border: 2px solid hsl(200, 70%, 70%);
+        color: hsl(200, 70%, 30%);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .quick-value-btn:hover {
+        background: hsl(200, 70%, 90%);
+        border-color: hsl(200, 70%, 50%);
+    }
+
+    .scope-demo {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+    }
+
+    .scope-box {
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+    }
+
+    .scope-outer {
+        background: hsl(220, 20%, 95%);
+        border: 2px dashed hsl(220, 20%, 70%);
+    }
+
+    .scope-inner {
+        background: hsl(32, 76%, 95%);
+        border: 2px solid hsl(32, 76%, 63%);
+        margin-top: 0.75rem;
+    }
+
+    .scope-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: hsl(220, 20%, 50%);
+        margin-bottom: 0.5rem;
+    }
+
+    .scope-var {
+        display: block;
+        padding: 0.25rem 0;
+    }
+
+    .scope-error {
+        color: hsl(0, 60%, 50%);
+    }
+
+    .scope-ok {
+        color: hsl(142, 52%, 35%);
+    }
+
+    .demo-nav {
+        text-align: center;
+    }
+
+    .demo-back-link {
+        color: hsl(32, 76%, 50%);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .demo-back-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+        .function-selector {
+            flex-direction: column;
+        }
+
+        .input-controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .arg-input {
+            width: 100%;
+        }
+
+        .quick-test-grid {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script>
+    // Function definitions for the demo
+    interface FunctionDef {
+        name: string;
+        param: string;
+        paramLabel: string;
+        inputType: 'number' | 'text';
+        min?: number;
+        max?: number;
+        defaultValue: string;
+        body: string;
+        evaluate: (value: any) => { result: string; trace: string; activeLine: number };
+    }
+
+    const functions: Record<string, FunctionDef> = {
+        getStatus: {
+            name: 'getStatus',
+            param: 'value',
+            paramLabel: 'Value:',
+            inputType: 'number',
+            min: 0,
+            max: 100,
+            defaultValue: '72',
+            body: `function getStatus(<span class="param-highlight">value</span>) {
+    <span class="comment">// value = <span class="param-value">72</span></span>
+    <span class="code-line" id="line-1"><span class="keyword">if</span> (<span class="param-highlight">value</span> &gt; 75) <span class="keyword">return</span> <span class="string">"High"</span>;</span>
+    <span class="code-line" id="line-2"><span class="keyword">if</span> (<span class="param-highlight">value</span> &gt; 25) <span class="keyword">return</span> <span class="string">"Medium"</span>;</span>
+    <span class="code-line" id="line-3"><span class="keyword">return</span> <span class="string">"Low"</span>;</span>
+}`,
+            evaluate: (value: number) => {
+                if (value > 75) return { result: '"High"', trace: `${value} > 75? Yes! → return "High"`, activeLine: 1 };
+                if (value > 25) return { result: '"Medium"', trace: `${value} > 75? No. ${value} > 25? Yes! → return "Medium"`, activeLine: 2 };
+                return { result: '"Low"', trace: `${value} > 75? No. ${value} > 25? No. → return "Low"`, activeLine: 3 };
+            }
+        },
+        makeGreeting: {
+            name: 'makeGreeting',
+            param: 'name',
+            paramLabel: 'Name:',
+            inputType: 'text',
+            defaultValue: 'HAP',
+            body: `function makeGreeting(<span class="param-highlight">name</span>) {
+    <span class="comment">// name = "<span class="param-value">HAP</span>"</span>
+    <span class="code-line" id="line-1"><span class="keyword">return</span> <span class="string">"Hello, "</span> + <span class="param-highlight">name</span> + <span class="string">"!"</span>;</span>
+}`,
+            evaluate: (name: string) => {
+                return { result: `"Hello, ${name}!"`, trace: `Concatenate "Hello, " + "${name}" + "!"`, activeLine: 1 };
+            }
+        },
+        formatEnergy: {
+            name: 'formatEnergy',
+            param: 'level',
+            paramLabel: 'Level:',
+            inputType: 'number',
+            min: 0,
+            max: 100,
+            defaultValue: '100',
+            body: `function formatEnergy(<span class="param-highlight">level</span>) {
+    <span class="comment">// level = <span class="param-value">100</span></span>
+    <span class="code-line" id="line-1"><span class="keyword">return</span> <span class="param-highlight">level</span> + <span class="string">"%"</span>;</span>
+}`,
+            evaluate: (level: number) => {
+                return { result: `"${level}%"`, trace: `Concatenate ${level} + "%" → "${level}%"`, activeLine: 1 };
+            }
+        },
+        isReadyForTask: {
+            name: 'isReadyForTask',
+            param: 'energy',
+            paramLabel: 'Energy:',
+            inputType: 'number',
+            min: 0,
+            max: 100,
+            defaultValue: '72',
+            body: `function isReadyForTask(<span class="param-highlight">energy</span>) {
+    <span class="comment">// energy = <span class="param-value">72</span></span>
+    <span class="code-line" id="line-1"><span class="keyword">return</span> <span class="param-highlight">energy</span> &gt; 20;</span>
+}`,
+            evaluate: (energy: number) => {
+                const result = energy > 20;
+                return { result: result.toString(), trace: `${energy} > 20? ${result ? 'Yes' : 'No'} → return ${result}`, activeLine: 1 };
+            }
+        }
+    };
+
+    let currentFunction = 'getStatus';
+
+    // DOM Elements
+    const functionBtns = document.querySelectorAll('.function-btn');
+    const argSlider = document.getElementById('arg-slider') as HTMLInputElement;
+    const argInput = document.getElementById('arg-input') as HTMLInputElement;
+    const argLabel = document.getElementById('arg-label');
+    const functionCall = document.getElementById('function-call');
+    const functionBody = document.getElementById('function-body');
+    const executionTrace = document.getElementById('execution-trace');
+    const outputDisplay = document.getElementById('output-display');
+    const outputCall = document.getElementById('output-call');
+    const quickValueBtns = document.querySelectorAll('.quick-value-btn');
+
+    function updateDisplay() {
+        const func = functions[currentFunction];
+        const value = func.inputType === 'number' ? parseFloat(argInput.value) || 0 : argInput.value;
+        const { result, trace, activeLine } = func.evaluate(value);
+
+        // Update function call display
+        if (functionCall) {
+            functionCall.innerHTML = `${func.name}(<span class="arg-highlight">${func.inputType === 'text' ? '"' + value + '"' : value}</span>)`;
+        }
+
+        // Update function body with current value
+        if (functionBody) {
+            let bodyHtml = func.body.replace(/<span class="param-value">[^<]*<\/span>/g, `<span class="param-value">${value}</span>`);
+            functionBody.innerHTML = bodyHtml;
+
+            // Highlight active line
+            const lines = functionBody.querySelectorAll('.code-line');
+            lines.forEach((line, index) => {
+                line.classList.remove('active', 'skipped');
+                if (index + 1 === activeLine) {
+                    line.classList.add('active');
+                } else if (index + 1 < activeLine) {
+                    line.classList.add('skipped');
+                }
+            });
+        }
+
+        // Update execution trace
+        if (executionTrace) {
+            executionTrace.innerHTML = `<span class="trace-icon">🔍</span><span class="trace-text">${trace}</span>`;
+        }
+
+        // Update output
+        if (outputDisplay) {
+            outputDisplay.innerHTML = `<span class="output-value">${result}</span>`;
+        }
+
+        if (outputCall) {
+            outputCall.textContent = `${func.name}(${func.inputType === 'text' ? '"' + value + '"' : value})`;
+        }
+    }
+
+    function switchFunction(funcName: string) {
+        currentFunction = funcName;
+        const func = functions[funcName];
+
+        // Update active button
+        functionBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-function') === funcName);
+        });
+
+        // Update input controls
+        if (argLabel) {
+            argLabel.textContent = func.paramLabel;
+        }
+
+        if (func.inputType === 'number') {
+            argSlider.style.display = 'block';
+            argSlider.min = String(func.min || 0);
+            argSlider.max = String(func.max || 100);
+            argSlider.value = func.defaultValue;
+            argInput.type = 'text';
+            argInput.value = func.defaultValue;
+        } else {
+            argSlider.style.display = 'none';
+            argInput.type = 'text';
+            argInput.value = func.defaultValue;
+        }
+
+        updateDisplay();
+    }
+
+    // Event listeners
+    functionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const funcName = btn.getAttribute('data-function');
+            if (funcName) switchFunction(funcName);
+        });
+    });
+
+    argSlider?.addEventListener('input', () => {
+        argInput.value = argSlider.value;
+        updateDisplay();
+    });
+
+    argInput?.addEventListener('input', () => {
+        if (functions[currentFunction].inputType === 'number') {
+            argSlider.value = argInput.value;
+        }
+        updateDisplay();
+    });
+
+    quickValueBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const value = btn.getAttribute('data-value') || '0';
+            argInput.value = value;
+            if (functions[currentFunction].inputType === 'number') {
+                argSlider.value = value;
+            }
+            updateDisplay();
+        });
+    });
+
+    // Initialize
+    updateDisplay();
+</script>

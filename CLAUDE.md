@@ -2,11 +2,50 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Progress tracking (required)
+
+**Maintain a running progress report** at `reports/progress-log.md` throughout development. Update it after completing each significant task (installing dependencies, creating pages, finishing stations, etc.). This provides continuity across sessions and documents decisions made.
+
+---
+
 ## Project overview
 
-**HAP's Learning Lab** - An Astro-based static site template for creating 6-station educational experiences. HAP (HyBit A. ProtoBot) is Prof. Teeters' apprentice who guides students through hands-on learning with his friendly first-person narrative.
+**HAP's Learning Lab: JavaScript Control Flow** - A 6-station educational experience teaching control flow concepts through HAP's apprentice narrative. This lab extends the Robot ID Card project from JS Foundations, adding truthy/falsy values, logical operators, conditionals, functions, and loops.
 
-To create a new lab, copy this entire repository to a new directory and customize.
+### Station structure
+
+| Station | Title                        | Demo              | Key Concepts                  |
+| ------- | ---------------------------- | ----------------- | ----------------------------- |
+| 1       | The Truth About Values       | Falsy Detector    | Truthy/falsy, 7 falsy values  |
+| 2       | Combining Conditions         | Condition Builder | AND, OR, NOT, short-circuit   |
+| 3       | Making Decisions             | Status Classifier | if/else, else if, ranges      |
+| 4       | Reusable Code with Functions | Function Factory  | Parameters, return, scope     |
+| 5       | Repeating Actions            | Skill Scanner     | for loops, arrays, iteration  |
+| 6       | AI-Assisted Debugging        | —                 | Prompt engineering, debugging |
+
+### Robot ID Card variables
+
+```javascript
+// From JS Foundations (prior knowledge)
+const robotName = "HyBit A. ProtoBot";
+const modelNumber = "HAP-7000";
+const creationYear = 2024;
+let energyLevel = 100;
+let tasksDone = 0;
+let statusMessage = "Ready to learn!";
+
+// NEW for JS Control Flow
+let nickname = ""; // Falsy (empty string)
+let backupBattery = 0; // Falsy (zero)
+let secondaryMission = null; // Falsy (null)
+let isOnline = true; // Boolean logic
+let isCharging = false; // Compound conditions
+let coreTemperature = 72; // Range classification
+```
+
+### Reference implementation
+
+See `../hap-js-foundations/` for a complete 6-station example.
 
 ## Commands
 

@@ -1,0 +1,406 @@
+---
+/**
+ * Station 4: Reusable Code with Functions
+ *
+ * LEARNING INTENT:
+ * - Primary concept: Functions let you name a block of code and run it with different inputs
+ * - Supporting concepts: Parameters, return values, function calls, scope
+ * - Explicit non-goals: Arrow functions, callbacks, methods, higher-order functions, closures
+ *
+ * CODE EXAMPLE ROLE: Illustrative - Shows how functions work with inputs and outputs
+ */
+
+import StationLayout from '../../layouts/StationLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const introContent = `
+    <p><strong>Welcome to Station 4!</strong> After learning about conditionals, I found myself writing the same temperature-checking code over and over. Check if energy is low, check if temperature is high, check if robot is ready... I was copying and pasting everywhere!</p>
+    <p class="mt-1">I asked Prof. Teeters, "Is there a way to write this code once and use it many times?"</p>
+    <p class="mt-1">She smiled and said, "HAP, think of a function like a factory machine. You put raw materials in (parameters), the machine does its work, and a finished product comes out (return value). The same machine can make different products depending on what you put in!"</p>
+    <p class="mt-1">That's when I learned about functions — reusable blocks of code that can take inputs and produce outputs.</p>
+    <p class="mt-1">Let me show you how to build your own code factories... 🟠</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<StationLayout
+    stationNumber={4}
+    title="Reusable Code with Functions"
+    subtitle="Building Code Factories"
+    description="Learn JavaScript functions with HAP. Master parameters, return values, and scope to write reusable code that works with different inputs."
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
+    avatarAlt="HAP studying on his laptop"
+    introContent={introContent}
+    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
+    nextStationTitle="Repeating Actions"
+    footerReminder="Remember: Functions are reusable code factories. Parameters go in, return values come out!"
+    labName="JavaScript Control Flow"
+>
+
+    <!-- ============================================================
+         SECTION 1: What You'll Learn
+         ============================================================ -->
+    <section class="content-section">
+        <h2 class="section-heading-centered">What You'll Learn at This Station</h2>
+
+        <div class="intro-box">
+            <p><strong>HAP's Discovery:</strong> I thought I had to write the same code every time I needed similar logic. Then I learned that functions let me name a block of code, give it inputs, and get outputs — so I can use it over and over with different values!</p>
+        </div>
+
+        <div class="overview-grid mt-2">
+            <div class="insight-card">
+                <h3><span class="insight-icon">📥</span> Parameters (Inputs)</h3>
+                <p class="stat-large">( )</p>
+                <p>Placeholders inside the parentheses that receive values when you call the function. They let one function work with many different values.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3><span class="insight-icon">📤</span> Return Values (Outputs)</h3>
+                <p class="stat-large stat-teal">return</p>
+                <p>The <code>return</code> keyword sends a value back to wherever the function was called. Without it, you get <code>undefined</code>.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3><span class="insight-icon">🔒</span> Scope (Boundaries)</h3>
+                <p class="stat-large stat-brown" set:html="{  }" />
+                <p>Variables created inside a function stay inside. They can't be seen or used from outside — this prevents accidental conflicts.</p>
+            </div>
+        </div>
+
+        <div class="hap-note-callout">
+            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg"
+                alt="HAP surrounded by tangled code with an 'oops' expression"
+                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+            <div class="hap-note-content">
+                <h3>HAP's Confession:</h3>
+                <ul>
+                    <li>I forgot to use the <code>return</code> keyword — my function ran but gave me <code>undefined</code> instead of the result!</li>
+                    <li>I tried to use a variable I created inside a function from outside — JavaScript said it wasn't defined because of scope.</li>
+                    <li>I called my function without parentheses — I got the function code itself instead of running it!</li>
+                    <li>I mixed up parameters and arguments — Prof. Teeters helped me remember: <strong>P</strong>arameters are <strong>P</strong>laceholders, <strong>A</strong>rguments are <strong>A</strong>ctual values.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: The Problem - Repeated Code
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>The Problem: Repeated Code</h2>
+
+            <p class="mb-2">Before I learned functions, my Robot ID Card code looked like this — the same logic repeated for each value:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Without Functions — Repeated Code</div>
+                <CodeBlock code={`// Check energy status
+let energyStatus;
+if (energyLevel > 75) {
+    energyStatus = "High";
+} else if (energyLevel > 25) {
+    energyStatus = "Medium";
+} else {
+    energyStatus = "Low";
+}
+
+// Check temperature status (same pattern!)
+let tempStatus;
+if (coreTemperature > 75) {
+    tempStatus = "High";
+} else if (coreTemperature > 25) {
+    tempStatus = "Medium";
+} else {
+    tempStatus = "Low";
+}
+
+// Check battery status (same pattern again!)
+let batteryStatus;
+if (backupBattery > 75) {
+    batteryStatus = "High";
+} else if (backupBattery > 25) {
+    batteryStatus = "Medium";
+} else {
+    batteryStatus = "Low";
+}
+
+// I'm copying the same logic THREE times!`} lang="javascript" />
+                <p class="code-comment mt-1">Every time I needed to classify a value, I copied and pasted the same code. If I wanted to change the thresholds, I'd have to change them in multiple places!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: Anatomy of a Function
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Anatomy of a Function</h2>
+
+            <p class="mb-2">A function has four key parts: the <code>function</code> keyword, a name, parameters in parentheses, and a body with a <code>return</code> statement:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Function Structure</div>
+                <CodeBlock code={`//  keyword  name      parameter (input)
+//    ↓       ↓            ↓
+   function getStatus(value) {
+       // Body: the code that runs
+       if (value > 75) {
+           return "High";      // ← return sends back the result
+       } else if (value > 25) {
+           return "Medium";
+       } else {
+           return "Low";
+       }
+   }
+
+// Now I can USE this function with different values:
+let energyStatus = getStatus(energyLevel);        // "High", "Medium", or "Low"
+let tempStatus = getStatus(coreTemperature);      // Same logic, different value!
+let batteryStatus = getStatus(backupBattery);     // Reused again!`} lang="javascript" />
+                <p class="code-comment mt-1">One function replaces three copies of the same code. If I need to change the thresholds, I only change them in one place!</p>
+            </div>
+
+            <div class="analysis-grid mt-2">
+                <div class="analysis-point">
+                    <h3>1. Define Once</h3>
+                    <p>Write the function with <code>function name(params) { }</code>. This creates the "factory machine" but doesn't run it yet.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>2. Call Many Times</h3>
+                    <p>Use <code>name(arguments)</code> to run the function. You can call it as many times as you need with different values.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>3. Parameters Receive</h3>
+                    <p>Parameters are placeholder names. When you call <code>getStatus(85)</code>, the value <code>85</code> becomes <code>value</code> inside the function.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>4. Return Sends Back</h3>
+                    <p>The <code>return</code> statement sends a value back. Whatever you return becomes the result of calling the function.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4: The Factory Analogy
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>The Factory Analogy</h2>
+
+            <p class="mb-2">Prof. Teeters' factory analogy really helped me understand how functions work:</p>
+
+            <div class="hap-note-callout">
+                <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1759331578/hap-chef.jpg"
+                    alt="HAP ready to create like a chef"
+                    width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+                <div class="hap-note-content">
+                    <h3>🟠 The Factory Machine:</h3>
+                    <p>Imagine a machine that makes greeting cards. You put in a <strong>name</strong> (raw material), the machine prints "Hello, [name]!" on a card (does its work), and out comes a <strong>finished card</strong> (return value). Same machine, different names, different cards!</p>
+                </div>
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">A Greeting Card Factory</div>
+                <CodeBlock code={`// Define the factory machine
+function makeGreeting(name) {
+    return "Hello, " + name + "!";
+}
+
+// Use the factory with different inputs
+let greeting1 = makeGreeting("HAP");        // "Hello, HAP!"
+let greeting2 = makeGreeting("Prof");       // "Hello, Prof!"
+let greeting3 = makeGreeting(robotName);    // "Hello, HyBit A. ProtoBot!"
+
+// Same machine, different products!`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">A Status Badge Factory</div>
+                <CodeBlock code={`// This factory takes TWO inputs and combines them
+function makeStatusBadge(label, value) {
+    return label + ": " + value;
+}
+
+// Create different badges with the same function
+let energyBadge = makeStatusBadge("Energy", energyLevel);
+// "Energy: 100"
+
+let tempBadge = makeStatusBadge("Temperature", coreTemperature);
+// "Temperature: 72"
+
+let tasksBadge = makeStatusBadge("Tasks Done", tasksDone);
+// "Tasks Done: 0"`} lang="javascript" />
+                <p class="code-comment mt-1">Functions can have multiple parameters — just separate them with commas. When calling, provide arguments in the same order.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: Scope
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Scope: What Happens Inside Stays Inside</h2>
+
+            <p class="mb-2">Variables created inside a function are "local" — they only exist while the function runs, and can't be seen from outside:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Function Scope Example</div>
+                <CodeBlock code={`function calculateBonus(taskCount) {
+    let bonusPoints = taskCount * 10;    // Local variable
+    let message = "Great work!";          // Also local
+    return bonusPoints;
+}
+
+let result = calculateBonus(5);   // 50
+
+// These would cause errors:
+// console.log(bonusPoints);      // Error! bonusPoints doesn't exist here
+// console.log(message);          // Error! message doesn't exist here
+
+// But we can use the returned value:
+console.log(result);              // 50 — this works!`} lang="javascript" />
+                <p class="code-comment mt-1">The variables <code>bonusPoints</code> and <code>message</code> exist only inside the function. Once the function finishes, they're gone — but the returned value survives!</p>
+            </div>
+
+            <div class="analysis-grid mt-2">
+                <div class="analysis-point">
+                    <h3>Inside Can See Outside</h3>
+                    <p>A function CAN read variables from outside (like <code>robotName</code>, <code>energyLevel</code>). It has access to the outer scope.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>Outside Can't See Inside</h3>
+                    <p>Code outside the function CAN'T see variables created inside. This protects your variables from accidental changes.</p>
+                </div>
+            </div>
+
+            <div class="hap-note-callout mt-2">
+                <div class="hap-note-content">
+                    <h3>🟠 Why Scope Matters:</h3>
+                    <p>Scope prevents name collisions. You can have a variable called <code>result</code> inside ten different functions, and they won't interfere with each other. Each function has its own "workspace."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6: Common Patterns
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Common Function Patterns</h2>
+
+            <p class="mb-2">Here are some patterns I use with my Robot ID Card:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Pattern 1: Transformation</div>
+                <CodeBlock code={`// Takes a value, transforms it, returns the result
+function formatEnergy(level) {
+    return level + "%";
+}
+
+console.log(formatEnergy(energyLevel));  // "100%"`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Pattern 2: Classification</div>
+                <CodeBlock code={`// Takes a value, classifies it, returns a category
+function getEnergyStatus(level) {
+    if (level > 75) return "Fully Charged";
+    if (level > 50) return "Good";
+    if (level > 25) return "Low";
+    return "Critical";
+}
+
+console.log(getEnergyStatus(energyLevel));  // "Fully Charged"`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Pattern 3: Calculation</div>
+                <CodeBlock code={`// Takes inputs, does math, returns the result
+function calculateRuntime(energy, tasksPerHour) {
+    return energy / tasksPerHour;
+}
+
+let hoursLeft = calculateRuntime(energyLevel, 10);  // 10 hours`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Pattern 4: Validation</div>
+                <CodeBlock code={`// Takes a value, checks it, returns true or false
+function isReadyForTask(energy, online) {
+    return energy > 20 && online;
+}
+
+let canWork = isReadyForTask(energyLevel, isOnline);  // true`} lang="javascript" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: Try the Demo
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Try the Function Factory Demo</h2>
+
+            <p class="mb-2">I built an interactive tool where you can create your own functions and see them work in real-time. Watch parameters turn into arguments and see return values come out!</p>
+
+            <div class="intro-box">
+                <p><strong>🔬 Function Factory:</strong> Build functions step by step, test them with different inputs, and watch the factory machine transform your values into results!</p>
+                <p class="mt-1"><a href="/demos/function-factory/" class="demo-link">→ Launch the Function Factory Demo</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: Quick Reference
+         ============================================================ -->
+    <section class="content-section">
+        <div class="tips-container">
+            <h2 class="section-heading-centered">🎓 Functions Quick Reference</h2>
+
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <div>
+                    <h3>Define with function Keyword</h3>
+                    <p><code set:html="function name(params) { ... return result; }" /> creates a reusable block of code. The function doesn't run until you call it.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <div>
+                    <h3>Call with Parentheses</h3>
+                    <p><code>name(arguments)</code> runs the function. Without parentheses, you get the function itself, not its result.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <div>
+                    <h3>Return Sends Back a Value</h3>
+                    <p>Use <code>return</code> to send a value back. Without it, the function returns <code>undefined</code>.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <div>
+                    <h3>Scope Keeps Things Separate</h3>
+                    <p>Variables inside a function stay inside. This prevents conflicts and keeps your code organized.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</StationLayout>

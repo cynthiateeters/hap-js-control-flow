@@ -1,0 +1,392 @@
+---
+/**
+ * Station 5: Repeating Actions
+ *
+ * LEARNING INTENT:
+ * - Primary concept: for loops repeat code for each item in an array
+ * - Supporting concepts: Arrays, loop anatomy, index access, loop counter
+ * - Explicit non-goals: while, do...while, for...of, for...in, array methods, nested loops
+ *
+ * CODE EXAMPLE ROLE: Illustrative - Shows how for loops process arrays
+ */
+
+import StationLayout from '../../layouts/StationLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const introContent = `
+    <p><strong>Welcome to Station 5!</strong> I had built a great function to check if a skill was active. But then I realized I had TEN skills to check — and I was calling the function separately for each one!</p>
+    <p class="mt-1">I asked Prof. Teeters, "Is there a way to run the same code for every item in a list?"</p>
+    <p class="mt-1">She smiled and said, "HAP, think of a for loop like a robot arm on an assembly line. It starts at position 0, does its job, moves to the next position, and keeps going until it reaches the end. The three parts tell it: where to start, when to stop, and how to move."</p>
+    <p class="mt-1">That's when I learned about loops — code that repeats automatically so you don't have to copy and paste!</p>
+    <p class="mt-1">Let me show you how to process entire lists with just a few lines of code... 🟠</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<StationLayout
+    stationNumber={5}
+    title="Repeating Actions"
+    subtitle="Loops and Arrays"
+    description="Learn JavaScript loops with HAP. Master for loops and arrays to process collections of data efficiently."
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
+    avatarAlt="HAP studying on his laptop"
+    introContent={introContent}
+    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
+    nextStationTitle="AI-Assisted Debugging"
+    footerReminder="Remember: Arrays start at index 0. Use i < array.length to avoid going past the end!"
+    labName="JavaScript Control Flow"
+>
+
+    <!-- ============================================================
+         SECTION 1: What You'll Learn
+         ============================================================ -->
+    <section class="content-section">
+        <h2 class="section-heading-centered">What You'll Learn at This Station</h2>
+
+        <div class="intro-box">
+            <p><strong>HAP's Discovery:</strong> I was copying and pasting the same function call ten times — once for each skill. Then I learned that a single for loop could do all that work automatically, and if I added more skills later, the loop would handle them too!</p>
+        </div>
+
+        <div class="overview-grid mt-2">
+            <div class="insight-card">
+                <h3><span class="insight-icon">📦</span> Arrays (Collections)</h3>
+                <p class="stat-large">[ ]</p>
+                <p>Arrays store multiple values in order. Access items by their position (index), starting from 0.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3><span class="insight-icon">🔄</span> For Loops (Repetition)</h3>
+                <p class="stat-large stat-teal">for</p>
+                <p>For loops repeat code a specific number of times. Perfect for processing every item in an array.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3><span class="insight-icon">📍</span> Index (Position)</h3>
+                <p class="stat-large stat-brown">[i]</p>
+                <p>The index <code>i</code> tracks your position. Use <code>array[i]</code> to get the current item.</p>
+            </div>
+        </div>
+
+        <div class="hap-note-callout">
+            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg"
+                alt="HAP surrounded by tangled code with an 'oops' expression"
+                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+            <div class="hap-note-content">
+                <h3>HAP's Confession:</h3>
+                <ul>
+                    <li>I started my loop at 1 instead of 0 — I skipped the first item in my array!</li>
+                    <li>I used <code>&lt;=</code> instead of <code>&lt;</code> with <code>array.length</code> — I got "undefined" for the last iteration because I went one too far.</li>
+                    <li>I forgot to increment <code>i</code> — my loop ran forever and crashed the browser!</li>
+                    <li>I tried to access <code>skills[5]</code> in a 5-item array — arrays are zero-indexed, so the last item is <code>skills[4]</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: The Problem - Repetitive Code
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>The Problem: Repetitive Code</h2>
+
+            <p class="mb-2">Before I learned loops, I was calling my function once for each skill:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Without Loops — Repetitive Calls</div>
+                <CodeBlock code={`// My robot has multiple skills to check
+let skills = ["navigation", "calculation", "communication", "analysis", "learning"];
+
+// Without loops, I call the function for EACH skill manually:
+console.log("Checking: " + skills[0]);  // "navigation"
+console.log("Checking: " + skills[1]);  // "calculation"
+console.log("Checking: " + skills[2]);  // "communication"
+console.log("Checking: " + skills[3]);  // "analysis"
+console.log("Checking: " + skills[4]);  // "learning"
+
+// What if I add 10 more skills? 100 more skills?
+// I'd have to add a new line for each one!`} lang="javascript" />
+                <p class="code-comment mt-1">Five skills means five lines of nearly identical code. This doesn't scale — and if I need to change the message, I have to change it in five places!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: Arrays - Ordered Collections
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Arrays: Ordered Collections</h2>
+
+            <p class="mb-2">Before we loop, let's understand arrays — they hold multiple values in order:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Array Basics</div>
+                <CodeBlock code={`// Create an array with square brackets
+let skills = ["navigation", "calculation", "communication"];
+
+// Access items by index (position) — STARTS AT 0!
+console.log(skills[0]);  // "navigation" (first item)
+console.log(skills[1]);  // "calculation" (second item)
+console.log(skills[2]);  // "communication" (third item)
+
+// Get the number of items
+console.log(skills.length);  // 3
+
+// The last item is at index (length - 1)
+console.log(skills[skills.length - 1]);  // "communication"`} lang="javascript" />
+            </div>
+
+            <div class="analysis-grid mt-2">
+                <div class="analysis-point">
+                    <h3>Zero-Indexed</h3>
+                    <p>The first item is at index 0, not 1. This trips up everyone at first!</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>Length Property</h3>
+                    <p><code>array.length</code> tells you how many items. A 5-item array has indices 0-4.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>Out of Bounds</h3>
+                    <p>Accessing an index that doesn't exist returns <code>undefined</code>, not an error.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>Square Brackets</h3>
+                    <p>Use <code>array[index]</code> to get or set a value at a specific position.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4: Anatomy of a For Loop
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Anatomy of a For Loop</h2>
+
+            <p class="mb-2">A for loop has three parts inside the parentheses, separated by semicolons:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">The Three Parts</div>
+                <CodeBlock code={`//  keyword  init      condition    update
+//    ↓        ↓           ↓           ↓
+    for (let i = 0;  i < 5;       i++) {
+        console.log("Iteration: " + i);
+    }
+
+// Output:
+// "Iteration: 0"
+// "Iteration: 1"
+// "Iteration: 2"
+// "Iteration: 3"
+// "Iteration: 4"`} lang="javascript" />
+            </div>
+
+            <div class="hap-note-callout mt-2">
+                <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230577/hap-juggles_v2zxeq.jpg"
+                    alt="HAP juggling web technologies"
+                    width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+                <div class="hap-note-content">
+                    <h3>🟠 The Assembly Line:</h3>
+                    <p><strong>Initialization:</strong> <code>let i = 0</code> — Start at position 0<br>
+                    <strong>Condition:</strong> <code>i &lt; 5</code> — Keep going while this is true<br>
+                    <strong>Update:</strong> <code>i++</code> — Move to the next position after each loop</p>
+                </div>
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">How It Executes</div>
+                <CodeBlock code={`for (let i = 0; i < 3; i++) {
+    console.log(i);
+}
+
+// Step by step:
+// 1. Initialize: i = 0
+// 2. Check condition: 0 < 3? YES → run body, log 0
+// 3. Update: i++ → i is now 1
+// 4. Check condition: 1 < 3? YES → run body, log 1
+// 5. Update: i++ → i is now 2
+// 6. Check condition: 2 < 3? YES → run body, log 2
+// 7. Update: i++ → i is now 3
+// 8. Check condition: 3 < 3? NO → STOP`} lang="javascript" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: Looping Through Arrays
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Looping Through Arrays</h2>
+
+            <p class="mb-2">The real power comes when you combine loops with arrays:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Processing Every Item</div>
+                <CodeBlock code={`let skills = ["navigation", "calculation", "communication", "analysis", "learning"];
+
+// Loop through the array
+for (let i = 0; i < skills.length; i++) {
+    console.log("Checking skill: " + skills[i]);
+}
+
+// Output:
+// "Checking skill: navigation"
+// "Checking skill: calculation"
+// "Checking skill: communication"
+// "Checking skill: analysis"
+// "Checking skill: learning"
+
+// Add 100 more skills? The loop handles them automatically!`} lang="javascript" />
+                <p class="code-comment mt-1">Using <code>skills.length</code> instead of a fixed number means the loop always processes every item, even if you add or remove skills later.</p>
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Building Results</div>
+                <CodeBlock code={`let skills = ["navigation", "calculation", "communication"];
+let activeCount = 0;
+
+// Count how many skills are active
+for (let i = 0; i < skills.length; i++) {
+    if (skills[i].length > 10) {  // Skills with long names
+        activeCount++;
+        console.log("Long skill name: " + skills[i]);
+    }
+}
+
+console.log("Found " + activeCount + " long skill names");
+// "Long skill name: calculation"
+// "Long skill name: communication"
+// "Found 2 long skill names"`} lang="javascript" />
+                <p class="code-comment mt-1">Loops are great for counting, filtering, or transforming data. Combine them with conditionals for powerful processing!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6: Common Patterns
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Common Loop Patterns</h2>
+
+            <p class="mb-2">Here are patterns I use with my Robot ID Card:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Pattern 1: Process Each Item</div>
+                <CodeBlock code={`let tasks = ["scan", "analyze", "report"];
+
+for (let i = 0; i < tasks.length; i++) {
+    console.log("Executing: " + tasks[i]);
+}`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Pattern 2: Build a Total</div>
+                <CodeBlock code={`let scores = [85, 92, 78, 95, 88];
+let total = 0;
+
+for (let i = 0; i < scores.length; i++) {
+    total = total + scores[i];
+}
+
+console.log("Total: " + total);  // 438`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Pattern 3: Find a Match</div>
+                <CodeBlock code={`let skills = ["navigation", "calculation", "communication"];
+let found = false;
+
+for (let i = 0; i < skills.length; i++) {
+    if (skills[i] === "calculation") {
+        found = true;
+        console.log("Found at index " + i);
+    }
+}
+
+if (!found) {
+    console.log("Not found");
+}`} lang="javascript" />
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">Pattern 4: Transform Each Item</div>
+                <CodeBlock code={`let skills = ["nav", "calc", "comm"];
+let formatted = [];
+
+for (let i = 0; i < skills.length; i++) {
+    formatted[i] = skills[i].toUpperCase();
+}
+
+console.log(formatted);  // ["NAV", "CALC", "COMM"]`} lang="javascript" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: Try the Demo
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Try the Skill Scanner Demo</h2>
+
+            <p class="mb-2">I built an interactive tool where you can watch a for loop process an array step by step. See the loop counter increment, watch items get processed, and understand exactly how loops work!</p>
+
+            <div class="intro-box">
+                <p><strong>🔬 Skill Scanner:</strong> Watch the loop iterate through HAP's skills array. See the index change, the current item highlight, and the output build up — all in slow motion!</p>
+                <p class="mt-1"><a href="/demos/skill-scanner/" class="demo-link">→ Launch the Skill Scanner Demo</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: Quick Reference
+         ============================================================ -->
+    <section class="content-section">
+        <div class="tips-container">
+            <h2 class="section-heading-centered">🎓 Loops Quick Reference</h2>
+
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <div>
+                    <h3>Arrays Start at Index 0</h3>
+                    <p>The first item is <code>array[0]</code>, not <code>array[1]</code>. A 5-item array has indices 0, 1, 2, 3, 4.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <div>
+                    <h3>Use &lt; Not &lt;= with Length</h3>
+                    <p><code>i &lt; array.length</code> stops at the last valid index. Using <code>&lt;=</code> goes one too far!</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <div>
+                    <h3>Don't Forget i++</h3>
+                    <p>The update step <code>i++</code> moves to the next item. Without it, your loop runs forever!</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <div>
+                    <h3>Use array.length for Flexibility</h3>
+                    <p>Don't hardcode the number of items. <code>array.length</code> adapts if you add or remove items.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</StationLayout>

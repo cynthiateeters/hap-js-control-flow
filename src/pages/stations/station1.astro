@@ -1,0 +1,289 @@
+---
+/**
+ * Station 1: The Truth About Values
+ *
+ * LEARNING INTENT:
+ * - Primary concept: JavaScript has exactly 7 falsy values - everything else is truthy
+ * - Supporting concepts: Boolean context, empty strings/0/null as falsy
+ * - Explicit non-goals: Logical operators (Station 2), detailed type coercion
+ *
+ * CODE EXAMPLE ROLE: Illustrative - Shows how truthy/falsy values behave in if statements
+ */
+
+import StationLayout from '../../layouts/StationLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const introContent = `
+    <p><strong>Welcome to Station 1!</strong> I thought I understood if statements from JS Foundations — put a condition in the parentheses, and the code runs if it's true. Easy, right?</p>
+    <p class="mt-1">Then I wrote this code: <code>if (nickname) { ... }</code> and it didn't run. But <code>nickname</code> existed! It was set to <code>""</code> (an empty string). Why didn't my code work?</p>
+    <p class="mt-1">Prof. Teeters smiled and said, "HAP, JavaScript doesn't care if a variable <em>exists</em> — it cares if that value is <em>meaningful</em>. An empty string exists, but it says nothing."</p>
+    <p class="mt-1">That's when I discovered truthy and falsy values — JavaScript's way of deciding if something counts as "meaningful" in a boolean context.</p>
+    <p class="mt-1">Let me show you the 7 values JavaScript considers "falsy"... 🟠</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<StationLayout
+    stationNumber={1}
+    title="The Truth About Values"
+    subtitle="Truthy and Falsy in JavaScript"
+    description="Learn JavaScript's truthy and falsy values with HAP. Discover the 7 falsy values and understand how JavaScript evaluates conditions."
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
+    avatarAlt="HAP studying on his laptop"
+    introContent={introContent}
+    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
+    nextStationTitle="Combining Conditions"
+    footerReminder="Remember: JavaScript has exactly 7 falsy values. Everything else is truthy!"
+    labName="JavaScript Control Flow"
+>
+
+    <!-- ============================================================
+         SECTION 1: What You'll Learn
+         ============================================================ -->
+    <section class="content-section">
+        <h2 class="section-heading-centered">What You'll Learn at This Station</h2>
+
+        <div class="intro-box">
+            <p><strong>HAP's Discovery:</strong> I used to think if statements only worked with <code>true</code> and <code>false</code>. Then I learned JavaScript evaluates <em>any</em> value as truthy or falsy. Once I memorized the 7 falsy values, I could predict exactly how my if statements would behave!</p>
+        </div>
+
+        <div class="overview-grid mt-2">
+            <div class="insight-card">
+                <h3><span class="insight-icon">7️⃣</span> The Falsy Seven</h3>
+                <p class="stat-large">7</p>
+                <p>JavaScript has exactly 7 falsy values. Memorize them and you'll never be confused by if statements again.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3><span class="insight-icon">✨</span> Everything Else Is Truthy</h3>
+                <p class="stat-large stat-teal">∞</p>
+                <p>If it's not one of the 7 falsy values, it's truthy. Yes, even <code>"false"</code> (the string) and <code>[]</code> (empty array)!</p>
+            </div>
+
+            <div class="insight-card">
+                <h3><span class="insight-icon">🎯</span> Boolean Context</h3>
+                <p class="stat-large stat-brown">if ( )</p>
+                <p>When JavaScript needs a true/false answer (like in an if statement), it converts any value to truthy or falsy.</p>
+            </div>
+        </div>
+
+        <div class="hap-note-callout">
+            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg"
+                alt="HAP surrounded by tangled code with an 'oops' expression"
+                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+            <div class="hap-note-content">
+                <h3>HAP's Confession:</h3>
+                <ul>
+                    <li>I wrote <code>if (nickname === true)</code> instead of <code>if (nickname)</code> — Prof. Teeters showed me JavaScript checks truthiness automatically!</li>
+                    <li>I thought <code>0</code> meant "no backup battery" but didn't realize JavaScript sees <code>0</code> as falsy too — my warning message never showed!</li>
+                    <li>I tested <code>"false"</code> (the string) and was shocked it's truthy — the word "false" isn't the same as the value <code>false</code>.</li>
+                    <li>I mixed up <code>null</code> and <code>undefined</code> — they're both falsy but mean different things.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: The Seven Falsy Values
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>The Seven Falsy Values</h2>
+
+            <p class="mb-2">Prof. Teeters had me write these on a sticky note and put it on my monitor. Once I memorized them, everything clicked. Here are the only 7 values JavaScript treats as falsy:</p>
+
+            <div class="analysis-grid">
+                <div class="analysis-point">
+                    <h3><code>false</code></h3>
+                    <p>The boolean false — the most obvious falsy value. When you explicitly write <code>false</code>, JavaScript knows you mean it.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3><code>0</code> and <code>-0</code></h3>
+                    <p>Zero is falsy! This tripped me up with <code>backupBattery = 0</code>. JavaScript sees zero as "nothing meaningful."</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3><code>""</code> (empty string)</h3>
+                    <p>An empty string exists but contains nothing. My <code>nickname = ""</code> was falsy because there's no name there.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3><code>null</code></h3>
+                    <p>Intentionally empty — you're saying "this has no value on purpose." My <code>secondaryMission = null</code> is falsy.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3><code>undefined</code></h3>
+                    <p>Not yet assigned a value. If you declare a variable but don't assign it, it's <code>undefined</code> and falsy.</p>
+                </div>
+
+                <div class="analysis-point">
+                    <h3><code>NaN</code></h3>
+                    <p>"Not a Number" — what you get from invalid math like <code>0/0</code> or <code>parseInt("hello")</code>. It's falsy.</p>
+                </div>
+            </div>
+
+            <div class="hap-note-callout mt-2">
+                <div class="hap-note-content">
+                    <h3>🟠 HAP's Memory Trick:</h3>
+                    <p>I remember them as: <strong>F</strong>alse, <strong>Z</strong>ero, <strong>E</strong>mpty string, <strong>N</strong>ull, <strong>U</strong>ndefined, <strong>N</strong>aN. That's "F-ZEN-UN" — like a confused robot achieving zen! (Okay, it's not a perfect acronym, but it works for me.)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: Robot ID Card Variables
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>My Robot ID Card Falsy Variables</h2>
+
+            <p class="mb-2">Remember my Robot ID Card from JS Foundations? I added three new variables specifically to understand falsy values. Each one represents a different type of "empty" or "nothing":</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Robot ID Card — New Variables:</div>
+                <CodeBlock code={`// NEW variables for understanding falsy values
+let nickname = "";              // Falsy - empty string (I don't have a nickname yet)
+let backupBattery = 0;          // Falsy - zero (no backup power)
+let secondaryMission = null;    // Falsy - null (intentionally no mission assigned)`} lang="javascript" />
+                <p class="code-comment mt-1">Each of these variables holds a different falsy value, but they all behave the same way in an if statement — the code inside won't run.</p>
+            </div>
+
+            <p class="mt-2">Here's what happens when I test them:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Testing Falsy Values:</div>
+                <CodeBlock code={`// Testing nickname (empty string)
+if (nickname) {
+    console.log("Call me " + nickname + "!");
+} else {
+    console.log("I don't have a nickname yet.");
+}
+// Output: "I don't have a nickname yet."
+
+// Testing backupBattery (zero)
+if (backupBattery) {
+    console.log("Backup power: " + backupBattery + "%");
+} else {
+    console.log("No backup power available.");
+}
+// Output: "No backup power available."
+
+// Testing secondaryMission (null)
+if (secondaryMission) {
+    console.log("Secondary mission: " + secondaryMission);
+} else {
+    console.log("No secondary mission assigned.");
+}
+// Output: "No secondary mission assigned."`} lang="javascript" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4: Truthy Gotchas
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Truthy Gotchas That Surprised Me</h2>
+
+            <p class="mb-2">Once I learned the 7 falsy values, I thought I had it figured out. Then Prof. Teeters showed me some values that <em>look</em> falsy but are actually truthy:</p>
+
+            <div class="prompt-box">
+                <div class="prompt-label">Surprising Truthy Values:</div>
+                <CodeBlock code={`// These all look "empty" or "false" but are TRUTHY!
+
+if ("false") {
+    console.log("The string 'false' is truthy!");
+}
+// This runs! "false" is a non-empty string
+
+if ("0") {
+    console.log("The string '0' is truthy!");
+}
+// This runs! "0" is a non-empty string (different from the number 0)
+
+if ([]) {
+    console.log("An empty array is truthy!");
+}
+// This runs! Empty arrays are truthy objects
+
+if ({}) {
+    console.log("An empty object is truthy!");
+}
+// This runs! Empty objects are truthy too`} lang="javascript" />
+                <p class="code-comment mt-1">Prof. Teeters explained: "HAP, empty arrays and objects are still <em>containers</em>. They exist as things, even if they're empty. An empty box is still a box!"</p>
+            </div>
+
+            <div class="hap-note-callout mt-2">
+                <div class="hap-note-content">
+                    <h3>🟠 Key Insight:</h3>
+                    <p>The string <code>"false"</code> is truthy because it's a non-empty string. The string <code>"0"</code> is truthy because it's a non-empty string. Only the actual boolean <code>false</code> and the number <code>0</code> are falsy. Don't confuse strings with the values they represent!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: Try the Demo
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Try the Falsy Detector Demo</h2>
+
+            <p class="mb-2">I built an interactive tool to test any value and see if JavaScript considers it truthy or falsy. It really helped me understand the concept!</p>
+
+            <div class="intro-box">
+                <p><strong>🔬 Falsy Detector:</strong> Type any value and instantly see if JavaScript treats it as truthy or falsy. Test all 7 falsy values, try the surprising truthy ones, and see how your Robot ID Card variables behave!</p>
+                <p class="mt-1"><a href="/demos/falsy-detector/" class="demo-link">→ Launch the Falsy Detector Demo</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: Quick Reference
+         ============================================================ -->
+    <section class="content-section">
+        <div class="tips-container">
+            <h2 class="section-heading-centered">🎓 Truthy/Falsy Quick Reference</h2>
+
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <div>
+                    <h3>Memorize the 7 Falsy Values</h3>
+                    <p><code>false</code>, <code>0</code>, <code>-0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code> — these are the only falsy values in JavaScript.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <div>
+                    <h3>Everything Else Is Truthy</h3>
+                    <p>If it's not on the falsy list, it's truthy. Yes, even <code>"false"</code>, <code>"0"</code>, <code>[]</code>, and <code>{}</code>.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <div>
+                    <h3>Strings vs Values</h3>
+                    <p>The string <code>"0"</code> is truthy (non-empty string). The number <code>0</code> is falsy. Watch out for this common confusion!</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <div>
+                    <h3>Use It for Checking Variables</h3>
+                    <p>Instead of <code>if (name !== "")</code>, you can write <code>if (name)</code>. JavaScript's truthiness makes your code cleaner!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</StationLayout>

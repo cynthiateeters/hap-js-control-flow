@@ -1,8 +1,8 @@
 {
-  "name": "hap-learning-lab",
+  "name": "hap-js-control-flow",
   "type": "module",
   "version": "1.0.0",
-  "description": "HAP Learning Lab - A 6-station educational website template",
+  "description": "HAP Learning Lab - JavaScript Control Flow (truthy/falsy, conditionals, functions, loops)",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

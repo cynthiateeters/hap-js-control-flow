@@ -1,0 +1,556 @@
+---
+/**
+ * Status Classifier Demo
+ *
+ * Interactive tool to visualize if/else if/else chain execution.
+ * Students can adjust a temperature slider and see which branch executes.
+ */
+
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const introContent = `
+    <p><strong>Watch conditionals in action!</strong> Drag the temperature slider and see which branch of the if/else if/else chain executes. The active branch lights up while skipped branches are grayed out.</p>
+`;
+---
+<!--
+HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
+HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
+-->
+
+<MainLayout
+    title="Status Classifier | HAP's Learning Lab"
+    description="Interactive demo to visualize JavaScript if/else if/else chain execution. Watch which branch runs as you change conditions."
+    headerTitle="Status Classifier"
+    headerSubtitle="Station 3 Demo"
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1763230817/hap-scientist_safwtg.jpg"
+    avatarAlt="HAP in scientist mode with lab equipment"
+    introContent={introContent}
+    showNavigation={false}
+    footerReminder="Remember: In an else if chain, only the FIRST true condition runs!"
+>
+
+    <section class="content-section">
+        <div class="topic-section">
+            <!-- Temperature Control -->
+            <div class="demo-container">
+                <h2>Core Temperature Control</h2>
+
+                <div class="temperature-control">
+                    <div class="thermometer-display">
+                        <div class="thermometer">
+                            <div class="thermometer-fill" id="thermometer-fill"></div>
+                            <div class="thermometer-markers">
+                                <span class="marker" style="bottom: 75%;">90°</span>
+                                <span class="marker" style="bottom: 62.5%;">75°</span>
+                                <span class="marker" style="bottom: 50%;">60°</span>
+                            </div>
+                        </div>
+                        <div class="temperature-value">
+                            <span id="temp-value">72</span>°
+                        </div>
+                    </div>
+
+                    <div class="slider-control">
+                        <label for="temperature-slider">
+                            <code>coreTemperature</code>
+                        </label>
+                        <input
+                            type="range"
+                            id="temperature-slider"
+                            min="0"
+                            max="120"
+                            value="72"
+                            aria-describedby="temp-hint"
+                        >
+                        <p id="temp-hint" class="slider-hint">Drag to change temperature (0-120)</p>
+                    </div>
+                </div>
+
+                <!-- Status Result -->
+                <div class="status-result" id="status-result">
+                    <span class="status-label">temperatureStatus =</span>
+                    <span class="status-value" id="status-value">"Optimal"</span>
+                </div>
+            </div>
+
+            <!-- Code Panel -->
+            <div class="demo-section mt-2">
+                <h3>Code Execution</h3>
+                <p class="mb-1">Watch which branch executes as you change the temperature:</p>
+
+                <div class="code-panel">
+                    <pre class="code-display"><code set:html={`<span class="code-line dim">let coreTemperature = <span id="code-temp">72</span>;</span>
+<span class="code-line dim">let temperatureStatus;</span>
+<span class="code-line dim"></span>
+<span class="code-line branch" id="branch-1" data-condition="> 90"><span class="keyword">if</span> (coreTemperature &gt; <span class="number">90</span>) {</span>
+<span class="code-line branch-body" id="branch-1-body">    temperatureStatus = <span class="string">"OVERHEATING"</span>;</span>
+<span class="code-line branch" id="branch-2" data-condition="> 75">} <span class="keyword">else if</span> (coreTemperature &gt; <span class="number">75</span>) {</span>
+<span class="code-line branch-body" id="branch-2-body">    temperatureStatus = <span class="string">"Warm"</span>;</span>
+<span class="code-line branch" id="branch-3" data-condition="> 60">} <span class="keyword">else if</span> (coreTemperature &gt; <span class="number">60</span>) {</span>
+<span class="code-line branch-body" id="branch-3-body">    temperatureStatus = <span class="string">"Optimal"</span>;</span>
+<span class="code-line branch" id="branch-4" data-condition="else">} <span class="keyword">else</span> {</span>
+<span class="code-line branch-body" id="branch-4-body">    temperatureStatus = <span class="string">"Cool"</span>;</span>
+<span class="code-line dim">}</span>`} /></pre>
+                </div>
+
+                <!-- Execution Explanation -->
+                <div class="execution-info" id="execution-info">
+                    <div class="info-icon">💡</div>
+                    <div class="info-text" id="info-text">
+                        72 > 90? No. 72 > 75? No. 72 > 60? Yes! → "Optimal"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zone Legend -->
+            <div class="demo-section mt-2">
+                <h3>Temperature Zones</h3>
+                <div class="zones-grid">
+                    <div class="zone-card zone-overheating" id="zone-overheating">
+                        <div class="zone-range">> 90°</div>
+                        <div class="zone-name">OVERHEATING</div>
+                    </div>
+                    <div class="zone-card zone-warm" id="zone-warm">
+                        <div class="zone-range">76° - 90°</div>
+                        <div class="zone-name">Warm</div>
+                    </div>
+                    <div class="zone-card zone-optimal" id="zone-optimal">
+                        <div class="zone-range">61° - 75°</div>
+                        <div class="zone-name">Optimal</div>
+                    </div>
+                    <div class="zone-card zone-cool" id="zone-cool">
+                        <div class="zone-range">≤ 60°</div>
+                        <div class="zone-name">Cool</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Station Link -->
+            <div class="demo-nav mt-2">
+                <a href="/stations/station3/" class="demo-back-link">← Back to Station 3: Making Decisions</a>
+            </div>
+        </div>
+    </section>
+
+</MainLayout>
+
+<style>
+    .demo-container {
+        background: hsl(220, 20%, 97%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid hsl(220, 20%, 90%);
+    }
+
+    .temperature-control {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .thermometer-display {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .thermometer {
+        position: relative;
+        width: 40px;
+        height: 200px;
+        background: hsl(220, 20%, 90%);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid hsl(220, 20%, 80%);
+    }
+
+    .thermometer-fill {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, hsl(200, 70%, 50%), hsl(32, 76%, 63%), hsl(0, 70%, 50%));
+        transition: height 0.3s ease;
+        height: 60%;
+    }
+
+    .thermometer-markers {
+        position: absolute;
+        right: -35px;
+        top: 0;
+        bottom: 0;
+        width: 30px;
+    }
+
+    .marker {
+        position: absolute;
+        font-size: 0.7rem;
+        color: hsl(220, 20%, 50%);
+        transform: translateY(50%);
+    }
+
+    .temperature-value {
+        font-size: 3rem;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        color: hsl(220, 20%, 30%);
+    }
+
+    .slider-control {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .slider-control label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .slider-control input[type="range"] {
+        width: 100%;
+        height: 12px;
+        border-radius: 6px;
+        background: hsl(220, 20%, 85%);
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .slider-control input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: hsl(32, 76%, 63%);
+        cursor: pointer;
+        border: 3px solid white;
+        box-shadow: 0 2px 6px hsl(0, 0%, 0%, 0.2);
+    }
+
+    .slider-hint {
+        font-size: 0.75rem;
+        color: hsl(220, 20%, 55%);
+        margin-top: 0.5rem;
+    }
+
+    .status-result {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: hsl(0, 0%, 100%);
+        border-radius: 8px;
+        text-align: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.25rem;
+        border: 2px solid hsl(220, 20%, 85%);
+        transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .status-result.overheating {
+        border-color: hsl(0, 70%, 60%);
+        background: hsl(0, 70%, 97%);
+    }
+
+    .status-result.warm {
+        border-color: hsl(32, 76%, 60%);
+        background: hsl(32, 76%, 97%);
+    }
+
+    .status-result.optimal {
+        border-color: hsl(142, 52%, 50%);
+        background: hsl(142, 52%, 97%);
+    }
+
+    .status-result.cool {
+        border-color: hsl(200, 70%, 50%);
+        background: hsl(200, 70%, 97%);
+    }
+
+    .status-label {
+        color: hsl(220, 20%, 50%);
+    }
+
+    .status-value {
+        font-weight: 700;
+    }
+
+    .status-result.overheating .status-value { color: hsl(0, 70%, 45%); }
+    .status-result.warm .status-value { color: hsl(32, 76%, 40%); }
+    .status-result.optimal .status-value { color: hsl(142, 52%, 35%); }
+    .status-result.cool .status-value { color: hsl(200, 70%, 40%); }
+
+    .demo-section h3 {
+        color: hsl(220, 20%, 30%);
+        margin-bottom: 0.5rem;
+    }
+
+    .code-panel {
+        background: hsl(220, 25%, 18%);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .code-display {
+        margin: 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .code-line {
+        display: block;
+        padding: 0.125rem 0.5rem;
+        border-radius: 4px;
+        transition: background 0.3s ease, opacity 0.3s ease;
+    }
+
+    .code-line.dim {
+        color: hsl(220, 15%, 60%);
+    }
+
+    .code-line.branch {
+        color: hsl(220, 15%, 75%);
+    }
+
+    .code-line.branch-body {
+        color: hsl(220, 15%, 75%);
+        padding-left: 1.5rem;
+    }
+
+    .code-line.active {
+        background: hsl(142, 52%, 25%);
+        color: hsl(142, 52%, 90%);
+    }
+
+    .code-line.checked {
+        color: hsl(220, 15%, 55%);
+    }
+
+    .code-line.skipped {
+        opacity: 0.4;
+        color: hsl(220, 15%, 50%);
+    }
+
+    .keyword {
+        color: hsl(280, 70%, 70%);
+    }
+
+    .number {
+        color: hsl(32, 90%, 65%);
+    }
+
+    .string {
+        color: hsl(142, 60%, 60%);
+    }
+
+    .execution-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: hsl(32, 76%, 97%);
+        border-radius: 8px;
+        border-left: 4px solid hsl(32, 76%, 63%);
+    }
+
+    .info-icon {
+        font-size: 1.25rem;
+    }
+
+    .info-text {
+        font-size: 0.9rem;
+        color: hsl(220, 20%, 35%);
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .zones-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .zone-card {
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        border: 2px solid;
+        opacity: 0.5;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .zone-card.active {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    .zone-overheating {
+        background: hsl(0, 70%, 95%);
+        border-color: hsl(0, 70%, 60%);
+    }
+
+    .zone-warm {
+        background: hsl(32, 76%, 95%);
+        border-color: hsl(32, 76%, 60%);
+    }
+
+    .zone-optimal {
+        background: hsl(142, 52%, 95%);
+        border-color: hsl(142, 52%, 50%);
+    }
+
+    .zone-cool {
+        background: hsl(200, 70%, 95%);
+        border-color: hsl(200, 70%, 50%);
+    }
+
+    .zone-range {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        color: hsl(220, 20%, 45%);
+    }
+
+    .zone-name {
+        font-weight: 700;
+        margin-top: 0.25rem;
+    }
+
+    .zone-overheating .zone-name { color: hsl(0, 70%, 45%); }
+    .zone-warm .zone-name { color: hsl(32, 76%, 40%); }
+    .zone-optimal .zone-name { color: hsl(142, 52%, 35%); }
+    .zone-cool .zone-name { color: hsl(200, 70%, 40%); }
+
+    .demo-nav {
+        text-align: center;
+    }
+
+    .demo-back-link {
+        color: hsl(32, 76%, 50%);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .demo-back-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+        .temperature-control {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .thermometer-display {
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+    const slider = document.getElementById('temperature-slider') as HTMLInputElement;
+    const tempValue = document.getElementById('temp-value');
+    const codeTemp = document.getElementById('code-temp');
+    const statusResult = document.getElementById('status-result');
+    const statusValue = document.getElementById('status-value');
+    const thermometerFill = document.getElementById('thermometer-fill');
+    const infoText = document.getElementById('info-text');
+
+    const branches = [
+        { id: 'branch-1', bodyId: 'branch-1-body', condition: (t: number) => t > 90 },
+        { id: 'branch-2', bodyId: 'branch-2-body', condition: (t: number) => t > 75 },
+        { id: 'branch-3', bodyId: 'branch-3-body', condition: (t: number) => t > 60 },
+        { id: 'branch-4', bodyId: 'branch-4-body', condition: () => true }, // else always true
+    ];
+
+    const zones = ['zone-overheating', 'zone-warm', 'zone-optimal', 'zone-cool'];
+    const statuses = ['OVERHEATING', 'Warm', 'Optimal', 'Cool'];
+    const statusClasses = ['overheating', 'warm', 'optimal', 'cool'];
+
+    function updateDisplay() {
+        const temp = parseInt(slider.value);
+
+        // Update temperature display
+        if (tempValue) tempValue.textContent = String(temp);
+        if (codeTemp) codeTemp.textContent = String(temp);
+
+        // Update thermometer fill (0-120 range mapped to 0-100%)
+        if (thermometerFill) {
+            const fillPercent = Math.min(100, (temp / 120) * 100);
+            thermometerFill.style.height = `${fillPercent}%`;
+        }
+
+        // Determine which branch is active
+        let activeBranchIndex = -1;
+        let explanationParts: string[] = [];
+
+        for (let i = 0; i < branches.length; i++) {
+            const branch = branches[i];
+            const branchEl = document.getElementById(branch.id);
+            const bodyEl = document.getElementById(branch.bodyId);
+
+            if (activeBranchIndex === -1) {
+                // Haven't found active branch yet
+                const result = branch.condition(temp);
+
+                if (i < 3) {
+                    // Regular conditions
+                    const thresholds = [90, 75, 60];
+                    explanationParts.push(`${temp} > ${thresholds[i]}? ${result ? 'Yes!' : 'No.'}`);
+                }
+
+                if (result) {
+                    activeBranchIndex = i;
+                    branchEl?.classList.add('active');
+                    branchEl?.classList.remove('checked', 'skipped');
+                    bodyEl?.classList.add('active');
+                    bodyEl?.classList.remove('skipped');
+                } else {
+                    branchEl?.classList.add('checked');
+                    branchEl?.classList.remove('active', 'skipped');
+                    bodyEl?.classList.add('skipped');
+                    bodyEl?.classList.remove('active');
+                }
+            } else {
+                // Already found active branch, skip the rest
+                branchEl?.classList.add('skipped');
+                branchEl?.classList.remove('active', 'checked');
+                bodyEl?.classList.add('skipped');
+                bodyEl?.classList.remove('active');
+            }
+        }
+
+        // Update status result
+        if (statusResult && statusValue) {
+            statusResult.className = `status-result ${statusClasses[activeBranchIndex]}`;
+            statusValue.textContent = `"${statuses[activeBranchIndex]}"`;
+        }
+
+        // Update zone highlights
+        zones.forEach((zoneId, index) => {
+            const zoneEl = document.getElementById(zoneId);
+            if (zoneEl) {
+                if (index === activeBranchIndex) {
+                    zoneEl.classList.add('active');
+                } else {
+                    zoneEl.classList.remove('active');
+                }
+            }
+        });
+
+        // Update explanation
+        if (infoText) {
+            if (activeBranchIndex === 3) {
+                explanationParts.push(`else → "${statuses[activeBranchIndex]}"`);
+            } else {
+                explanationParts[explanationParts.length - 1] += ` → "${statuses[activeBranchIndex]}"`;
+            }
+            infoText.textContent = explanationParts.join(' ');
+        }
+    }
+
+    slider?.addEventListener('input', updateDisplay);
+
+    // Initialize
+    updateDisplay();
+</script>
