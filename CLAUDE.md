@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | Station | Title                        | Demo              | Key Concepts                  |
 | ------- | ---------------------------- | ----------------- | ----------------------------- |
-| 1       | The Truth About Values       | Falsy Detector    | Truthy/falsy, 7 falsy values  |
+| 1       | The Truth About Values       | Falsy Detector    | Truthy/falsy, 6 falsy values  |
 | 2       | Combining Conditions         | Condition Builder | AND, OR, NOT, short-circuit   |
 | 3       | Making Decisions             | Status Classifier | if/else, else if, ranges      |
 | 4       | Reusable Code with Functions | Function Factory  | Parameters, return, scope     |

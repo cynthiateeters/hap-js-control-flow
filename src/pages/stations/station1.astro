@@ -3,7 +3,7 @@
  * Station 1: The Truth About Values
  *
  * LEARNING INTENT:
- * - Primary concept: JavaScript has exactly 7 falsy values - everything else is truthy
+ * - Primary concept: JavaScript has exactly 6 falsy values - everything else is truthy
  * - Supporting concepts: Boolean context, empty strings/0/null as falsy
  * - Explicit non-goals: Logical operators (Station 2), detailed type coercion
  *
@@ -18,7 +18,7 @@ const introContent = `
     <p class="mt-1">Then I wrote this code: <code>if (nickname) { ... }</code> and it didn't run. But <code>nickname</code> existed! It was set to <code>""</code> (an empty string). Why didn't my code work?</p>
     <p class="mt-1">Prof. Teeters smiled and said, "HAP, JavaScript doesn't care if a variable <em>exists</em> — it cares if that value is <em>meaningful</em>. An empty string exists, but it says nothing."</p>
     <p class="mt-1">That's when I discovered truthy and falsy values — JavaScript's way of deciding if something counts as "meaningful" in a boolean context.</p>
-    <p class="mt-1">Let me show you the 7 values JavaScript considers "falsy"... 🟠</p>
+    <p class="mt-1">Let me show you the 6 values JavaScript considers "falsy"... 🟠</p>
 `;
 ---
 
@@ -26,7 +26,7 @@ const introContent = `
 HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
 HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
 -->
-<StationLayout stationNumber={1} title='The Truth About Values' subtitle='Truthy and Falsy in JavaScript' description="Learn JavaScript's truthy and falsy values with HAP. Discover the 7 falsy values and understand how JavaScript evaluates conditions." avatarImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg' avatarAlt='HAP studying on his laptop' introContent={introContent} ogImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg' nextStationTitle='Combining Conditions' footerReminder='Remember: JavaScript has exactly 7 falsy values. Everything else is truthy!' labName='JavaScript Control Flow' demoUrl='/demos/falsy-detector/' demoLabel='Falsy Detector'>
+<StationLayout stationNumber={1} title='The Truth About Values' subtitle='Truthy and Falsy in JavaScript' description="Learn JavaScript's truthy and falsy values with HAP. Discover the 6 falsy values and understand how JavaScript evaluates conditions." avatarImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg' avatarAlt='HAP studying on his laptop' introContent={introContent} ogImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg' nextStationTitle='Combining Conditions' footerReminder='Remember: JavaScript has exactly 6 falsy values. Everything else is truthy!' labName='JavaScript Control Flow' demoUrl='/demos/falsy-detector/' demoLabel='Falsy Detector'>
   <!-- ============================================================
          SECTION 1: What You'll Learn
          ============================================================ -->
@@ -34,14 +34,14 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
     <h2 class='section-heading-centered'>What You'll Learn at This Station</h2>
 
     <div class='intro-box'>
-      <p><strong>HAP's Discovery:</strong> I used to think if statements only worked with <code>true</code> and <code>false</code>. Then I learned JavaScript evaluates <em>any</em> value as truthy or falsy. Once I memorized the 7 falsy values, I could predict exactly how my if statements would behave!</p>
+      <p><strong>HAP's Discovery:</strong> I used to think if statements only worked with <code>true</code> and <code>false</code>. Then I learned JavaScript evaluates <em>any</em> value as truthy or falsy. Once I memorized the 6 falsy values, I could predict exactly how my if statements would behave!</p>
     </div>
 
     <div class='overview-grid mt-2'>
       <div class='insight-card'>
-        <h3><span class='insight-icon'>7️⃣</span> The Falsy Seven</h3>
-        <p class='stat-large'>7</p>
-        <p>JavaScript has exactly 7 falsy values. Memorize them and you'll never be confused by if statements again.</p>
+        <h3><span class='insight-icon'>6️⃣</span> The Falsy Six</h3>
+        <p class='stat-large'>6</p>
+        <p>JavaScript has exactly 6 falsy values. Memorize them and you'll never be confused by if statements again.</p>
       </div>
 
       <div class='insight-card'>
@@ -51,7 +51,7 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
             <path d='M50 50 C50 20, 80 20, 100 50 C120 80, 150 80, 150 50 C150 20, 120 20, 100 50 C80 80, 50 80, 50 50' fill='none' stroke='currentColor' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'></path>
           </svg>
         </p>
-        <p>If it's not one of the 7 falsy values, it's truthy. Yes, even <code>"false"</code> (the string) and <code>[]</code> (empty array)!</p>
+        <p>If it's not one of the 6 falsy values, it's truthy. Yes, even <code>"false"</code> (the string) and <code>[]</code> (empty array)!</p>
       </div>
 
       <div class='insight-card'>
@@ -76,13 +76,13 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
   </section>
 
   <!-- ============================================================
-         SECTION 2: The Seven Falsy Values
+         SECTION 2: The Six Falsy Values
          ============================================================ -->
   <section class='content-section'>
     <div class='topic-section'>
-      <h2>The Seven Falsy Values</h2>
+      <h2>The Six Falsy Values</h2>
 
-      <p class='mb-2'>Prof. Teeters had me write these on a sticky note and put it on my monitor. Once I memorized them, everything clicked. Here are the only 7 values JavaScript treats as falsy:</p>
+      <p class='mb-2'>Prof. Teeters had me write these on a sticky note and put it on my monitor. Once I memorized them, everything clicked. Here are the only 6 values JavaScript treats as falsy:</p>
 
       <div class='analysis-grid'>
         <div class='analysis-point'>
@@ -91,7 +91,7 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
         </div>
 
         <div class='analysis-point'>
-          <h3><code>0</code> and <code>-0</code></h3>
+          <h3><code>0</code></h3>
           <p>Zero is falsy! This tripped me up with <code>backupBattery = 0</code>. JavaScript sees zero as "nothing meaningful."</p>
         </div>
 
@@ -187,7 +187,7 @@ if (secondaryMission) {
     <div class='topic-section'>
       <h2>Truthy Gotchas That Surprised Me</h2>
 
-      <p class='mb-2'>Once I learned the 7 falsy values, I thought I had it figured out. Then Prof. Teeters showed me some values that <em>look</em> falsy but are actually truthy:</p>
+      <p class='mb-2'>Once I learned the 6 falsy values, I thought I had it figured out. Then Prof. Teeters showed me some values that <em>look</em> falsy but are actually truthy:</p>
 
       <div class='prompt-box'>
         <div class='prompt-label'>Surprising Truthy Values:</div>
@@ -237,7 +237,7 @@ if ({}) {
       <p class='mb-2'>I built an interactive tool to test any value and see if JavaScript considers it truthy or falsy. It really helped me understand the concept!</p>
 
       <div class='intro-box'>
-        <p><strong>🔬 Falsy Detector:</strong> Type any value and instantly see if JavaScript treats it as truthy or falsy. Test all 7 falsy values, try the surprising truthy ones, and see how your Robot ID Card variables behave!</p>
+        <p><strong>🔬 Falsy Detector:</strong> Type any value and instantly see if JavaScript treats it as truthy or falsy. Test all 6 falsy values, try the surprising truthy ones, and see how your Robot ID Card variables behave!</p>
         <p class='mt-1'><a href='/demos/falsy-detector/' class='demo-link'>→ Launch the Falsy Detector Demo</a></p>
       </div>
     </div>
@@ -253,8 +253,8 @@ if ({}) {
       <div class='tip-card'>
         <div class='tip-number'>1</div>
         <div>
-          <h3>Memorize the 7 Falsy Values</h3>
-          <p><code>false</code>, <code>0</code>, <code>-0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code> — these are the only falsy values in JavaScript.</p>
+          <h3>Memorize the 6 Falsy Values</h3>
+          <p><code>false</code>, <code>0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code> — these are the only falsy values in JavaScript.</p>
         </div>
       </div>
 

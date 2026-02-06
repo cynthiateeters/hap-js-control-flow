@@ -9,7 +9,7 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 
 const introContent = `
-    <p><strong>Test any value!</strong> Type something in the box below and click "Test" to see if JavaScript considers it truthy or falsy. Try the quick-test buttons to explore all 7 falsy values and some surprising truthy ones!</p>
+    <p><strong>Test any value!</strong> Type something in the box below and click "Test" to see if JavaScript considers it truthy or falsy. Try the quick-test buttons to explore all 6 falsy values and some surprising truthy ones!</p>
 `;
 ---
 <!--
@@ -19,14 +19,14 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
 
 <MainLayout
     title="Falsy Detector | HAP's Learning Lab"
-    description="Interactive demo to test JavaScript truthy and falsy values. Explore the 7 falsy values and discover surprising truthy values."
+    description="Interactive demo to test JavaScript truthy and falsy values. Explore the 6 falsy values and discover surprising truthy values."
     headerTitle="Falsy Detector"
     headerSubtitle="Station 1 Demo"
     avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1763230817/hap-scientist_safwtg.jpg"
     avatarAlt="HAP in scientist mode with lab equipment"
     introContent={introContent}
     showNavigation={false}
-    footerReminder="Remember: Only 7 values are falsy in JavaScript. Everything else is truthy!"
+    footerReminder="Remember: Only 6 values are falsy in JavaScript. Everything else is truthy!"
 >
 
     <section class="content-section">
@@ -58,12 +58,11 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
 
             <!-- Quick Test Buttons: Falsy Values -->
             <div class="demo-section mt-2">
-                <h3>Quick Test: The 7 Falsy Values</h3>
+                <h3>Quick Test: The 6 Falsy Values</h3>
                 <p class="mb-1">Click any button to test these falsy values:</p>
                 <div class="quick-test-grid">
                     <button class="quick-test-btn falsy-btn" data-value="false" data-type="boolean">false</button>
                     <button class="quick-test-btn falsy-btn" data-value="0" data-type="number">0</button>
-                    <button class="quick-test-btn falsy-btn" data-value="-0" data-type="number">-0</button>
                     <button class="quick-test-btn falsy-btn" data-value="" data-type="string">""</button>
                     <button class="quick-test-btn falsy-btn" data-value="null" data-type="null">null</button>
                     <button class="quick-test-btn falsy-btn" data-value="undefined" data-type="undefined">undefined</button>

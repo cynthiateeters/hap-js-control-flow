@@ -18,7 +18,7 @@ Prerequisites: JS Foundations (variables, data types, console.log)
 ## 2. Learning intent
 
 ```
-Primary concept: JavaScript has exactly 7 falsy values - everything else is truthy.
+Primary concept: JavaScript has exactly 6 falsy values - everything else is truthy.
 
 Supporting concepts:
 - Values behave differently in boolean contexts (if statements)
@@ -49,7 +49,7 @@ Explicit non-goals (what this station does NOT teach):
 ```
 Starting state: Confused why his if statement ran when nickname was ""
 Key question: "Why does JavaScript treat some values as false?"
-Ending state: Knows the 7 falsy values and can predict boolean behavior
+Ending state: Knows the 6 falsy values and can predict boolean behavior
 ```
 
 ---
@@ -122,7 +122,7 @@ Student interaction:
 
 ```
 1. What You'll Learn - Overview with 3 insight cards + HAP's Confession
-2. The Seven Falsy Values - Core concept with the definitive list
+2. The Six Falsy Values - Core concept with the definitive list
 3. Robot ID Card Variables - Applying falsy/truthy to our familiar variables
 4. Testing Values in Practice - Code examples with if statements
 5. Quick Reference - 4 key takeaways summarized
