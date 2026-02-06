@@ -172,6 +172,26 @@ console.log(hasPower);  // true (stopped at hasMainPower)`}
         />
         <p class='code-comment mt-1'>This matters for performance! Put simple checks before expensive ones, and JavaScript might skip the slow stuff entirely.</p>
       </div>
+
+      <div class="video-container mt-2">
+          <h3>🎬 Watch: Short-Circuit Secrets</h3>
+          <video controls preload="metadata" style="width: 100%; max-width: 800px; border-radius: 8px;"
+              poster="https://res.cloudinary.com/daolj9ohb/video/upload/so_0,f_jpg,q_auto,w_800/canvas/videos/hap-short-circuit-secrets"
+              onended="this.load();">
+              <source
+                  src="https://res.cloudinary.com/daolj9ohb/video/upload/f_auto,q_auto/canvas/videos/hap-short-circuit-secrets"
+                  type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+          <details>
+              <summary>View Transcript</summary>
+              <div class="transcript" style="padding: 1rem; background: hsl(0, 0%, 96%); border-radius: 4px; margin-top: 0.5rem;">
+                  <p><strong>HAP:</strong> So, we have these logical operators called AND and OR. That is great that they are common words, but it can get confusing talking about them and learning about them too. Okay. With the logical operator AND, and the logical operator OR, JavaScript doesn't always check both sides when deciding what to do with conditionals. Here's why that matters. With AND, if the first part is FALSE, JavaScript stops. It already knows the whole thing is false. The second part never runs.</p>
+                  <p>But with OR, if the first part is falsy, JavaScript keeps going and returns the second part. This is perfect for default values. So AND stops at the first FALSE, but OR stops at the first TRUE. That's the short circuit. Ta da.</p>
+                  <p>You see this pattern? You can use it for defaults when you have them. For example, if nickname exists, use it. Otherwise, fall back to the default. When you know what JavaScript is going to do, you can make it work for you.</p>
+              </div>
+          </details>
+      </div>
     </div>
   </section>
 

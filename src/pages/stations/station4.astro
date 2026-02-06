@@ -187,6 +187,35 @@ let batteryStatus = getStatus(backupBattery);     // Reused again!`} lang="javas
                     <p>The <code>return</code> statement sends a value back. Whatever you return becomes the result of calling the function.</p>
                 </div>
             </div>
+
+            <div class="video-container mt-2">
+                <h3>🎬 Watch: Function Academy</h3>
+                <video controls preload="metadata" style="width: 100%; max-width: 800px; border-radius: 8px;"
+                    poster="https://res.cloudinary.com/daolj9ohb/video/upload/so_0,f_jpg,q_auto,w_800/canvas/hap-function-academy"
+                    onended="this.load();">
+                    <source
+                        src="https://res.cloudinary.com/daolj9ohb/video/upload/q_auto/canvas/hap-function-academy.mp4"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <details>
+                    <summary>View Transcript</summary>
+                    <div class="transcript" style="padding: 1rem; background: hsl(0, 0%, 96%); border-radius: 4px; margin-top: 0.5rem;">
+                        <p><strong>HAP:</strong> Hey. It's Hap. And I just found out that JavaScript without functions would just be silly. So let me tell you what they are, how we write them, and how we use them. Imagine you need to do the same thing over and over.</p>
+                        <p><strong>HAP:</strong> Without functions, you'd copy and paste the same code everywhere. That's messy. And if you need to change it, you'd have to find every copy. But with a function, you write the code once, give it a name, and then just call that name whenever you need it. One place to write it.</p>
+                        <p><strong>HAP:</strong> One place to fix it. That's the power of functions. Every function has the same basic parts. Let's break them down. First, the keyword function.</p>
+                        <p><strong>HAP:</strong> That tells JavaScript, hey. I'm creating a function here. Then comes the name. This one is called greet. The name should describe what the function does.</p>
+                        <p><strong>HAP:</strong> Next, the parentheses. Inside them, we put parameters. These are like placeholders for the inputs the function will receive. The curly braces wrap the body. That's where the actual code lives, the instructions that run when you call the function.</p>
+                        <p><strong>HAP:</strong> And finally, return. This keyword sends a value back out to whoever called the function. So keyword, name, parameters, body, return. Those are your five parts. Now here's a helpful way to think about it.</p>
+                        <p><strong>HAP:</strong> A function is like a machine. Data goes in through the parameters, gets processed in the body, and comes out through return. Let me show you with one of my own functions. When I call drain energy with 100 comma 15, those numbers go in as the arguments. Inside, the body does the math.</p>
+                        <p><strong>HAP:</strong> 100 minus fifteen, and eighty five comes out through return. Input, process. Output. So how do you actually use a function? You call it.</p>
+                        <p><strong>HAP:</strong> To call a function, write its name, then parentheses, and put the arguments inside. Arguments are the actual values you're passing in. The parameters are the placeholders. The arguments are the real data. So when you write greet with the string Hap in parentheses, hap is the argument.</p>
+                        <p><strong>HAP:</strong> It gets assigned to the parameter called name, and then the function runs. It does whatever code is in the body using that argument. Here's the key thing about return values. When you call a function, the whole call gets replaced by whatever the function returns. Look at this line.</p>
+                        <p><strong>HAP:</strong> GetStatusReport runs, and then the entire function call disappears. In its place, the return value. So report isn't assigned the text get status report. It's assigned whatever get status report returns, which is the string HAP energy 85%. That return value can go into a variable like we just saw, or you can use it directly in an expression.</p>
+                        <p><strong>HAP:</strong> And if there's no return statement, the function returns undefined. Now there's a lot more to learn about functions, but this will get us started. Once you understand that replacement, functions start making a lot more sense.</p>
+                    </div>
+                </details>
+            </div>
         </div>
     </section>
 
