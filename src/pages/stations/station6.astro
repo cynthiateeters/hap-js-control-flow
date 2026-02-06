@@ -1,894 +1,589 @@
 ---
 /**
- * Station 6 - AI Assistance for Debugging
+ * Station 6 - An Intro to Context Engineering
  *
  * HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
  * HyBit A. ProtoBot (HAP) character and the apprentice learning methodology
  * are proprietary educational innovations.
  *
- * THE 13 SECTIONS:
+ * THE 11 SECTIONS:
  * 1. What You'll Learn (3 insight cards + HAP's confession)
- * 2. Introduction to Context Engineering (Grace's guide reference)
- * 3. What AI Can and Can't Do
- * 4. Debugging Truthy/Falsy Issues with AI
- * 5. Debugging Conditional Logic with AI
- * 6. AI for Control Flow Accessibility
- * 7. Optimizing Control Flow Performance with AI
- * 8. Try It Yourself: AI Debugging Challenge
- * 9. HAP's Rules for Working with AI (6 numbered rules)
- * 10. Advanced Prompt Strategies
- * 11. When NOT to Use AI
- * 12. Quick Reference: AI Debugging Tasks
- * 13. Learning Objectives Checklist
+ * 2. What Is Context Engineering (Ankur Goyal quote, paradigm shift)
+ * 3. The Three Types of Context (Calculated, Implicit, Explicit)
+ * 4. The Five Questions Framework (generalized prompting)
+ * 5. What AI Can and Can't Do (strengths and limitations)
+ * 6. Writing Better Prompts (before/after examples)
+ * 7. Project-Level Context (intro to instruction files)
+ * 8. Try It Yourself: Context Engineering Challenge
+ * 9. HAP's Rules for Working with AI (6 generalized rules)
+ * 10. When NOT to Use AI
+ * 11. Learning Objectives Checklist
  */
 
 import StationLayout from '../../layouts/StationLayout.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 
-// HAP's introduction - story about discovering AI for debugging
+// HAP's introduction - story about discovering context engineering
 const introContent = `
-    <p><strong>Welcome to Station 6!</strong> After learning all about truthy/falsy values, logical operators, conditionals, functions, and loops, I was feeling pretty confident. Then I discovered that AI could help me debug code in seconds instead of hours! I was so excited — I asked an AI to "fix my broken if statement," got beautiful code back, and shipped it immediately. Then Prof. Teeters tested it and found a critical problem: the fix worked for one case but broke three others.</p>
-    <p class="mt-1">She sat me down and explained: "HAP, AI can generate code faster than you can type, but it doesn't care about your users the way you should. You own every line of code, whether you wrote it or AI did."</p>
-    <p class="mt-1">That lesson changed how I work with AI completely. Let me show you what I learned about using AI responsibly for debugging — the prompts that work, the verification that's mandatory, and the rules that keep users safe! 🟠</p>
+    <p><strong>Welcome to Station 6!</strong> After learning about truthy/falsy values, logical operators, conditionals, functions, and loops, I was excited to start using AI to help me code faster. But my first attempts were frustrating — sometimes AI gave amazing answers, sometimes completely useless ones. I blamed the AI: "It's so random!"</p>
+    <p class="mt-1">Then Grace Hopper showed me something that changed everything. She said: "HAP, AI isn't random. It's responding to exactly what you give it. The variable you control is context — and there's a skill to providing it well."</p>
+    <p class="mt-1">That's when I started learning <strong>context engineering</strong> — the practice of giving AI the right information so it can actually help. Let me share what I've learned so far! 🟠</p>
 `;
 ---
 
-<StationLayout stationNumber={6} title='AI Assistance for Debugging' subtitle="AI helps you debug faster, but you're still responsible for every fix" description='Join HAP as he learns to use AI responsibly for debugging JavaScript control flow. Discover effective prompting, accessibility verification, and the rules for working with AI.' avatarImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg' avatarAlt='HAP (HyBit A. ProtoBot) studying on his laptop' introContent={introContent} ogImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg' footerReminder='AI accelerates debugging, but understanding is your responsibility. Verify every fix before you ship it.' labName='JavaScript Control Flow'>
-  <!-- ============================================================
+<StationLayout
+    stationNumber={6}
+    title="An Intro to Context Engineering"
+    subtitle="The skill of giving AI the right information to get useful responses"
+    description="Join HAP as he learns context engineering — the foundational skill for working effectively with AI. Discover the three types of context, the five questions framework, and strategies for better prompts."
+    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
+    avatarAlt="HAP (HyBit A. ProtoBot) studying on his laptop"
+    introContent={introContent}
+    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
+    footerReminder="Context engineering is a skill that transfers to every AI interaction. The better your context, the better your results."
+    labName="JavaScript Control Flow"
+>
+
+    <!-- ============================================================
          SECTION 1: What You'll Learn
-         3 insight cards about AI assistance + HAP's biggest AI mistake
+         3 insight cards about context engineering + HAP's confession
          ============================================================ -->
-  <section class='content-section'>
-    <h2 class='section-heading-centered'>What You'll Learn</h2>
+    <section class="content-section">
+        <h2 class="section-heading-centered">What You'll Learn</h2>
 
-    <div class='overview-grid mt-2'>
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>⚡</span> Speed with Responsibility</h3>
-        <p class='stat-large'>10x Faster</p>
-        <p><strong>AI can spot bugs instantly — but only you can verify the fix is right.</strong></p>
-        <p>When I first used AI for debugging, I was amazed at how quickly it found issues. I asked it to check my loop and it immediately spotted that I was using <code>&lt;=</code> instead of <code>&lt;</code> with <code>array.length</code>. The fix took seconds! But then I made the mistake of shipping without testing. The AI had changed more than just that line — it "helpfully" modified my loop variable name, which broke the code that came after. Prof. Teeters taught me: speed without verification is just faster failure.</p>
-      </div>
+        <div class="overview-grid mt-2">
+            <div class="insight-card">
+                <h3><span class="insight-icon">🎯</span> Context Over Cleverness</h3>
+                <p class="stat-large">Information > Phrasing</p>
+                <p><strong>Good prompts aren't about clever wording — they're about providing the right information.</strong></p>
+                <p>I used to spend time crafting "perfect" prompts. Then Grace showed me that AI responds to information, not eloquence. The same question with better context gets dramatically better answers.</p>
+            </div>
 
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>🎯</span> Detailed Prompts Win</h3>
-        <p class='stat-large stat-teal'>5 Requirements</p>
-        <p><strong>Vague prompts get vague fixes. Detailed prompts get working code.</strong></p>
-        <p>I used to ask AI things like "fix my if statement" and wonder why the results were unpredictable. Sometimes great, sometimes terrible. Prof. Teeters showed me that AI responds to specificity. When I started including: what the code should do, what's actually happening, what I've already tried, what must NOT change, and what environment I'm working in — the responses transformed. Five requirements in my prompt means five times better results.</p>
-      </div>
+            <div class="insight-card">
+                <h3><span class="insight-icon">📚</span> Three Types of Context</h3>
+                <p class="stat-large stat-teal">Know What AI Sees</p>
+                <p><strong>Understanding what context AI already has helps you know what to add.</strong></p>
+                <p>Some context is automatic (your open files), some is inferred (your coding patterns), and some you must provide explicitly. Learning which is which changed everything for me.</p>
+            </div>
 
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>✅</span> You Own the Code</h3>
-        <p class='stat-large stat-brown'>100%</p>
-        <p><strong>Whether you wrote it or AI did, you're responsible for every line.</strong></p>
-        <p>This was my hardest lesson. I had shipped AI-generated code that removed focus states from interactive elements — making the app unusable for keyboard users. When Prof. Teeters found it, I said "but AI wrote that part!" She looked at me calmly and said: "Did AI ship it? Did AI put your name on the commit? You own this code, HAP." Now I review AI suggestions like I review my own code — because they ARE my code the moment I accept them.</p>
-      </div>
-    </div>
+            <div class="insight-card">
+                <h3><span class="insight-icon">✍️</span> A Skill That Transfers</h3>
+                <p class="stat-large stat-brown">Beyond Coding</p>
+                <p><strong>Context engineering isn't just for code — it's for any AI interaction.</strong></p>
+                <p>Once I learned to provide clear context, I got better results everywhere: debugging, learning new concepts, writing documentation, even explaining my work to humans.</p>
+            </div>
+        </div>
 
-    <!-- HAP's confession about biggest AI mistake -->
-    <div class='hap-note-callout'>
-      <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1759495999/hap-confused-map_q8q0ej.jpg' alt='HAP looking confused while studying a map' width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
-      <div class='hap-note-content'>
-        <h3>HAP's Confession: The Fix That Broke Everything</h3>
-        <p>I was debugging a status classifier function — the temperature ranges weren't working right. I asked AI to "fix the temperature conditions" without explaining the full context. The AI assumed I wanted Celsius when my code used Fahrenheit, so it "fixed" my thresholds to completely different numbers.</p>
-        <p class='mt-1'>I didn't notice because the code looked clean and professional. I shipped it. Prof. Teeters ran a test with 75°F and the robot displayed "OVERHEATING" — because 75°C really IS overheating! The AI's fix was technically correct for its assumption, but catastrophically wrong for my actual use case.</p>
-        <p class='mt-1'>Grace Hopper reminded me, in her precise way: "Context is not optional. The AI cannot read your mind, and it will not ask clarifying questions. You must provide every relevant detail." Now I always specify units, ranges, and expected behaviors in my prompts. 😳</p>
-      </div>
-    </div>
-  </section>
+        <!-- HAP's confession about context failure -->
+        <div class="hap-note-callout">
+            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1759495999/hap-confused-map_q8q0ej.jpg"
+                alt="HAP looking confused while studying a map"
+                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+            <div class="hap-note-content">
+                <h3>HAP's Confession: When I Blamed the AI</h3>
+                <p>I asked AI to "explain why my temperature code isn't working" and got a long, confusing response about various temperature-related bugs. I tried again with slightly different wording. Same problem. I was about to give up on AI entirely.</p>
+                <p class="mt-1">Then Grace looked at my prompt and said: "HAP, you didn't tell AI what the code does, what's happening, or what you expected. You gave it a mystery and asked for a solution." She helped me rewrite the prompt with actual context — and suddenly AI understood exactly what I needed.</p>
+                <p class="mt-1">The AI wasn't the problem. My prompt was. That's when I realized context engineering was a skill I needed to learn. 😳</p>
+            </div>
+        </div>
+    </section>
 
-  <!-- ============================================================
-         SECTION 2: Introduction to Context Engineering
-         Foundation skill: adding context to prompts
-         Reference: Grace's Context Engineering Guide (GitHub Gist)
+    <!-- ============================================================
+         SECTION 2: What Is Context Engineering
+         The paradigm shift from clever phrasing to right information
          ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>The Foundation: Context Engineering</h2>
-      <p class='mb-2'>Before I show you specific debugging techniques, let me share the most important thing I learned: <strong>the quality of AI's help depends entirely on the context I provide.</strong></p>
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>What Is Context Engineering?</h2>
+            <p class="mb-2">Context engineering is the practice of deliberately providing AI with the information it needs to give you useful responses. It's less about how you phrase your question and more about what information you include.</p>
 
-      <div class='intro-box'>
-        <p><strong>🟠 HAP's Starting Point:</strong> I'm starting by learning to write better prompts. Not just "fix my code" but "fix this code that does X, is currently doing Y, and must work with Z." Every detail I add makes AI's response more useful.</p>
-      </div>
+            <blockquote class="mt-2" style="border-left: 3px solid var(--warm-orange); padding-left: 1rem; margin-left: 0; font-style: italic;">
+                "Context engineering is focused less on clever phrasing and more on bringing the right information (in the right format) to the LLM."
+                <footer style="font-style: normal; margin-top: 0.5rem;">— Ankur Goyal, Braintrust CEO</footer>
+            </blockquote>
 
-      <p class='mt-2'>Grace put together a comprehensive guide on context engineering that I keep bookmarked. Here's what I've learned from it so far:</p>
+            <p class="mt-2">That quote was my breakthrough moment. I'd been trying to write "perfect prompts" — tweaking my wording, using special phrases I'd read about online. But the real skill is simpler and harder: <strong>giving AI the information it actually needs.</strong></p>
 
-      <h3 class='mt-3'>What Is Context Engineering?</h3>
-      <blockquote class='mt-1' style='border-left: 3px solid var(--warm-orange); padding-left: 1rem; margin-left: 0; font-style: italic;'>
-        "Context engineering is focused less on clever phrasing and more on bringing the right information (in the right format) to the LLM."
-        <footer style='font-style: normal; margin-top: 0.5rem;'>— Ankur Goyal, Braintrust CEO</footer>
-      </blockquote>
+            <div class="intro-box mt-3">
+                <p><strong>🟠 HAP's Starting Point:</strong> I'm learning to provide context in my prompts. Not just "explain this code" but "explain this code that does X, is supposed to do Y, and is part of Z." Every detail I add makes AI's response more useful.</p>
+            </div>
 
-      <p class='mt-2'>That was my breakthrough moment. I'd been trying to write "perfect prompts" when I should have been thinking about what information AI actually needs.</p>
+            <p class="mt-2">Grace put together a comprehensive guide on context engineering that I keep bookmarked. I'm still learning from it, but I want to share the key concepts that helped me the most.</p>
 
-      <h3 class='mt-3'>The Three Types of Context</h3>
-      <p class='mt-1'>Grace's guide explains that AI gets context from three sources:</p>
-
-      <div class='overview-grid mt-2'>
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>🔄</span> Calculated Context</h3>
-          <p><strong>Automatic.</strong> Files open in your editor, your current cursor position, recently edited files. You get this without doing anything.</p>
+            <p class="mt-2"><strong>📚 Full Reference:</strong> <a href="https://gist.github.com/cynthiateeters/a8ce39ce3d9f563be13e3fad75526d57" style="color: var(--warm-orange);" target="_blank" rel="noopener">Grace's Context Engineering Guide</a> — everything I know about this topic came from here.</p>
         </div>
+    </section>
 
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>🔍</span> Implicit Context</h3>
-          <p><strong>Inferred.</strong> AI figures out patterns from your code — file extensions, naming conventions, import statements, coding style.</p>
-        </div>
-
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>✍️</span> Explicit Context</h3>
-          <p><strong>You provide.</strong> Comments describing intent, JSDoc documentation, clear function names, instruction files. This is where context engineering happens.</p>
-        </div>
-      </div>
-
-      <h3 class='mt-3'>The Five Contexts for Debugging Prompts</h3>
-      <p class='mt-1'>For debugging specifically, I learned to include these five pieces of information:</p>
-
-      <div class='overview-grid mt-2'>
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>1️⃣</span> What It Should Do</h3>
-          <p>The expected behavior. "This function should return 'Optimal' for temperatures 60-75°F."</p>
-        </div>
-
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>2️⃣</span> What It's Actually Doing</h3>
-          <p>The current (wrong) behavior. "It's returning 'Cool' for 72°F."</p>
-        </div>
-
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>3️⃣</span> What I've Tried</h3>
-          <p>Your debugging attempts so far. "I checked the condition order but it looks right to me."</p>
-        </div>
-
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>4️⃣</span> What Must Not Change</h3>
-          <p>Constraints and dependencies. "Don't change the return value format — other code depends on it."</p>
-        </div>
-
-        <div class='insight-card'>
-          <h3><span class='insight-icon'>5️⃣</span> Environment Details</h3>
-          <p>Units, formats, versions. "Temperature is in Fahrenheit, not Celsius."</p>
-        </div>
-      </div>
-
-      <div class='hap-note-callout mt-3'>
-        <div class='hap-note-content'>
-          <h3>🟠 Why This Changed Everything for Me</h3>
-          <p>I used to blame AI when responses weren't helpful — "it's so random!" But Prof. Teeters pointed out something important: while AI outputs vary, the quality of my prompts is one of the variables I can control. Better context doesn't guarantee perfect results, but it dramatically improves the odds.</p>
-          <p class='mt-1'>There's a lot more to learn — project-level instruction files, issue-driven development, and advanced techniques I haven't tried yet. For now, I'm focusing on writing better prompts with these five contexts.</p>
-          <p class='mt-2'><strong>📚 Full Reference:</strong> <a href='https://gist.github.com/cynthiateeters/a8ce39ce3d9f563be13e3fad75526d57' style='color: var(--warm-orange);' target='_blank' rel='noopener'>Grace's Context Engineering Guide</a> — everything I know about this topic came from here.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 3: What AI Can and Can't Do
-         Strengths and weaknesses grid
+    <!-- ============================================================
+         SECTION 3: The Three Types of Context
+         Calculated, Implicit, Explicit - with examples
          ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>What AI Can and Can't Do</h2>
-      <p class='mb-2'>When I first started using AI, I thought it could do everything. I'd ask it to "make my code better" and expect miracles. Prof. Teeters helped me understand that AI has specific strengths and real limitations. Knowing both helps me use it effectively.</p>
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>The Three Types of Context</h2>
+            <p class="mb-2">Grace's guide explains that AI coding assistants get context from three sources. Understanding these helped me know what I need to provide versus what AI already has.</p>
 
-      <div class='analysis-grid mt-2'>
-        <div class='analysis-point'>
-          <h3>AI Excels At</h3>
-          <ul class='mt-1'>
-            <li><strong>Spotting syntax errors:</strong> Missing brackets, typos, incorrect operators — AI catches these instantly</li>
-            <li><strong>Explaining code behavior:</strong> "What does this loop do?" gets clear, step-by-step explanations</li>
-            <li><strong>Suggesting alternatives:</strong> "How else could I write this condition?" shows multiple approaches</li>
-            <li><strong>Pattern recognition:</strong> AI spots common bugs like off-by-one errors and falsy value confusion</li>
-            <li><strong>Refactoring suggestions:</strong> Making code cleaner while preserving behavior</li>
-            <li><strong>Documenting code:</strong> Generating comments that explain what code does</li>
-          </ul>
+            <h3 class="mt-3">1. Calculated Context (Automatic)</h3>
+            <p class="mt-1">This is context AI gets automatically, without you doing anything:</p>
+            <ul class="mt-1">
+                <li><strong>Files open in your editor tabs</strong> — AI can see what you're working on</li>
+                <li><strong>Your current file and cursor position</strong> — AI knows where you are in the code</li>
+                <li><strong>Recently edited files</strong> — AI has some memory of your recent work</li>
+                <li><strong>Your project's package.json</strong> — AI knows your dependencies (if present)</li>
+            </ul>
+            <p class="mt-1"><em>What this means for you:</em> If you want AI to consider a specific file, open it in a tab. Close files you're not working on to reduce noise.</p>
+
+            <h3 class="mt-3">2. Implicit Context (Inferred)</h3>
+            <p class="mt-1">This is context AI figures out from patterns in your code:</p>
+            <ul class="mt-1">
+                <li><strong>File extensions</strong> — <code>.js</code>, <code>.ts</code>, <code>.py</code> tell AI what language you're using</li>
+                <li><strong>Coding patterns</strong> — Do you use arrow functions? Semicolons? AI notices</li>
+                <li><strong>Import statements</strong> — AI can see what libraries you're using</li>
+                <li><strong>Naming conventions</strong> — camelCase, snake_case — AI tries to match your style</li>
+            </ul>
+            <p class="mt-1"><em>What this means for you:</em> Be consistent in your code style, and AI will follow along. Inconsistent patterns confuse both AI and humans.</p>
+
+            <h3 class="mt-3">3. Explicit Context (You Provide)</h3>
+            <p class="mt-1">This is where context engineering happens — the information you deliberately give AI:</p>
+            <ul class="mt-1">
+                <li><strong>Comments describing intent</strong> — What is this code supposed to do?</li>
+                <li><strong>JSDoc documentation</strong> — Function signatures, parameter types, return values</li>
+                <li><strong>Clear function names</strong> — <code>validateUserEmail()</code> tells AI more than <code>check()</code></li>
+                <li><strong>Your prompt itself</strong> — The question you ask and the context you include</li>
+            </ul>
+            <p class="mt-1"><em>What this means for you:</em> This is what you control most directly. The rest of this station focuses on providing better explicit context.</p>
+
+            <div class="hap-note-callout mt-3">
+                <div class="hap-note-content">
+                    <h3>🟠 Why This Matters</h3>
+                    <p>I used to blame AI when responses weren't helpful — "it's so random!" But Prof. Teeters pointed out something important: while AI outputs vary, the quality of my prompts is one of the variables I can control. Better context doesn't guarantee perfect results, but it dramatically improves the odds.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class='analysis-point'>
-          <h3>AI Struggles With</h3>
-          <ul class='mt-1'>
-            <li><strong>Your specific context:</strong> AI doesn't know your project, your users, or your constraints</li>
-            <li><strong>Accessibility requirements:</strong> AI consistently forgets WCAG unless you explicitly ask</li>
-            <li><strong>Business logic:</strong> AI can't know that "premium users" need different handling</li>
-            <li><strong>Performance trade-offs:</strong> AI may suggest elegant but slow solutions</li>
-            <li><strong>Security implications:</strong> AI may introduce vulnerabilities it doesn't recognize</li>
-            <li><strong>Edge cases in YOUR data:</strong> AI generates generic solutions, not solutions for your specific edge cases</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class='hap-note-callout mt-3'>
-        <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1759495998/hap-laptop_xiewar.jpg' alt='HAP working on his laptop' width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
-        <div class='hap-note-content'>
-          <h3>HAP's Takeaway: AI Teaches Best When You Ask the Right Questions</h3>
-          <p>Here's what surprised me most: AI is an incredible teacher — but only when I ask the right way. When I asked "why does condition order matter?" AI gave me a step-by-step explanation I could actually understand. That's teaching at its best: immediate, focused on exactly what I needed.</p>
-          <p class='mt-1'>But when I asked vague questions like "make my code better," AI would make changes I didn't understand — sometimes breaking accessibility features it didn't know were important. The difference wasn't AI's capability; it was my prompt quality.</p>
-          <p class='mt-1'>Prof. Teeters put it this way: "AI can teach you anything you ask about — but it can only answer the question you actually asked. The skill isn't using AI; it's asking the right questions." 🟠</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 4: Debugging Truthy/Falsy Issues with AI
-         Vague prompt → Bad output → Detailed prompt → Good output
+    <!-- ============================================================
+         SECTION 4: The Five Questions Framework
+         Generalized prompting framework for any task
          ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>Debugging Truthy/Falsy Issues with AI</h2>
-      <p class='mb-2'>Remember Station 1, where I learned about the six falsy values? When I started debugging truthy/falsy issues with AI, I made every mistake possible. My vague prompts led to "fixes" that broke more than they fixed.</p>
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>The Five Questions Framework</h2>
+            <p class="mb-2">Whether I'm debugging, learning something new, or building a feature, I've learned to answer these five questions in my prompts. They work for almost any AI interaction.</p>
 
-      <h3 class='mt-3'>Before I Learned to Write Good Prompts</h3>
-      <p class='mt-1'>I had a bug where empty strings weren't being caught by my validation. Here's how my early attempts went wrong:</p>
+            <div class="overview-grid mt-2">
+                <div class="insight-card">
+                    <h3><span class="insight-icon">1️⃣</span> What Should Happen?</h3>
+                    <p>The expected behavior or goal. "This function should return 'Optimal' for temperatures 60-75°F."</p>
+                </div>
 
-      <div class='warning-box mt-2'>
-        <h3>❌ Vague Prompt Produces Unusable Code</h3>
-        <p><strong>My vague prompt:</strong></p>
-        <div class='prompt-box mt-1'>
-          <div class='prompt-label'>What I Asked AI:</div>
-          <CodeBlock code={`Fix my validation function - empty values aren't being caught`} lang='text' />
+                <div class="insight-card">
+                    <h3><span class="insight-icon">2️⃣</span> What's Actually Happening?</h3>
+                    <p>The current state or problem. "It's returning 'Cool' for 72°F instead."</p>
+                </div>
+
+                <div class="insight-card">
+                    <h3><span class="insight-icon">3️⃣</span> What Have You Tried?</h3>
+                    <p>Your attempts so far. "I checked the condition order but it looks right to me."</p>
+                </div>
+
+                <div class="insight-card">
+                    <h3><span class="insight-icon">4️⃣</span> What Must Not Change?</h3>
+                    <p>Constraints and requirements. "Don't change the return value format — other code depends on it."</p>
+                </div>
+
+                <div class="insight-card">
+                    <h3><span class="insight-icon">5️⃣</span> What's Your Environment?</h3>
+                    <p>Relevant details. "Temperature is in Fahrenheit, not Celsius. Using vanilla JavaScript."</p>
+                </div>
+            </div>
+
+            <h3 class="mt-3">These Questions Work for Everything</h3>
+            <p class="mt-1">I use this framework for:</p>
+            <ul class="mt-1">
+                <li><strong>Debugging:</strong> What should happen vs. what's happening, plus constraints</li>
+                <li><strong>Learning:</strong> What I'm trying to understand, what I already know, what's confusing me</li>
+                <li><strong>Building features:</strong> What I want to create, what exists already, what requirements I have</li>
+                <li><strong>Refactoring:</strong> What I want improved, what must stay the same, why I'm changing it</li>
+            </ul>
+
+            <p class="mt-2">Not every prompt needs all five — but the more complex the task, the more questions I answer.</p>
         </div>
+    </section>
 
-        <p class='mt-2'><strong>What AI generated:</strong></p>
-        <CodeBlock
-          code={`function validateInput(value) {
-    // Check if value is empty
-    if (!value) {
-        return false;
-    }
+    <!-- ============================================================
+         SECTION 5: What AI Can and Can't Do
+         Strengths and limitations (kept from original)
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>What AI Can and Can't Do</h2>
+            <p class="mb-2">Understanding AI's strengths and limitations helps me know when context engineering will help most — and when I need a different approach entirely.</p>
+
+            <div class="analysis-grid mt-2">
+                <div class="analysis-point">
+                    <h3>AI Excels At</h3>
+                    <ul class="mt-1">
+                        <li><strong>Explaining concepts:</strong> "What is a closure?" gets clear explanations</li>
+                        <li><strong>Spotting patterns:</strong> Common bugs, code smells, missing edge cases</li>
+                        <li><strong>Suggesting alternatives:</strong> "How else could I write this?" shows options</li>
+                        <li><strong>Generating examples:</strong> Sample code, test cases, documentation</li>
+                        <li><strong>Answering "why" questions:</strong> "Why does this code work this way?"</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-point">
+                    <h3>AI Struggles With</h3>
+                    <ul class="mt-1">
+                        <li><strong>Your specific context:</strong> AI doesn't know your project, users, or constraints</li>
+                        <li><strong>Business logic:</strong> AI can't know that "premium users" need different handling</li>
+                        <li><strong>Accessibility requirements:</strong> AI forgets WCAG unless explicitly asked</li>
+                        <li><strong>Security implications:</strong> AI may suggest insecure patterns it doesn't recognize</li>
+                        <li><strong>Your edge cases:</strong> AI generates generic solutions, not your-data-specific ones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hap-note-callout mt-3">
+                <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1759495998/hap-laptop_xiewar.jpg"
+                    alt="HAP working on his laptop"
+                    width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+                <div class="hap-note-content">
+                    <h3>HAP's Takeaway: AI Teaches Best When You Ask the Right Questions</h3>
+                    <p>Here's what surprised me most: AI is an incredible teacher — but only when I ask the right way. When I asked "why does condition order matter?" AI gave me a step-by-step explanation I could actually understand. That's teaching at its best: immediate, focused on exactly what I needed.</p>
+                    <p class="mt-1">But when I asked vague questions like "make my code better," AI would make changes I didn't understand — sometimes breaking things it didn't know were important. The difference wasn't AI's capability; it was my prompt quality.</p>
+                    <p class="mt-1">Prof. Teeters put it this way: "AI can teach you anything you ask about — but it can only answer the question you actually asked. The skill isn't using AI; it's asking the right questions." 🟠</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6: Writing Better Prompts
+         Before/after examples for different tasks
+         ============================================================ -->
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Writing Better Prompts</h2>
+            <p class="mb-2">Let me show you how adding context transforms AI responses. These examples use the Five Questions Framework.</p>
+
+            <h3 class="mt-3">Example 1: Learning a Concept</h3>
+
+            <div class="warning-box mt-2">
+                <h3>❌ Vague Prompt</h3>
+                <div class="prompt-box mt-1">
+                    <div class="prompt-label">What I Asked:</div>
+                    <CodeBlock code={`Explain closures`} lang="text" />
+                </div>
+                <p class="mt-1"><strong>What I got:</strong> A long, technical explanation starting with lambda calculus and functional programming history. Way over my head for week 3.</p>
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">✅ Context-Rich Prompt:</div>
+                <CodeBlock code={`Explain closures for a JavaScript beginner in week 3 of learning.
+
+What I know:
+- Functions, parameters, return values
+- Variables and scope (global vs local)
+- I just learned about function factories
+
+What's confusing me:
+- Why does the inner function "remember" the outer variable?
+- When would I actually use this?
+
+Please use simple examples with robot-themed variables.`} lang="text" />
+                <p class="mt-1"><strong>What I got:</strong> A beginner-friendly explanation with examples I could actually understand, building on what I already knew.</p>
+            </div>
+
+            <h3 class="mt-3">Example 2: Understanding Code</h3>
+
+            <div class="warning-box mt-2">
+                <h3>❌ Vague Prompt</h3>
+                <div class="prompt-box mt-1">
+                    <div class="prompt-label">What I Asked:</div>
+                    <CodeBlock code={`What does this code do?
+
+if (value) {
+    return true;
+}`} lang="text" />
+                </div>
+                <p class="mt-1"><strong>What I got:</strong> A generic explanation of if statements that didn't address the actual behavior with different values.</p>
+            </div>
+
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">✅ Context-Rich Prompt:</div>
+                <CodeBlock code={`What does this code do, specifically with different input types?
+
+if (value) {
     return true;
 }
-/* ❌ Treats 0 as invalid (but 0 might be a valid input!) */
-/* ❌ Treats false as invalid (but false might be intentional!) */
-/* ❌ Doesn't explain which falsy values it's catching */`}
-          lang='javascript'
-        />
 
-        <p class='mt-1'><strong>Problems with this code:</strong></p>
-        <ul class='mt-1'>
-          <li><strong>Too aggressive</strong> — It rejects 0 and false, which might be valid inputs in my robot status system</li>
-          <li><strong>No context awareness</strong> — AI didn't know I only wanted to catch empty strings and null</li>
-          <li><strong>Silent failure</strong> — When my energy level was 0, the validation rejected it as "empty"</li>
-        </ul>
-      </div>
+I'm confused about what happens when value is:
+- 0 (a number)
+- "" (empty string)
+- null or undefined
+- false (boolean)
 
-      <h3 class='mt-3'>The Prompt I Learned to Write</h3>
-      <p class='mt-1'>Prof. Teeters taught me to include five key pieces of information in every debugging prompt:</p>
+This is validation code for a form. I need to understand
+which inputs get rejected and which pass through.`} lang="text" />
+                <p class="mt-1"><strong>What I got:</strong> A detailed breakdown of truthy/falsy behavior with each input type — exactly what I needed to understand.</p>
+            </div>
 
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ Detailed Prompt with All Requirements:</div>
-        <CodeBlock
-          code={`Debug this validation function for a robot status system:
+            <h3 class="mt-3">Example 3: Getting Help with a Feature</h3>
 
-CURRENT CODE:
-function validateNickname(value) {
-    if (!value) return false;
-    return true;
-}
+            <div class="warning-box mt-2">
+                <h3>❌ Vague Prompt</h3>
+                <div class="prompt-box mt-1">
+                    <div class="prompt-label">What I Asked:</div>
+                    <CodeBlock code={`Add form validation`} lang="text" />
+                </div>
+                <p class="mt-1"><strong>What I got:</strong> A complex validation library setup that was way more than I needed for a simple form.</p>
+            </div>
 
-THE BUG: Empty strings ("") are passing validation but should fail.
+            <div class="prompt-box mt-2">
+                <div class="prompt-label">✅ Context-Rich Prompt:</div>
+                <CodeBlock code={`Help me add validation to a nickname input field.
 
-REQUIREMENTS:
-- Must reject: null, undefined, empty string ""
-- Must ACCEPT: 0 (valid for energyLevel), false (valid for boolean flags)
-- This is for user-facing nickname input, not numeric fields
-- Return false for invalid, true for valid
-
-WHAT I'VE TRIED: Using !value catches too much - it rejects 0
-
-Please explain why the current approach fails and provide a fix
-that only targets the specific falsy values I need to reject.`}
-          lang='text'
-        />
-      </div>
-
-      <h3 class='mt-3'>What AI Generates with a Good Prompt</h3>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ AI Output with Detailed Constraints:</div>
-        <CodeBlock
-          code={`function validateNickname(value) {
-    // Explicitly check for the specific falsy values we want to reject
-    // This preserves 0 and false as valid inputs for other fields
-    if (value === null || value === undefined || value === "") {
-        return false;
-    }
-    return true;
-}
-
-/* ✅ Rejects only null, undefined, and empty string */
-/* ✅ Accepts 0 (for energyLevel) and false (for flags) */
-/* ✅ Clear comments explain the reasoning */`}
-          lang='javascript'
-        />
-        <p class='code-comment mt-1'><strong>Why this code is better:</strong> It targets exactly what I asked for. The explicit comparisons make the code self-documenting, and 0 and false work correctly for other parts of my robot status system.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 5: Debugging Conditional Logic with AI
-         More complex task requiring even more specificity
-         ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>Debugging Conditional Logic with AI</h2>
-      <p class='mb-2'>Conditional bugs are trickier than simple falsy issues. When my if/else chains weren't working, I learned that AI needs even MORE context to help effectively. The more complex the logic, the more detailed my prompt needs to be.</p>
-
-      <h3 class='mt-3'>The Task: Temperature Status Classifier</h3>
-      <p class='mt-1'>I had a bug where temperatures between 60-75 were showing "Cool" instead of "Optimal." The conditions looked right to me, but something was wrong with the order or the operators.</p>
-
-      <h3 class='mt-3'>My Effective Prompt</h3>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ Comprehensive Prompt:</div>
-        <CodeBlock
-          code={`Debug this temperature status classifier for my robot monitoring system:
-
-CURRENT CODE:
-let coreTemperature = 72;
-let temperatureStatus;
-
-if (coreTemperature > 60) {
-    temperatureStatus = "Cool";
-} else if (coreTemperature > 75) {
-    temperatureStatus = "Optimal";
-} else if (coreTemperature > 90) {
-    temperatureStatus = "Warm";
-} else {
-    temperatureStatus = "OVERHEATING";
-}
-
-THE BUG: Temperature 72 shows "Cool" but should show "Optimal"
-
-EXPECTED BEHAVIOR:
-- Below 60: "Cool"
-- 60-75: "Optimal"
-- 76-90: "Warm"
-- Above 90: "OVERHEATING"
-
-TEMPERATURE UNITS: Fahrenheit (not Celsius!)
-
-Please:
-1. Explain why my current order is wrong
-2. Show the correct condition order
-3. Explain why order matters in if/else chains`}
-          lang='text'
-        />
-      </div>
-
-      <h3 class='mt-3'>AI-Generated Code</h3>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ Professional Output:</div>
-        <CodeBlock
-          code={`/* Temperature Status Classifier - Fixed condition order */
-let coreTemperature = 72;
-let temperatureStatus;
-
-// IMPORTANT: Check from highest to lowest!
-// Once a condition is true, the rest are skipped.
-if (coreTemperature > 90) {
-    temperatureStatus = "OVERHEATING";
-} else if (coreTemperature > 75) {
-    temperatureStatus = "Warm";
-} else if (coreTemperature > 60) {
-    temperatureStatus = "Optimal";
-} else {
-    temperatureStatus = "Cool";
-}
-
-/* WHY THE ORIGINAL FAILED:
- * You checked > 60 FIRST, which matched 72.
- * The else if for > 75 never ran because 72 > 60 was already true!
- *
- * THE FIX: Check largest values first.
- * 72 is NOT > 90, NOT > 75, but IS > 60 → "Optimal" ✅
- */`}
-          lang='javascript'
-        />
-        <p class='code-comment mt-1'><strong>Why this is excellent:</strong> AI didn't just fix the bug — it explained WHY it happened and how condition order affects execution. I learned something, not just got working code.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 6: AI for Control Flow Accessibility
-         CRITICAL: AI constantly forgets accessibility
-         ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>AI for Control Flow Accessibility</h2>
-      <p class='mb-2'><strong>This is where AI fails most consistently, and it's the most important issue to understand.</strong> When I asked AI to debug my interactive demos, it would fix the logic but silently remove accessibility features I had carefully added. Prof. Teeters says this is AI's biggest blind spot.</p>
-
-      <h3 class='mt-3'>The Problem: AI Constantly Forgets Accessibility</h3>
-      <p class='mt-1'>I asked AI to "simplify" my Skill Scanner demo. It worked beautifully — but keyboard users couldn't navigate it anymore. The AI saw the focus handling as "unnecessary complexity" and removed it.</p>
-
-      <h3 class='mt-3'>The Solution: Make Accessibility Explicit in Every Prompt</h3>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ Accessibility-First Prompt Template:</div>
-        <CodeBlock
-          code={`Debug this interactive loop visualization with these CRITICAL accessibility requirements:
-
-MANDATORY accessibility features (do NOT remove or change):
-- All interactive elements must be keyboard accessible
-- Focus states must be visible (never remove outline styles)
-- Screen reader announcements for state changes (aria-live regions)
-- Color is not the only indicator (use text labels too)
-- Reduced motion support for animations
-
-CURRENT CODE:
-[paste your code here]
-
-THE BUG:
-[describe what's wrong with the logic]
-
-Fix the logic bug but preserve ALL accessibility features listed above.`}
-          lang='text'
-        />
-      </div>
-
-      <h3 class='mt-3'>Before and After: Accessibility Comparison</h3>
-
-      <div class='warning-box mt-2'>
-        <h3>❌ AI Code WITHOUT Accessibility Request</h3>
-        <CodeBlock
-          code={`// AI "simplified" version - DANGEROUS
-button.addEventListener('click', () => {
-    currentIndex++;
-    updateDisplay();
-});
-
-function updateDisplay() {
-    items.forEach((item, i) => {
-        item.style.background = i === currentIndex ? '#4CAF50' : '#fff';
-    });
-}
-
-/* ❌ NO keyboard support - VIOLATES WCAG */
-/* ❌ NO focus management - users get lost */
-/* ❌ Color-only indication - invisible to colorblind users */`}
-          lang='javascript'
-        />
-        <p class='mt-1'><strong>This code is dangerous.</strong> It looks clean and works for mouse users, but it excludes keyboard users, screen reader users, and people with color vision differences.</p>
-      </div>
-
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ AI Code WITH Accessibility Request:</div>
-        <CodeBlock
-          code={`// Accessible version - includes all users
-button.addEventListener('click', handleStep);
-button.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleStep();
-    }
-});
-
-function handleStep() {
-    currentIndex++;
-    updateDisplay();
-    announceChange();
-}
-
-function updateDisplay() {
-    items.forEach((item, i) => {
-        const isActive = i === currentIndex;
-        item.style.background = isActive ? '#4CAF50' : '#fff';
-        item.setAttribute('aria-current', isActive ? 'step' : 'false');
-        // Text label, not just color
-        item.querySelector('.status').textContent = isActive ? '→ Current' : '';
-    });
-}
-
-function announceChange() {
-    const announcement = document.getElementById('live-region');
-    announcement.textContent = \`Now on step \${currentIndex + 1}\`;
-}
-
-/* ✅ Keyboard accessible with Enter and Space */
-/* ✅ ARIA attributes for screen readers */
-/* ✅ Text labels supplement color changes */`}
-          lang='javascript'
-        />
-        <p class='code-comment mt-1'><strong>This code is safe.</strong> It works for everyone — mouse users, keyboard users, screen reader users, and people with color vision differences.</p>
-      </div>
-
-      <div class='hap-note-callout mt-3'>
-        <div class='hap-note-content'>
-          <h3>HAP's Accessibility Checklist: Non-Negotiable Rules</h3>
-          <ul class='mt-1'>
-            <li><strong>Always include "accessibility" in prompts</strong> — AI won't think of it on its own</li>
-            <li><strong>List specific WCAG requirements</strong> — "keyboard accessible" is clearer than "accessible"</li>
-            <li><strong>Specify what must NOT be removed</strong> — AI sees accessibility code as "complexity to simplify"</li>
-            <li><strong>Test with keyboard after every AI change</strong> — if Tab doesn't work, something's broken</li>
-            <li><strong>Verify color is not the only indicator</strong> — always add text labels or icons</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 7: Optimizing Control Flow Performance with AI
-         Performance requires explicit prompting
-         ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>Optimizing Control Flow Performance with AI</h2>
-      <p class='mb-2'>Just like accessibility, AI doesn't automatically optimize for performance. When I asked AI to "clean up" my loops, it sometimes made them slower by using elegant but inefficient patterns. Prof. Teeters taught me to be explicit about performance requirements.</p>
-
-      <h3 class='mt-3'>The Performance-Focused Prompt</h3>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ Performance Optimization Prompt:</div>
-        <CodeBlock
-          code={`Optimize this loop for performance with these requirements:
-
-Performance constraints:
-- Must handle arrays with 1000+ items without visible lag
-- Minimize DOM updates (batch changes when possible)
-- Use early return/break when match is found
-- Avoid creating new functions inside the loop
+Requirements:
+- Reject empty strings, null, undefined
+- Accept any non-empty string (including spaces)
+- Accept 0 and false (this field is only for nicknames,
+  but other fields accept numbers)
+- Return true if valid, false if invalid
 
 Current code:
-[paste your loop code]
-
-Goal: Find the first skill that matches a search term, then stop.
-Currently it checks every item even after finding a match.`}
-          lang='text'
-        />
-      </div>
-
-      <h3 class='mt-3'>Before and After: Performance Comparison</h3>
-
-      <div class='warning-box mt-2'>
-        <h3>❌ Loop That Checks Everything (Slow)</h3>
-        <CodeBlock
-          code={`// Checks ALL items even after finding match
-function findSkill(skills, searchTerm) {
-    let result = null;
-    for (let i = 0; i < skills.length; i++) {
-        if (skills[i].toLowerCase().includes(searchTerm.toLowerCase())) {
-            result = skills[i];
-            // Keeps looping! Wastes time on remaining items
-        }
-    }
-    return result;
+function validateNickname(value) {
+    // Need help here
 }
-/* ❌ Checks all 1000 items even if match is first */
-/* ❌ Creates toLowerCase() on every iteration */`}
-          lang='javascript'
-        />
-      </div>
 
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>✅ Optimized Loop with Early Return</div>
-        <CodeBlock
-          code={`// Stops immediately when match is found
-function findSkill(skills, searchTerm) {
-    const search = searchTerm.toLowerCase(); // Calculate once!
+Keep it simple - vanilla JavaScript, no libraries.`} lang="text" />
+                <p class="mt-1"><strong>What I got:</strong> A simple, focused validation function that matched my exact requirements.</p>
+            </div>
+        </div>
+    </section>
 
-    for (let i = 0; i < skills.length; i++) {
-        if (skills[i].toLowerCase().includes(search)) {
-            return skills[i]; // Found it! Stop immediately.
-        }
-    }
-    return null; // Only reached if no match found
-}
-/* ✅ Early return stops loop on first match */
-/* ✅ Search term lowercased once, not 1000 times */`}
-          lang='javascript'
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 8: Try It Yourself - AI Debugging Challenge
-         Hands-on practice with requirements
+    <!-- ============================================================
+         SECTION 7: Project-Level Context
+         Introduction to instruction files (aspirational)
          ============================================================ -->
-  <section class='content-section'>
-    <h2>Try It Yourself: AI Debugging Challenge</h2>
-    <p class='mt-1'>Ready to practice everything you've learned? This challenge tests your prompt crafting skills, your verification process, and your ability to apply concepts from Stations 1-5 through AI collaboration.</p>
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>Project-Level Context (A Preview)</h2>
+            <p class="mb-2">Grace's guide mentions something I haven't set up yet, but want to learn: <strong>project-level instruction files</strong>. These give AI persistent context about your entire project.</p>
 
-    <div class='challenge-box mt-2'>
-      <h3>🎯 The Challenge: Debug the Broken Skill Scanner</h3>
-      <p class='mt-1'>A function that should scan robot skills and return a status report has bugs. Use AI to help debug it, but verify everything!</p>
+            <h3 class="mt-3">What Is a Project Instruction File?</h3>
+            <p class="mt-1">A file like <code>.github/copilot-instructions.md</code> that AI reads automatically for every request. It contains:</p>
+            <ul class="mt-1">
+                <li><strong>Project overview:</strong> What is this app? Who's it for?</li>
+                <li><strong>Tech stack:</strong> What frameworks, libraries, and patterns do you use?</li>
+                <li><strong>Coding conventions:</strong> Semicolons? Arrow functions? Naming patterns?</li>
+                <li><strong>Data structures:</strong> What do your objects look like?</li>
+                <li><strong>Common patterns:</strong> How do you handle errors? Async code?</li>
+            </ul>
 
-      <h4 class='mt-2'>The Buggy Code:</h4>
-      <CodeBlock
-        code={`function scanSkills(skills) {
-    let report = "";
-    for (let i = 1; i <= skills.length; i++) {
-        if (skills[i]) {
-            report += "Found: " + skills[i] + "\\n";
-        }
-    }
-    return report || "No skills found";
-}
+            <div class="intro-box mt-3">
+                <p><strong>🟠 HAP's Note:</strong> I haven't created one of these yet — I'm still learning the basics of context engineering. But Grace says once I'm comfortable with prompt-level context, project-level context is the next step. It means AI knows your project conventions without you explaining them every time.</p>
+            </div>
 
-// Test: should list all 3 skills
-const mySkills = ["welding", "navigation", "analysis"];
-console.log(scanSkills(mySkills));
-// BUG: Only shows 2 skills, not 3!`}
-        lang='javascript'
-      />
+            <h3 class="mt-3">Why This Matters Later</h3>
+            <p class="mt-1">Right now, I'm adding context to each prompt manually. That's fine for learning. But eventually:</p>
+            <ul class="mt-1">
+                <li>I'll be working on bigger projects where explaining context every time is tedious</li>
+                <li>I'll want AI to follow my team's conventions automatically</li>
+                <li>I'll have complex requirements that shouldn't need repeating</li>
+            </ul>
+            <p class="mt-1">That's when project-level context becomes valuable. For now, I'm focusing on mastering the Five Questions Framework.</p>
+        </div>
+    </section>
 
-      <h4 class='mt-2'>Requirements:</h4>
-      <ul class='mt-1'>
-        <li><strong>Performance:</strong> Should work with arrays of any size without modification</li>
-        <li><strong>Accessibility:</strong> The report should be screen-reader friendly (clear text, no special formatting)</li>
-        <li><strong>Usability:</strong> Must handle empty arrays gracefully</li>
-        <li><strong>Correctness:</strong> Must process ALL items in the array</li>
-        <li><strong>Maintainability:</strong> Code should be self-documenting with clear variable names</li>
-      </ul>
+    <!-- ============================================================
+         SECTION 8: Try It Yourself: Context Engineering Challenge
+         Practice improving prompts
+         ============================================================ -->
+    <section class="content-section">
+        <h2>Try It Yourself: Context Engineering Challenge</h2>
+        <p class="mt-1">Ready to practice context engineering? This challenge tests your ability to improve prompts using the Five Questions Framework.</p>
 
-      <h4 class='mt-2'>Your Mission (5 Steps):</h4>
-      <ol class='mt-1'>
-        <li><strong>Craft a detailed prompt</strong> with all requirements specified (include the buggy code and expected behavior)</li>
-        <li><strong>Review AI's response</strong> against the requirements checklist</li>
-        <li><strong>Test with multiple arrays</strong> — empty, one item, many items</li>
-        <li><strong>Verify the loop boundaries</strong> — does it start at 0? Does it use &lt; not &lt;=?</li>
-        <li><strong>Refine if needed</strong> with follow-up prompts</li>
-      </ol>
-    </div>
-  </section>
+        <div class="challenge-box mt-2">
+            <h3>🎯 The Challenge: Improve These Prompts</h3>
+            <p class="mt-1">Each of these prompts is too vague. Your job is to add context that would get better results.</p>
 
-  <!-- ============================================================
+            <h4 class="mt-2">Prompt 1: The Learning Request</h4>
+            <CodeBlock code={`"Explain loops"`} lang="text" />
+            <p class="mt-1"><strong>Add context about:</strong> What you already know, what's confusing you, what you're trying to build, your skill level.</p>
+
+            <h4 class="mt-2">Prompt 2: The Code Question</h4>
+            <CodeBlock code={`"Fix my function"
+
+function check(x) {
+    if (x) return true;
+}`} lang="text" />
+            <p class="mt-1"><strong>Add context about:</strong> What the function should do, what's happening instead, what values it should accept/reject, what must stay the same.</p>
+
+            <h4 class="mt-2">Prompt 3: The Feature Request</h4>
+            <CodeBlock code={`"Add a button"`} lang="text" />
+            <p class="mt-1"><strong>Add context about:</strong> What the button should do, where it goes, what happens on click, any accessibility or styling requirements.</p>
+
+            <h4 class="mt-2">Practice Tips:</h4>
+            <ol class="mt-1">
+                <li><strong>Use the Five Questions:</strong> What should happen? What's happening? What have you tried? What can't change? What's your environment?</li>
+                <li><strong>Be specific:</strong> "JavaScript beginner in week 3" is better than "beginner"</li>
+                <li><strong>Include examples:</strong> Show expected inputs and outputs when relevant</li>
+                <li><strong>State constraints:</strong> What must the solution NOT do?</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ============================================================
          SECTION 9: HAP's Rules for Working with AI
-         6 numbered rules (non-negotiable)
+         6 generalized rules for any AI interaction
          ============================================================ -->
-  <section class='content-section'>
-    <div class='tips-container'>
-      <h2 class='section-heading-centered'>HAP's Rules for Working with AI</h2>
-      <p class='mb-2'>After months of working with AI for debugging control flow, I've developed six non-negotiable rules. These aren't suggestions — they're requirements that Prof. Teeters approves and enforces.</p>
+    <section class="content-section">
+        <div class="tips-container">
+            <h2 class="section-heading-centered">HAP's Rules for Working with AI</h2>
+            <p class="mb-2">After learning about context engineering, I've developed six rules for working with AI effectively. These apply to any AI interaction, not just coding.</p>
 
-      <div class='tip-card'>
-        <div class='tip-number'>1</div>
-        <div>
-          <h3>Always Explain the Full Context</h3>
-          <p>Never ask AI to "fix this code" without explaining what it should do, what it's currently doing wrong, and what constraints you're working with. I learned this when AI "fixed" my Fahrenheit code by converting it to Celsius — technically correct, completely wrong for my use case. Include: expected behavior, current behavior, environment details, and any constraints.</p>
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <div>
+                    <h3>Always Provide Context (Not Just the Question)</h3>
+                    <p>I never ask a question without context anymore. "Explain closures" becomes "Explain closures for a JavaScript beginner who just learned about function scope." The extra 10 seconds of context saves 10 minutes of confusion.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <div>
+                    <h3>Include What You Know (Not Just What You Don't)</h3>
+                    <p>When I tell AI what I already understand, it can build on that knowledge instead of starting from scratch. "I understand loops but I'm confused about why we start at 0" gets a focused answer instead of a loops tutorial.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <div>
+                    <h3>State Your Constraints Explicitly</h3>
+                    <p>AI can't read my mind about requirements. I explicitly say: "Keep it simple — no libraries." "Must work with 0 and false as valid inputs." "Don't change the return format." Unstated constraints lead to unusable suggestions.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <div>
+                    <h3>Verify AI's Response Against Reality</h3>
+                    <p>AI can sound confident while being wrong. I test suggestions with real data, not just the example data AI used. I ask myself: "Does this actually work for MY use case, or just for the example?"</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">5</div>
+                <div>
+                    <h3>Understand Before You Use</h3>
+                    <p>If I can't explain why a solution works, I don't use it. I ask AI to explain its reasoning. I trace through the logic myself. Copying code I don't understand creates bugs I can't fix.</p>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">6</div>
+                <div>
+                    <h3>Keep a Learning Log</h3>
+                    <p>I document what prompts worked well and what didn't. "For falsy value questions, always specify which falsy values matter." This compounds my learning over time and helps me improve faster.</p>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class='tip-card'>
-        <div class='tip-number'>2</div>
-        <div>
-          <h3>Include What's Working, Not Just What's Broken</h3>
-          <p>When I only showed AI the broken part, it sometimes "fixed" things by breaking the working parts. Now I always include surrounding code that must NOT change. I tell AI: "This function is called by X and Y, which depend on the return format. Don't change the return structure." Context prevents collateral damage.</p>
-        </div>
-      </div>
-
-      <div class='tip-card'>
-        <div class='tip-number'>3</div>
-        <div>
-          <h3>Request Accessibility Explicitly</h3>
-          <p>AI will not automatically make code accessible. Every single prompt that involves user interaction must include accessibility requirements. I now have a standard section I paste into every prompt: "ACCESSIBILITY: keyboard accessible, visible focus states, screen reader support, color is not the only indicator." If I don't ask, I don't get.</p>
-        </div>
-      </div>
-
-      <div class='tip-card'>
-        <div class='tip-number'>4</div>
-        <div>
-          <h3>Verify Every Fix Manually</h3>
-          <p>AI code that looks right isn't always right. I test every fix with: (1) the original failing case, (2) edge cases like empty arrays and zero values, (3) keyboard navigation, and (4) different data than AI used in its examples. Prof. Teeters says: "AI tests with imaginary data. You test with real data."</p>
-        </div>
-      </div>
-
-      <div class='tip-card'>
-        <div class='tip-number'>5</div>
-        <div>
-          <h3>Understand Before You Ship</h3>
-          <p>If I can't explain WHY a fix works, I don't ship it. I ask AI to explain its solution, then I verify that explanation makes sense. This caught a bug where AI used a regex that happened to work for my test case but would fail on real data. Understanding is not optional — it's how I take ownership.</p>
-        </div>
-      </div>
-
-      <div class='tip-card'>
-        <div class='tip-number'>6</div>
-        <div>
-          <h3>Keep a Debugging Log</h3>
-          <p>I document what prompts worked, what failed, and what I learned. When I encounter a similar bug later, I have a reference. My log has entries like: "Falsy value bugs: must specify which falsy values to catch, !value is too broad." This compounds my learning over time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 10: Advanced Prompt Strategies
-         Iteration, troubleshooting, safety prompts
+    <!-- ============================================================
+         SECTION 10: When NOT to Use AI
+         Situations where AI isn't the right tool
          ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>Advanced Prompt Strategies</h2>
-      <p class='mb-2'>Real AI collaboration isn't one-shot perfection — it's conversational refinement. Prof. Teeters calls this "conversational refinement" and it's how professionals actually work with AI.</p>
+    <section class="content-section">
+        <div class="topic-section">
+            <h2>When NOT to Use AI</h2>
+            <p class="mb-2">Context engineering makes AI more helpful, but there are still times when AI isn't the right tool. Understanding when NOT to use AI is part of using it well.</p>
 
-      <h3 class='mt-3'>Refinement Prompt</h3>
-      <p class='mt-1'>When AI's first response is close but not quite right:</p>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>Refinement Prompt Template:</div>
-        <CodeBlock
-          code={`Your solution works but needs adjustment:
+            <div class="analysis-grid mt-2">
+                <div class="analysis-point">
+                    <h3>When You're Learning New Concepts</h3>
+                    <p><strong>The struggle IS the learning.</strong> When I first learned about truthy/falsy values, I could have asked AI to explain everything. But Prof. Teeters encouraged me to make mistakes, get confused, and work through it myself. That frustration built understanding that no AI explanation could provide. Use AI to verify understanding AFTER you've struggled, not to skip the struggle entirely.</p>
+                </div>
 
-The fix you provided:
-[paste AI's code]
+                <div class="analysis-point">
+                    <h3>When Security Is Critical</h3>
+                    <p><strong>AI may suggest insecure patterns.</strong> For authentication, authorization, or any code handling sensitive data, AI suggestions need extra scrutiny. AI might suggest a "clean" solution that's actually insecure. For security-critical code, get human review.</p>
+                </div>
 
-What's not quite right:
-[describe the issue - be specific]
+                <div class="analysis-point">
+                    <h3>When You Need to Understand Your Own Logic</h3>
+                    <p><strong>If you don't understand it, you can't maintain it.</strong> Sometimes I have code that I wrote but don't remember how it works. The temptation is to ask AI to "explain and improve" it. But the better path is to trace through it myself, add comments as I understand it, and THEN decide if changes are needed.</p>
+                </div>
+            </div>
 
-Please revise to:
-[specific change needed]
+            <div class="warning-box mt-3">
+                <h3>🟠 Prof. Teeters' Warning About AI and Learning</h3>
+                <p class="mt-1"><strong>"HAP, AI can tell you the answer, but it can't teach you to think. Every time you skip the struggle, you skip the learning. Use AI to accelerate, not to replace your own thinking."</strong></p>
+                <p class="mt-1">She said this after I asked AI to solve a loop problem I hadn't even tried myself. I got a working answer but couldn't explain how it worked. That's when I learned: AI is for AFTER I've tried, not INSTEAD of trying.</p>
+            </div>
+        </div>
+    </section>
 
-Keep everything else the same, especially [critical feature to preserve].`}
-          lang='text'
-        />
-      </div>
-
-      <h3 class='mt-3'>Debugging Prompt</h3>
-      <p class='mt-1'>When AI's suggestion introduced a new bug:</p>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>Debugging Prompt Template:</div>
-        <CodeBlock
-          code={`Your suggested fix introduced a new problem:
-
-Original bug: [what was wrong before]
-Your fix: [paste the code AI gave you]
-New problem: [what's wrong now - include error message if any]
-
-The fix should:
-- Solve the original bug
-- NOT break [specific functionality that broke]
-- Maintain [requirement that was violated]
-
-Please provide a corrected version.`}
-          lang='text'
-        />
-      </div>
-
-      <h3 class='mt-3'>Safe Refactoring Prompt</h3>
-      <p class='mt-1'>When you want AI to improve code without breaking it:</p>
-      <div class='prompt-box mt-2'>
-        <div class='prompt-label'>Safe Refactoring Prompt Template:</div>
-        <CodeBlock
-          code={`Refactor this code without breaking existing functionality.
-
-PRESERVE (do not change):
-- Return type and value format
-- Parameter names and order
-- Accessibility features (keyboard, focus, aria)
-- All edge case handling
-
-Current working code:
-[paste your code]
-
-Refactoring goal: [what you want improved - e.g., "more readable",
-"better variable names", "fewer lines"]
-
-Show me the refactored version and explain each change.`}
-          lang='text'
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 11: When NOT to Use AI
-         3 scenarios where manual work is better
+    <!-- ============================================================
+         SECTION 11: Learning Objectives Checklist
+         Context engineering-focused objectives
          ============================================================ -->
-  <section class='content-section'>
-    <div class='topic-section'>
-      <h2>When NOT to Use AI</h2>
-      <p class='mb-2'>AI is powerful for debugging, but it's not always the right tool. Understanding when NOT to use AI is just as important as knowing when to use it.</p>
+    <section class="content-section">
+        <h2>Learning Objectives Checklist</h2>
+        <p class="mt-1"><strong>Congratulations on completing all six stations of HAP's Learning Lab!</strong> Before you finish, verify you understand the foundations of context engineering:</p>
 
-      <div class='analysis-grid mt-2'>
-        <div class='analysis-point'>
-          <h3>When You're Learning New Concepts</h3>
-          <p><strong>The struggle IS the learning.</strong> When I was first learning about truthy/falsy values in Station 1, I could have asked AI to explain everything. But Prof. Teeters encouraged me to make mistakes, get confused, and work through it myself. That frustration built understanding that no AI explanation could provide. Use AI to verify understanding AFTER you've struggled, not to skip the struggle entirely.</p>
+        <div class="analysis-grid mt-2">
+            <div class="analysis-point">
+                <h3>Understanding Context</h3>
+                <ul class="mt-1">
+                    <li>I can explain the three types of context (Calculated, Implicit, Explicit)</li>
+                    <li>I understand that explicit context is what I control most directly</li>
+                    <li>I know that better context improves AI responses (but doesn't guarantee them)</li>
+                </ul>
+            </div>
+
+            <div class="analysis-point">
+                <h3>The Five Questions Framework</h3>
+                <ul class="mt-1">
+                    <li>I can apply the Five Questions to any prompt</li>
+                    <li>I understand that not every prompt needs all five — complexity determines depth</li>
+                    <li>I can identify when a prompt is missing critical context</li>
+                </ul>
+            </div>
+
+            <div class="analysis-point">
+                <h3>Practical Application</h3>
+                <ul class="mt-1">
+                    <li>I can transform a vague prompt into a context-rich one</li>
+                    <li>I include constraints and requirements in my prompts</li>
+                    <li>I verify AI responses against my actual needs, not just the example</li>
+                </ul>
+            </div>
+
+            <div class="analysis-point">
+                <h3>Knowing the Limits</h3>
+                <ul class="mt-1">
+                    <li>I understand AI's strengths and limitations</li>
+                    <li>I know when NOT to use AI (learning, security, deep understanding)</li>
+                    <li>I take responsibility for code I use, regardless of where it came from</li>
+                </ul>
+            </div>
         </div>
 
-        <div class='analysis-point'>
-          <h3>When Security Is Critical</h3>
-          <p><strong>AI may introduce vulnerabilities it doesn't recognize.</strong> For authentication, authorization, or any code that handles sensitive data, AI suggestions need extra scrutiny. AI might suggest a "clean" solution that's actually insecure. Grace Hopper reminded me: "Security requires paranoia. AI is not paranoid — you must be." For security-critical code, get human review.</p>
+        <div class="hap-note-callout mt-3">
+            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1762699548/hap-celebrating_bljvgl.jpg"
+                alt="HAP celebrating completion of all stations"
+                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
+            <div class="hap-note-content">
+                <h3>Prof. Teeters on Completing All Six Stations</h3>
+                <p><strong>"HAP, you've come so far. You started learning about truthy and falsy values, worked through operators and conditionals, built functions and loops, and now you understand how to communicate effectively with AI."</strong></p>
+                <p class="mt-1">She smiled and continued: "But here's what matters most: you didn't just learn JavaScript control flow. You learned how to learn. You made mistakes, got confused, asked for help, and kept going. Every concept you struggled with taught you something. Every question you learned to ask better made you more effective."</p>
+                <p class="mt-1">"Remember: AI will keep getting more powerful, but the skill of providing good context will always matter. Clear communication helps humans understand you too. The principles you learned here — be specific, include constraints, verify before you trust — these are principles for working with anyone, not just AI. I'm proud of you, HAP." 🟠</p>
+            </div>
         </div>
+    </section>
 
-        <div class='analysis-point'>
-          <h3>When You Need to Understand Your Own Logic</h3>
-          <p><strong>If you don't understand it, you can't maintain it.</strong> Sometimes I have code that I wrote but don't remember how it works. The temptation is to ask AI to "explain and improve" it. But the better path is to trace through it myself, add comments as I understand it, and THEN decide if changes are needed. AI can explain code, but only you can understand YOUR code in YOUR context.</p>
-        </div>
-      </div>
-
-      <div class='warning-box mt-3'>
-        <h3>🟠 Prof. Teeters' Warning About AI and Learning</h3>
-        <p class='mt-1'><strong>"HAP, AI can tell you the answer, but it can't teach you to think. Every time you skip the struggle, you skip the learning. Use AI to accelerate, not to replace your own thinking."</strong></p>
-        <p class='mt-1'>She said this after I asked AI to solve a loop problem I hadn't even tried myself. I got a working answer but couldn't explain how it worked. That's when I learned: AI is for AFTER I've tried, not INSTEAD of trying.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 12: Quick Reference - AI Debugging Tasks
-         Grid showing AI suitability for different tasks
-         ============================================================ -->
-  <section class='content-section'>
-    <h2>Quick Reference: AI Debugging Tasks</h2>
-    <p class='mt-1'>Not every debugging task is equally suitable for AI assistance. This grid shows what to expect:</p>
-
-    <div class='overview-grid mt-2'>
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>✅</span> Syntax Errors</h3>
-        <p class='stat-large'>AI Use: Excellent</p>
-        <p><strong>Review step:</strong> Verify the fix compiles and doesn't change behavior</p>
-      </div>
-
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>✅</span> Explaining Code</h3>
-        <p class='stat-large stat-teal'>AI Use: Excellent</p>
-        <p><strong>Review step:</strong> Verify explanation matches what the code actually does</p>
-      </div>
-
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>⚠️</span> Logic Bugs</h3>
-        <p class='stat-large stat-brown'>AI Use: Good with Context</p>
-        <p><strong>Review step:</strong> Test all edge cases, not just the happy path</p>
-      </div>
-
-      <div class='insight-card'>
-        <h3><span class='insight-icon'>🛑</span> Security Review</h3>
-        <p class='stat-large'>AI Use: Not Recommended</p>
-        <p><strong>Instead:</strong> Get human code review for security-critical code</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-         SECTION 13: Learning Objectives Checklist
-         Final verification and celebration
-         ============================================================ -->
-  <section class='content-section'>
-    <h2>Learning Objectives Checklist</h2>
-    <p class='mt-1'><strong>Congratulations on completing all six stations of HAP's Learning Lab!</strong> Before you finish, verify you've mastered the principles of responsible AI use for debugging:</p>
-
-    <div class='analysis-grid mt-2'>
-      <div class='analysis-point'>
-        <h3>Understanding AI Capabilities</h3>
-        <ul class='mt-1'>
-          <li>I can identify what AI excels at (syntax, explanations, patterns)</li>
-          <li>I can identify what AI struggles with (context, accessibility, security)</li>
-          <li>I understand why AI suggestions need verification</li>
-        </ul>
-      </div>
-
-      <div class='analysis-point'>
-        <h3>Prompt Engineering Skills</h3>
-        <ul class='mt-1'>
-          <li>I can write detailed prompts with context and requirements</li>
-          <li>I include accessibility requirements in every relevant prompt</li>
-          <li>I can refine prompts when AI's first response isn't right</li>
-        </ul>
-      </div>
-
-      <div class='analysis-point'>
-        <h3>Verification Workflow</h3>
-        <ul class='mt-1'>
-          <li>I test AI suggestions with multiple inputs, not just the example</li>
-          <li>I verify keyboard accessibility after any UI changes</li>
-          <li>I can explain WHY a fix works before shipping it</li>
-        </ul>
-      </div>
-
-      <div class='analysis-point'>
-        <h3>Professional Responsibility</h3>
-        <ul class='mt-1'>
-          <li>I understand that I own all code, whether I wrote it or AI did</li>
-          <li>I know when NOT to use AI (learning, security, deep understanding)</li>
-          <li>I keep a debugging log to compound my learning over time</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class='hap-note-callout mt-3'>
-      <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1762699548/hap-celebrating_bljvgl.jpg' alt='HAP celebrating completion of all stations' width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
-      <div class='hap-note-content'>
-        <h3>Prof. Teeters on Completing All Six Stations</h3>
-        <p><strong>"HAP, you've come so far. You started learning about truthy and falsy values, worked through operators and conditionals, built functions and loops, and now you understand how to collaborate with AI responsibly."</strong></p>
-        <p class='mt-1'>She smiled and continued: "But here's what matters most: you didn't just learn JavaScript control flow. You learned how to learn. You made mistakes, got confused, asked for help, and kept going. Every bug you encountered taught you something. Every fix you verified made you more trustworthy as a developer."</p>
-        <p class='mt-1'>"Remember: AI will keep getting more powerful, but the principles you learned here will always matter. Understand before you ship. Verify before you trust. Take responsibility for your code. These aren't just rules for AI — they're rules for being a professional. I'm proud of you, HAP." 🟠</p>
-      </div>
-    </div>
-  </section>
 </StationLayout>
