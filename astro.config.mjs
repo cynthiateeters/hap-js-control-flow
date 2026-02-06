@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: Update this to your deployment URL
   site: 'https://hap-js-control-flow.netlify.app',
   build: {
     assets: 'assets'
