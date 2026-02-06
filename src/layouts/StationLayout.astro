@@ -33,6 +33,8 @@ interface Props {
   nextStationTitle?: string;
   footerReminder?: string;
   labName?: string;
+  demoUrl?: string;
+  demoLabel?: string;
 }
 
 const {
@@ -46,7 +48,9 @@ const {
   ogImage,
   nextStationTitle,
   footerReminder,
-  labName = "Your Learning Lab Topic"
+  labName = "Your Learning Lab Topic",
+  demoUrl,
+  demoLabel
 } = Astro.props;
 
 // Auto-calculate navigation based on station number
@@ -83,5 +87,12 @@ const headerTitle = `Station ${stationNumber}: ${title}`;
   nextStation={nextStation}
   footerReminder={footerReminder}
 >
+  {demoUrl && demoLabel && (
+    <div class="demo-banner">
+      <span class="demo-banner-icon">🔬</span>
+      <span>Try it yourself:</span>
+      <a href={demoUrl} class="demo-banner-link">{demoLabel} →</a>
+    </div>
+  )}
   <slot />
 </MainLayout>
