@@ -47,7 +47,7 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
                         >
                         <button id="test-btn" class="demo-button">Test</button>
                     </div>
-                    <p id="input-hint" class="demo-hint">Tip: Use quotes for strings, no quotes for numbers/keywords</p>
+                    <p id="input-hint" class="demo-hint">Try: <code>"hello"</code>, <code>42</code>, <code>0</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>, <code>""</code>, <code>[]</code></p>
                 </div>
 
                 <!-- Result Display -->
@@ -219,6 +219,15 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
     .result-falsy {
         background: hsl(0, 52%, 95%);
         border: 2px solid hsl(0, 52%, 50%);
+    }
+
+    .result-error {
+        background: hsl(0, 70%, 95%);
+        border: 2px solid hsl(0, 70%, 50%);
+    }
+
+    .result-error .result-text {
+        color: hsl(0, 70%, 40%);
     }
 
     .result-icon {
@@ -421,9 +430,13 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
         // Parse user input
         const trimmed = str.trim();
 
+        if (trimmed === '') {
+            return { value: '', display: '""', explanation: 'An empty string' };
+        }
+
         // Check for quoted strings
-        if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
-            (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+        if ((trimmed.startsWith('"') && trimmed.endsWith('"') && trimmed.length >= 2) ||
+            (trimmed.startsWith("'") && trimmed.endsWith("'") && trimmed.length >= 2)) {
             const stringVal = trimmed.slice(1, -1);
             return { value: stringVal, display: `"${stringVal}"`, explanation: stringVal === '' ? 'An empty string' : `The string "${stringVal}"` };
         }
@@ -445,10 +458,10 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
             return { value: NaN, display: 'NaN', explanation: 'Not a Number' };
         }
         if (trimmed === '[]') {
-            return { value: [], display: '[]', explanation: 'An empty array' };
+            return { value: [], display: '[]', explanation: 'An empty array (truthy!)' };
         }
         if (trimmed === '{}') {
-            return { value: {}, display: '{}', explanation: 'An empty object' };
+            return { value: {}, display: '{}', explanation: 'An empty object (truthy!)' };
         }
 
         // Check for numbers
@@ -457,18 +470,46 @@ HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are pr
             return { value: num, display: trimmed, explanation: `The number ${trimmed}` };
         }
 
-        // Treat as string
-        return { value: trimmed, display: `"${trimmed}"`, explanation: `The string "${trimmed}"` };
+        // Unquoted text = ReferenceError
+        return { value: 'ERROR', display: trimmed, explanation: `ReferenceError: ${trimmed} is not defined` };
     }
 
     function displayResult(value: any, display: string, explanation: string) {
-        const isTruthy = Boolean(value);
-
         if (resultDisplay) {
-            resultDisplay.className = `demo-result ${isTruthy ? 'result-truthy' : 'result-falsy'}`;
-
             // Clear previous content
             resultDisplay.innerHTML = '';
+
+            // Handle ReferenceError case
+            if (value === 'ERROR') {
+                resultDisplay.className = 'demo-result result-error';
+
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'result-icon';
+                iconDiv.textContent = '💥';
+
+                const textDiv = document.createElement('div');
+                textDiv.className = 'result-text';
+                textDiv.textContent = 'ERROR';
+
+                const valueDiv = document.createElement('div');
+                valueDiv.className = 'result-value';
+                const codeEl = document.createElement('code');
+                codeEl.textContent = display;
+                valueDiv.appendChild(codeEl);
+
+                const explanationDiv = document.createElement('div');
+                explanationDiv.className = 'result-explanation';
+                explanationDiv.textContent = explanation;
+
+                resultDisplay.appendChild(iconDiv);
+                resultDisplay.appendChild(textDiv);
+                resultDisplay.appendChild(valueDiv);
+                resultDisplay.appendChild(explanationDiv);
+                return;
+            }
+
+            const isTruthy = Boolean(value);
+            resultDisplay.className = `demo-result ${isTruthy ? 'result-truthy' : 'result-falsy'}`;
 
             // Create elements with textContent for user-derived values (XSS prevention)
             const iconDiv = document.createElement('div');

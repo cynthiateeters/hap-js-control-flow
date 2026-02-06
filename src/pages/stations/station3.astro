@@ -21,83 +21,69 @@ const introContent = `
     <p class="mt-1">Let me show you how to make your code choose ONE path from many options... 🟠</p>
 `;
 ---
+
 <!--
 HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
 HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
 -->
-
-<StationLayout
-    stationNumber={3}
-    title="Making Decisions"
-    subtitle="Conditionals in JavaScript"
-    description="Learn JavaScript conditionals with HAP. Master if, else if, and else to make your code choose between multiple paths."
-    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
-    avatarAlt="HAP studying on his laptop"
-    introContent={introContent}
-    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
-    nextStationTitle="Reusable Code with Functions"
-    footerReminder="Remember: else if stops at the first true condition. Order matters!"
-    labName="JavaScript Control Flow"
->
-
-    <!-- ============================================================
+<StationLayout stationNumber={3} title='Making Decisions' subtitle='Conditionals in JavaScript' description='Learn JavaScript conditionals with HAP. Master if, else if, and else to make your code choose between multiple paths.' avatarImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg' avatarAlt='HAP studying on his laptop' introContent={introContent} ogImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg' nextStationTitle='Reusable Code with Functions' footerReminder='Remember: else if stops at the first true condition. Order matters!' labName='JavaScript Control Flow'>
+  <!-- ============================================================
          SECTION 1: What You'll Learn
          ============================================================ -->
-    <section class="content-section">
-        <h2 class="section-heading-centered">What You'll Learn at This Station</h2>
+  <section class='content-section'>
+    <h2 class='section-heading-centered'>What You'll Learn at This Station</h2>
 
-        <div class="intro-box">
-            <p><strong>HAP's Discovery:</strong> I thought if statements were all the same. Then I learned there are three different structures — and picking the right one makes your code clearer and prevents bugs. The key is understanding when you need ONE path chosen from many.</p>
-        </div>
+    <div class='intro-box'>
+      <p><strong>HAP's Discovery:</strong> I thought if statements were all the same. Then I learned there are three different structures — and picking the right one makes your code clearer and prevents bugs. The key is understanding when you need ONE path chosen from many.</p>
+    </div>
 
-        <div class="overview-grid mt-2">
-            <div class="insight-card">
-                <h3><span class="insight-icon">1️⃣</span> Single Branch (if)</h3>
-                <p class="stat-large">if</p>
-                <p>Do something only when a condition is true. If it's false, nothing happens — code continues below.</p>
-            </div>
+    <div class='overview-grid mt-2'>
+      <div class='insight-card'>
+        <h3><span class='insight-icon'>1️⃣</span> Single Branch</h3>
+        <p class='stat-large'>if</p>
+        <p>Do something only when a condition is true. If it's false, nothing happens — code continues below.</p>
+      </div>
 
-            <div class="insight-card">
-                <h3><span class="insight-icon">2️⃣</span> Two Branches (if/else)</h3>
-                <p class="stat-large stat-teal">if/else</p>
-                <p>Do one thing if true, a different thing if false. Exactly one of the two branches always runs.</p>
-            </div>
+      <div class='insight-card'>
+        <h3><span class='insight-icon'>2️⃣</span> Two Branches</h3>
+        <p class='stat-large stat-teal'>if/else</p>
+        <p>Do one thing if true, a different thing if false. Exactly one of the two branches always runs.</p>
+      </div>
 
-            <div class="insight-card">
-                <h3><span class="insight-icon">🔀</span> Many Branches (else if)</h3>
-                <p class="stat-large stat-brown">else if</p>
-                <p>Check multiple conditions in order. The FIRST true condition wins — all others are skipped.</p>
-            </div>
-        </div>
+      <div class='insight-card'>
+        <h3><span class='insight-icon'>🔀</span> Many Branches</h3>
+        <p class='stat-large stat-brown'>else if</p>
+        <p>Check multiple conditions in order. The FIRST true condition wins — all others are skipped.</p>
+      </div>
+    </div>
 
-        <div class="hap-note-callout">
-            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg"
-                alt="HAP surrounded by tangled code with an 'oops' expression"
-                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
-            <div class="hap-note-content">
-                <h3>HAP's Confession:</h3>
-                <ul>
-                    <li>I wrote separate if statements instead of else if — my robot got classified as BOTH "Warm" AND "Optimal" at the same time!</li>
-                    <li>I put my conditions in the wrong order — checked <code>> 60</code> before <code>> 90</code> and everything was "Optimal."</li>
-                    <li>I forgot the final else — when <code>coreTemperature</code> was exactly 60, nothing happened and <code>temperatureStatus</code> was undefined.</li>
-                    <li>I used <code>=</code> instead of <code>===</code> in my condition — assigned instead of compared and broke everything!</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <div class='hap-note-callout'>
+      <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg' alt="HAP surrounded by tangled code with an 'oops' expression" width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
+      <div class='hap-note-content'>
+        <h3>HAP's Confession:</h3>
+        <ul>
+          <li>I wrote separate if statements instead of else if — my robot got classified as BOTH "Warm" AND "Optimal" at the same time!</li>
+          <li>I put my conditions in the wrong order — checked <code>> 60</code> before <code>> 90</code> and everything was "Optimal."</li>
+          <li>I forgot the final else — when <code>coreTemperature</code> was exactly 60, nothing happened and <code>temperatureStatus</code> was undefined.</li>
+          <li>I used <code>=</code> instead of <code>===</code> in my condition — assigned instead of compared and broke everything!</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 2: The Three Conditional Structures
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>The Three Conditional Structures</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>The Three Conditional Structures</h2>
 
-            <p class="mb-2">JavaScript gives you three ways to make decisions. Each one is right for different situations:</p>
+      <p class='mb-2'>JavaScript gives you three ways to make decisions. Each one is right for different situations:</p>
 
-            <div class="prompt-box">
-                <div class="prompt-label">Structure 1: Single Branch (if)</div>
-                <CodeBlock code={`// Use when: You want to do something only if a condition is true
+      <div class='prompt-box'>
+        <div class='prompt-label'>Structure 1: Single Branch (if)</div>
+        <CodeBlock
+          code={`// Use when: You want to do something only if a condition is true
 // If false: Nothing happens, code continues below
 
 let energyLevel = 15;
@@ -107,13 +93,16 @@ if (energyLevel < 20) {
 }
 
 // Code continues here regardless
-console.log("Status check complete.");`} lang="javascript" />
-                <p class="code-comment mt-1">The warning only appears when energy is low. Otherwise, JavaScript skips the block entirely.</p>
-            </div>
+console.log("Status check complete.");`}
+          lang='javascript'
+        />
+        <p class='code-comment mt-1'>The warning only appears when energy is low. Otherwise, JavaScript skips the block entirely.</p>
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">Structure 2: Two Branches (if/else)</div>
-                <CodeBlock code={`// Use when: You need to handle both true AND false cases
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>Structure 2: Two Branches (if/else)</div>
+        <CodeBlock
+          code={`// Use when: You need to handle both true AND false cases
 // Guarantee: Exactly ONE of the two branches always runs
 
 let isOnline = true;
@@ -124,13 +113,16 @@ if (isOnline) {
     console.log("Robot is offline. Please reconnect.");
 }
 
-// One of those messages will ALWAYS appear`} lang="javascript" />
-                <p class="code-comment mt-1">When you need to handle both cases — success and failure, yes and no — use if/else.</p>
-            </div>
+// One of those messages will ALWAYS appear`}
+          lang='javascript'
+        />
+        <p class='code-comment mt-1'>When you need to handle both cases — success and failure, yes and no — use if/else.</p>
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">Structure 3: Many Branches (if/else if/else)</div>
-                <CodeBlock code={`// Use when: You have multiple exclusive categories
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>Structure 3: Many Branches (if/else if/else)</div>
+        <CodeBlock
+          code={`// Use when: You have multiple exclusive categories
 // Guarantee: Exactly ONE branch runs (the first true one, or else)
 
 let coreTemperature = 85;
@@ -146,36 +138,39 @@ if (coreTemperature > 90) {
     temperatureStatus = "Cool";
 }
 
-console.log(temperatureStatus);  // "Warm" (only one classification!)`} lang="javascript" />
-                <p class="code-comment mt-1">With 85 degrees, JavaScript checks each condition in order. The first true condition (<code>> 75</code>) wins, and all remaining conditions are skipped.</p>
-            </div>
-        </div>
-    </section>
+console.log(temperatureStatus);  // "Warm" (only one classification!)`}
+          lang='javascript'
+        />
+        <p class='code-comment mt-1'>With 85 degrees, JavaScript checks each condition in order. The first true condition (<code>> 75</code>) wins, and all remaining conditions are skipped.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 3: Why Order Matters
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>Why Order Matters</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>Why Order Matters</h2>
 
-            <p class="mb-2">This is where I made my biggest mistake. Watch what happens when you put conditions in the wrong order:</p>
+      <p class='mb-2'>This is where I made my biggest mistake. Watch what happens when you put conditions in the wrong order:</p>
 
-            <div class="analysis-grid">
-                <div class="analysis-point">
-                    <h3>❌ Wrong Order</h3>
-                    <p>If you check <code>> 60</code> first, a temperature of 95 matches immediately — it never reaches the <code>> 90</code> check!</p>
-                </div>
+      <div class='analysis-grid'>
+        <div class='analysis-point'>
+          <h3>❌ Wrong Order</h3>
+          <p>If you check <code>> 60</code> first, a temperature of 95 matches immediately — it never reaches the <code>> 90</code> check!</p>
+        </div>
 
-                <div class="analysis-point">
-                    <h3>✅ Correct Order</h3>
-                    <p>Check from most specific (highest) to least specific (lowest). Check <code>> 90</code> first, then <code>> 75</code>, then <code>> 60</code>.</p>
-                </div>
-            </div>
+        <div class='analysis-point'>
+          <h3>✅ Correct Order</h3>
+          <p>Check from most specific (highest) to least specific (lowest). Check <code>> 90</code> first, then <code>> 75</code>, then <code>> 60</code>.</p>
+        </div>
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">Wrong Order — Everything is "Optimal"!</div>
-                <CodeBlock code={`let coreTemperature = 95;
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>Wrong Order — Everything is "Optimal"!</div>
+        <CodeBlock
+          code={`let coreTemperature = 95;
 let status;
 
 // WRONG ORDER - most values will be "Optimal"!
@@ -189,33 +184,34 @@ if (coreTemperature > 60) {
     status = "Cool";
 }
 
-console.log(status);  // "Optimal" — WRONG! 95 should be OVERHEATING`} lang="javascript" />
-            </div>
+console.log(status);  // "Optimal" — WRONG! 95 should be OVERHEATING`}
+          lang='javascript'
+        />
+      </div>
 
-            <div class="hap-note-callout mt-2">
-                <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230522/hap-thumbs-up_s4si0j.jpg"
-                    alt="HAP giving a confident thumbs up"
-                    width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
-                <div class="hap-note-content">
-                    <h3>🟠 The Rule I Follow:</h3>
-                    <p>For numeric ranges, always check from <strong>most extreme to least extreme</strong>. Check the highest thresholds first when going up, or lowest thresholds first when going down. This ensures each value lands in its correct category.</p>
-                </div>
-            </div>
+      <div class='hap-note-callout mt-2'>
+        <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230522/hap-thumbs-up_s4si0j.jpg' alt='HAP giving a confident thumbs up' width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
+        <div class='hap-note-content'>
+          <h3>🟠 The Rule I Follow:</h3>
+          <p>For numeric ranges, always check from <strong>most extreme to least extreme</strong>. Check the highest thresholds first when going up, or lowest thresholds first when going down. This ensures each value lands in its correct category.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 4: Separate ifs vs else if
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>Separate ifs vs. else if — They're Different!</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>Separate ifs vs. else if — They're Different!</h2>
 
-            <p class="mb-2">This was my original bug. I thought these two code blocks were the same. They're not!</p>
+      <p class='mb-2'>This was my original bug. I thought these two code blocks were the same. They're not!</p>
 
-            <div class="prompt-box">
-                <div class="prompt-label">Separate if Statements — ALL Can Run</div>
-                <CodeBlock code={`let coreTemperature = 85;
+      <div class='prompt-box'>
+        <div class='prompt-label'>Separate if Statements — ALL Can Run</div>
+        <CodeBlock
+          code={`let coreTemperature = 85;
 
 // Each if is INDEPENDENT — all conditions are checked!
 if (coreTemperature > 60) {
@@ -228,12 +224,15 @@ if (coreTemperature > 90) {
     console.log("Above 90");  // Doesn't run (85 is not > 90)
 }
 
-// Output: "Above 60" AND "Above 75" — two messages!`} lang="javascript" />
-            </div>
+// Output: "Above 60" AND "Above 75" — two messages!`}
+          lang='javascript'
+        />
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">else if Chain — Only ONE Runs</div>
-                <CodeBlock code={`let coreTemperature = 85;
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>else if Chain — Only ONE Runs</div>
+        <CodeBlock
+          code={`let coreTemperature = 85;
 
 // else if is a CHAIN — first true condition wins!
 if (coreTemperature > 90) {
@@ -246,74 +245,77 @@ if (coreTemperature > 90) {
     console.log("Cool");       // Skipped!
 }
 
-// Output: "Warm" — only one message!`} lang="javascript" />
-            </div>
+// Output: "Warm" — only one message!`}
+          lang='javascript'
+        />
+      </div>
 
-            <div class="hap-note-callout mt-2">
-                <div class="hap-note-content">
-                    <h3>🟠 When to Use Which:</h3>
-                    <p><strong>Separate ifs:</strong> When conditions are NOT mutually exclusive — multiple can be true at once (like checking multiple features).<br>
-                    <strong>else if chain:</strong> When you want exactly ONE outcome from multiple possibilities (like classification or grading).</p>
-                </div>
-            </div>
+      <div class='hap-note-callout mt-2'>
+        <div class='hap-note-content'>
+          <h3>🟠 When to Use Which:</h3>
+          <p>
+            <strong>Separate ifs:</strong> When conditions are NOT mutually exclusive — multiple can be true at once (like checking multiple features).<br />
+            <strong>else if chain:</strong> When you want exactly ONE outcome from multiple possibilities (like classification or grading).
+          </p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 5: Try the Demo
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>Try the Status Classifier Demo</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>Try the Status Classifier Demo</h2>
 
-            <p class="mb-2">I built an interactive tool where you can adjust the temperature slider and watch which branch of the if/else if/else chain executes. The active branch lights up!</p>
+      <p class='mb-2'>I built an interactive tool where you can adjust the temperature slider and watch which branch of the if/else if/else chain executes. The active branch lights up!</p>
 
-            <div class="intro-box">
-                <p><strong>🔬 Status Classifier:</strong> Drag the temperature slider and watch the code panel highlight which branch runs. See how the classification changes as you move through different temperature ranges!</p>
-                <p class="mt-1"><a href="/demos/status-classifier/" class="demo-link">→ Launch the Status Classifier Demo</a></p>
-            </div>
-        </div>
-    </section>
+      <div class='intro-box'>
+        <p><strong>🔬 Status Classifier:</strong> Drag the temperature slider and watch the code panel highlight which branch runs. See how the classification changes as you move through different temperature ranges!</p>
+        <p class='mt-1'><a href='/demos/status-classifier/' class='demo-link'>→ Launch the Status Classifier Demo</a></p>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION: Quick Reference
          ============================================================ -->
-    <section class="content-section">
-        <div class="tips-container">
-            <h2 class="section-heading-centered">🎓 Conditionals Quick Reference</h2>
+  <section class='content-section'>
+    <div class='tips-container'>
+      <h2 class='section-heading-centered'>🎓 Conditionals Quick Reference</h2>
 
-            <div class="tip-card">
-                <div class="tip-number">1</div>
-                <div>
-                    <h3>Pick the Right Structure</h3>
-                    <p><code>if</code> alone for optional actions. <code>if/else</code> for two-way choices. <code>if/else if/else</code> for multiple categories.</p>
-                </div>
-            </div>
-
-            <div class="tip-card">
-                <div class="tip-number">2</div>
-                <div>
-                    <h3>Order Matters in else if Chains</h3>
-                    <p>For numeric ranges, check from most extreme to least extreme. The first true condition wins!</p>
-                </div>
-            </div>
-
-            <div class="tip-card">
-                <div class="tip-number">3</div>
-                <div>
-                    <h3>Always Include a Final else</h3>
-                    <p>The final <code>else</code> catches anything that doesn't match your conditions. It prevents undefined results.</p>
-                </div>
-            </div>
-
-            <div class="tip-card">
-                <div class="tip-number">4</div>
-                <div>
-                    <h3>Separate ifs vs. else if</h3>
-                    <p>Separate <code>if</code>s are independent — all can run. <code>else if</code> chains are exclusive — only one runs.</p>
-                </div>
-            </div>
+      <div class='tip-card'>
+        <div class='tip-number'>1</div>
+        <div>
+          <h3>Pick the Right Structure</h3>
+          <p><code>if</code> alone for optional actions. <code>if/else</code> for two-way choices. <code>if/else if/else</code> for multiple categories.</p>
         </div>
-    </section>
+      </div>
 
+      <div class='tip-card'>
+        <div class='tip-number'>2</div>
+        <div>
+          <h3>Order Matters in else if Chains</h3>
+          <p>For numeric ranges, check from most extreme to least extreme. The first true condition wins!</p>
+        </div>
+      </div>
+
+      <div class='tip-card'>
+        <div class='tip-number'>3</div>
+        <div>
+          <h3>Always Include a Final else</h3>
+          <p>The final <code>else</code> catches anything that doesn't match your conditions. It prevents undefined results.</p>
+        </div>
+      </div>
+
+      <div class='tip-card'>
+        <div class='tip-number'>4</div>
+        <div>
+          <h3>Separate ifs vs. else if</h3>
+          <p>Separate <code>if</code>s are independent — all can run. <code>else if</code> chains are exclusive — only one runs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </StationLayout>

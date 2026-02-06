@@ -21,105 +21,91 @@ const introContent = `
     <p class="mt-1">Let me show you how they transformed my code... 🟠</p>
 `;
 ---
+
 <!--
 HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
 HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
 -->
-
-<StationLayout
-    stationNumber={2}
-    title="Combining Conditions"
-    subtitle="Logical Operators in JavaScript"
-    description="Learn JavaScript logical operators with HAP. Master AND (&&), OR (||), and NOT (!) operators plus short-circuit evaluation patterns."
-    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg"
-    avatarAlt="HAP studying on his laptop"
-    introContent={introContent}
-    ogImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg"
-    nextStationTitle="Making Decisions"
-    footerReminder="Remember: && needs both true, || needs one true, and ! flips the value!"
-    labName="JavaScript Control Flow"
->
-
-    <!-- ============================================================
+<StationLayout stationNumber={2} title='Combining Conditions' subtitle='Logical Operators in JavaScript' description='Learn JavaScript logical operators with HAP. Master AND (&&), OR (||), and NOT (!) operators plus short-circuit evaluation patterns.' avatarImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1759495998/hap-laptop_xiewar.jpg' avatarAlt='HAP studying on his laptop' introContent={introContent} ogImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1759495998/hap-laptop_xiewar.jpg' nextStationTitle='Making Decisions' footerReminder='Remember: && needs both true, || needs one true, and ! flips the value!' labName='JavaScript Control Flow'>
+  <!-- ============================================================
          SECTION 1: What You'll Learn
          ============================================================ -->
-    <section class="content-section">
-        <h2 class="section-heading-centered">What You'll Learn at This Station</h2>
+  <section class='content-section'>
+    <h2 class='section-heading-centered'>What You'll Learn at This Station</h2>
 
-        <div class="intro-box">
-            <p><strong>HAP's Discovery:</strong> I used to write separate if statements for everything. Then I learned that <code>&&</code>, <code>||</code>, and <code>!</code> can combine conditions into a single, readable expression. Even better — JavaScript is smart enough to stop checking early when it already knows the answer!</p>
-        </div>
+    <div class='intro-box'>
+      <p><strong>HAP's Discovery:</strong> I used to write separate if statements for everything. Then I learned that <code>&&</code>, <code>||</code>, and <code>!</code> can combine conditions into a single, readable expression. Even better — JavaScript is smart enough to stop checking early when it already knows the answer!</p>
+    </div>
 
-        <div class="overview-grid mt-2">
-            <div class="insight-card">
-                <h3><span class="insight-icon">🔗</span> AND (&&)</h3>
-                <p class="stat-large">&&</p>
-                <p>Both conditions must be true. If the first is false, JavaScript doesn't even check the second — it already knows the answer is false.</p>
-            </div>
+    <div class='overview-grid mt-2'>
+      <div class='insight-card'>
+        <h3><span class='insight-icon'>🔗</span> AND</h3>
+        <p class='stat-large'>&&</p>
+        <p>Both conditions must be true. If the first is false, JavaScript doesn't even check the second — it already knows the answer is false.</p>
+      </div>
 
-            <div class="insight-card">
-                <h3><span class="insight-icon">⚡</span> OR (||)</h3>
-                <p class="stat-large stat-teal">||</p>
-                <p>At least one condition must be true. If the first is true, JavaScript stops there — it already knows the answer is true.</p>
-            </div>
+      <div class='insight-card'>
+        <h3><span class='insight-icon'>⚡</span> OR</h3>
+        <p class='stat-large stat-teal'>||</p>
+        <p>At least one condition must be true. If the first is true, JavaScript stops there — it already knows the answer is true.</p>
+      </div>
 
-            <div class="insight-card">
-                <h3><span class="insight-icon">🔄</span> NOT (!)</h3>
-                <p class="stat-large stat-brown">!</p>
-                <p>Flips true to false and false to true. Put it before any value to get its opposite boolean.</p>
-            </div>
-        </div>
+      <div class='insight-card'>
+        <h3><span class='insight-icon'>🔄</span> NOT</h3>
+        <p class='stat-large stat-brown'>!</p>
+        <p>Flips true to false and false to true. Put it before any value to get its opposite boolean.</p>
+      </div>
+    </div>
 
-        <div class="hap-note-callout">
-            <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg"
-                alt="HAP surrounded by tangled code with an 'oops' expression"
-                width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
-            <div class="hap-note-content">
-                <h3>HAP's Confession:</h3>
-                <ul>
-                    <li>I wrote nested if statements instead of using <code>&&</code> — my code was 10 lines when it could have been 2!</li>
-                    <li>I forgot that <code>||</code> returns the first truthy value, not just <code>true</code>/<code>false</code> — <code>nickname || robotName</code> blew my mind.</li>
-                    <li>I put the expensive function call BEFORE the simple check in my <code>&&</code> chain — Prof. Teeters showed me why order matters for performance.</li>
-                    <li>I used <code>!</code> on the wrong thing and inverted my entire condition — spent an hour debugging backwards logic!</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <div class='hap-note-callout'>
+      <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230414/hap-broke-things_qtbum4.jpg' alt="HAP surrounded by tangled code with an 'oops' expression" width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
+      <div class='hap-note-content'>
+        <h3>HAP's Confession:</h3>
+        <ul>
+          <li>I wrote nested if statements instead of using <code>&&</code> — my code was 10 lines when it could have been 2!</li>
+          <li>I forgot that <code>||</code> returns the first truthy value, not just <code>true</code>/<code>false</code> — <code>nickname || robotName</code> blew my mind.</li>
+          <li>I put the expensive function call BEFORE the simple check in my <code>&&</code> chain — Prof. Teeters showed me why order matters for performance.</li>
+          <li>I used <code>!</code> on the wrong thing and inverted my entire condition — spent an hour debugging backwards logic!</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 2: The Three Logical Operators
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>The Three Logical Operators</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>The Three Logical Operators</h2>
 
-            <p class="mb-2">These three operators let me combine any conditions I want. Here's how each one works with my Robot ID Card:</p>
+      <p class='mb-2'>These three operators let me combine any conditions I want. Here's how each one works with my Robot ID Card:</p>
 
-            <div class="analysis-grid">
-                <div class="analysis-point">
-                    <h3>AND (<code>&&</code>) — Both Must Be True</h3>
-                    <p>Use <code>&&</code> when you need ALL conditions to be true. If any condition is false, the whole expression is false.</p>
-                </div>
+      <div class='analysis-grid'>
+        <div class='analysis-point'>
+          <h3>AND (<code>&&</code>) — Both Must Be True</h3>
+          <p>Use <code>&&</code> when you need ALL conditions to be true. If any condition is false, the whole expression is false.</p>
+        </div>
 
-                <div class="analysis-point">
-                    <h3>OR (<code>||</code>) — One Must Be True</h3>
-                    <p>Use <code>||</code> when you need AT LEAST ONE condition to be true. If any condition is true, the whole expression is true.</p>
-                </div>
+        <div class='analysis-point'>
+          <h3>OR (<code>||</code>) — One Must Be True</h3>
+          <p>Use <code>||</code> when you need AT LEAST ONE condition to be true. If any condition is true, the whole expression is true.</p>
+        </div>
 
-                <div class="analysis-point">
-                    <h3>NOT (<code>!</code>) — Flip the Value</h3>
-                    <p>Use <code>!</code> to invert a boolean. <code>!true</code> becomes <code>false</code>, and <code>!false</code> becomes <code>true</code>.</p>
-                </div>
+        <div class='analysis-point'>
+          <h3>NOT (<code>!</code>) — Flip the Value</h3>
+          <p>Use <code>!</code> to invert a boolean. <code>!true</code> becomes <code>false</code>, and <code>!false</code> becomes <code>true</code>.</p>
+        </div>
 
-                <div class="analysis-point">
-                    <h3>Combining Them</h3>
-                    <p>You can mix operators! <code>isOnline && !isCharging</code> means "online AND not currently charging."</p>
-                </div>
-            </div>
+        <div class='analysis-point'>
+          <h3>Combining Them</h3>
+          <p>You can mix operators! <code>isOnline && !isCharging</code> means "online AND not currently charging."</p>
+        </div>
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">Robot ID Card — Logical Operators in Action:</div>
-                <CodeBlock code={`// My Robot ID Card variables
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>Robot ID Card — Logical Operators in Action:</div>
+        <CodeBlock
+          code={`// My Robot ID Card variables
 let isOnline = true;
 let isCharging = false;
 let energyLevel = 75;
@@ -138,33 +124,34 @@ console.log(isOffline);  // false (flipped from true)
 
 // Combining operators
 const readyForHardWork = isOnline && !isCharging && energyLevel > 50;
-console.log(readyForHardWork);  // true (all three conditions met!)`} lang="javascript" />
-            </div>
-        </div>
-    </section>
+console.log(readyForHardWork);  // true (all three conditions met!)`}
+          lang='javascript'
+        />
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 3: Short-Circuit Evaluation
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>Short-Circuit Evaluation</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>Short-Circuit Evaluation</h2>
 
-            <p class="mb-2">This is where it gets clever. Prof. Teeters explained that JavaScript is "lazy in a good way" — it stops evaluating as soon as it knows the answer.</p>
+      <p class='mb-2'>This is where it gets clever. Prof. Teeters explained that JavaScript is "lazy in a good way" — it stops evaluating as soon as it knows the answer.</p>
 
-            <div class="hap-note-callout">
-                <img src="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230331/hap-brain-explodes_wu0or8.jpg"
-                    alt="HAP having a mind-blowing realization"
-                    width="150" height="150" class="hap-note-image" decoding="async" loading="lazy">
-                <div class="hap-note-content">
-                    <h3>🟠 Prof. Teeters' Insight:</h3>
-                    <p>"HAP, JavaScript is lazy in a good way. With AND, it stops at the first false because it already knows the answer can't be true. With OR, it stops at the first true because it already knows the answer is true. This is called <strong>short-circuit evaluation</strong>."</p>
-                </div>
-            </div>
+      <div class='hap-note-callout'>
+        <img src='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_150,c_limit/v1763230331/hap-brain-explodes_wu0or8.jpg' alt='HAP having a mind-blowing realization' width='150' height='150' class='hap-note-image' decoding='async' loading='lazy' />
+        <div class='hap-note-content'>
+          <h3>🟠 Prof. Teeters' Insight:</h3>
+          <p>"HAP, JavaScript is lazy in a good way. With AND, it stops at the first false because it already knows the answer can't be true. With OR, it stops at the first true because it already knows the answer is true. This is called <strong>short-circuit evaluation</strong>."</p>
+        </div>
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">Short-Circuit in Action:</div>
-                <CodeBlock code={`// AND (&&) short-circuits at first FALSE
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>Short-Circuit in Action:</div>
+        <CodeBlock
+          code={`// AND (&&) short-circuits at first FALSE
 let isOnline = false;
 let energyLevel = 100;
 
@@ -180,24 +167,27 @@ let hasBackupPower = false;
 // JavaScript checks hasMainPower first — it's true!
 // It never checks hasBackupPower because the answer is already true
 const hasPower = hasMainPower || hasBackupPower;
-console.log(hasPower);  // true (stopped at hasMainPower)`} lang="javascript" />
-                <p class="code-comment mt-1">This matters for performance! Put simple checks before expensive ones, and JavaScript might skip the slow stuff entirely.</p>
-            </div>
-        </div>
-    </section>
+console.log(hasPower);  // true (stopped at hasMainPower)`}
+          lang='javascript'
+        />
+        <p class='code-comment mt-1'>This matters for performance! Put simple checks before expensive ones, and JavaScript might skip the slow stuff entirely.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 4: Real-World Patterns
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>Real-World Patterns I Use All the Time</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>Real-World Patterns I Use All the Time</h2>
 
-            <p class="mb-2">Short-circuit evaluation isn't just about speed — it enables some really useful coding patterns:</p>
+      <p class='mb-2'>Short-circuit evaluation isn't just about speed — it enables some really useful coding patterns:</p>
 
-            <div class="prompt-box">
-                <div class="prompt-label">Pattern 1: Default Values with ||</div>
-                <CodeBlock code={`// Remember: nickname is "" (empty string, falsy)
+      <div class='prompt-box'>
+        <div class='prompt-label'>Pattern 1: Default Values with ||</div>
+        <CodeBlock
+          code={`// Remember: nickname is "" (empty string, falsy)
 let nickname = "";
 let robotName = "HyBit A. ProtoBot";
 
@@ -208,13 +198,16 @@ console.log(displayName);  // "HyBit A. ProtoBot"
 // If nickname had a value, it would use that
 nickname = "HAP";
 const displayName2 = nickname || robotName;
-console.log(displayName2);  // "HAP"`} lang="javascript" />
-                <p class="code-comment mt-1">The <code>||</code> operator returns the first truthy value it finds. Perfect for default values!</p>
-            </div>
+console.log(displayName2);  // "HAP"`}
+          lang='javascript'
+        />
+        <p class='code-comment mt-1'>The <code>||</code> operator returns the first truthy value it finds. Perfect for default values!</p>
+      </div>
 
-            <div class="prompt-box mt-2">
-                <div class="prompt-label">Pattern 2: Guard Clauses with &&</div>
-                <CodeBlock code={`// Only run the function if we're online
+      <div class='prompt-box mt-2'>
+        <div class='prompt-label'>Pattern 2: Guard Clauses with &&</div>
+        <CodeBlock
+          code={`// Only run the function if we're online
 function doTask() {
     console.log("Task completed!");
 }
@@ -227,74 +220,75 @@ let isOnline = true;
 isOnline && doTask();  // "Task completed!"
 
 isOnline = false;
-isOnline && doTask();  // Nothing happens — JavaScript stopped at isOnline`} lang="javascript" />
-                <p class="code-comment mt-1">The <code>&&</code> guard pattern is a compact way to conditionally run code. But be careful — it can make code harder to read if overused!</p>
-            </div>
+isOnline && doTask();  // Nothing happens — JavaScript stopped at isOnline`}
+          lang='javascript'
+        />
+        <p class='code-comment mt-1'>The <code>&&</code> guard pattern is a compact way to conditionally run code. But be careful — it can make code harder to read if overused!</p>
+      </div>
 
-            <div class="hap-note-callout mt-2">
-                <div class="hap-note-content">
-                    <h3>🟠 HAP's Tip:</h3>
-                    <p>I love these patterns, but Prof. Teeters reminded me: "Clever code isn't always clear code." For complex conditions, sometimes an <code>if</code> statement is more readable than a chain of <code>&&</code> and <code>||</code>. We'll explore that in Station 3!</p>
-                </div>
-            </div>
+      <div class='hap-note-callout mt-2'>
+        <div class='hap-note-content'>
+          <h3>🟠 HAP's Tip:</h3>
+          <p>I love these patterns, but Prof. Teeters reminded me: "Clever code isn't always clear code." For complex conditions, sometimes an <code>if</code> statement is more readable than a chain of <code>&&</code> and <code>||</code>. We'll explore that in Station 3!</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION 5: Try the Demo
          ============================================================ -->
-    <section class="content-section">
-        <div class="topic-section">
-            <h2>Try the Condition Builder Demo</h2>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <h2>Try the Condition Builder Demo</h2>
 
-            <p class="mb-2">I built an interactive tool where you can toggle switches and watch compound conditions update in real-time. It really helped me visualize short-circuit behavior!</p>
+      <p class='mb-2'>I built an interactive tool where you can toggle switches and watch compound conditions update in real-time. It really helped me visualize short-circuit behavior!</p>
 
-            <div class="intro-box">
-                <p><strong>🔬 Condition Builder:</strong> Flip toggles for <code>isOnline</code> and <code>isCharging</code>, adjust the <code>energyLevel</code> slider, and watch how compound conditions change. See which parts of each expression actually get evaluated!</p>
-                <p class="mt-1"><a href="/demos/condition-builder/" class="demo-link">→ Launch the Condition Builder Demo</a></p>
-            </div>
-        </div>
-    </section>
+      <div class='intro-box'>
+        <p><strong>🔬 Condition Builder:</strong> Flip toggles for <code>isOnline</code> and <code>isCharging</code>, adjust the <code>energyLevel</code> slider, and watch how compound conditions change. See which parts of each expression actually get evaluated!</p>
+        <p class='mt-1'><a href='/demos/condition-builder/' class='demo-link'>→ Launch the Condition Builder Demo</a></p>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
+  <!-- ============================================================
          SECTION: Quick Reference
          ============================================================ -->
-    <section class="content-section">
-        <div class="tips-container">
-            <h2 class="section-heading-centered">🎓 Logical Operators Quick Reference</h2>
+  <section class='content-section'>
+    <div class='tips-container'>
+      <h2 class='section-heading-centered'>🎓 Logical Operators Quick Reference</h2>
 
-            <div class="tip-card">
-                <div class="tip-number">1</div>
-                <div>
-                    <h3>AND (&&) — Both Must Be True</h3>
-                    <p><code>a && b</code> is true only when BOTH <code>a</code> and <code>b</code> are truthy. Stops at the first false.</p>
-                </div>
-            </div>
-
-            <div class="tip-card">
-                <div class="tip-number">2</div>
-                <div>
-                    <h3>OR (||) — One Must Be True</h3>
-                    <p><code>a || b</code> is true when AT LEAST ONE is truthy. Stops at the first true. Great for default values!</p>
-                </div>
-            </div>
-
-            <div class="tip-card">
-                <div class="tip-number">3</div>
-                <div>
-                    <h3>NOT (!) — Flip It</h3>
-                    <p><code>!a</code> returns the opposite boolean. <code>!true</code> is <code>false</code>, <code>!false</code> is <code>true</code>.</p>
-                </div>
-            </div>
-
-            <div class="tip-card">
-                <div class="tip-number">4</div>
-                <div>
-                    <h3>Order Matters for Performance</h3>
-                    <p>Put cheap/likely-to-fail checks first in <code>&&</code> chains. Put cheap/likely-to-succeed checks first in <code>||</code> chains.</p>
-                </div>
-            </div>
+      <div class='tip-card'>
+        <div class='tip-number'>1</div>
+        <div>
+          <h3>AND (&&) — Both Must Be True</h3>
+          <p><code>a && b</code> is true only when BOTH <code>a</code> and <code>b</code> are truthy. Stops at the first false.</p>
         </div>
-    </section>
+      </div>
 
+      <div class='tip-card'>
+        <div class='tip-number'>2</div>
+        <div>
+          <h3>OR (||) — One Must Be True</h3>
+          <p><code>a || b</code> is true when AT LEAST ONE is truthy. Stops at the first true. Great for default values!</p>
+        </div>
+      </div>
+
+      <div class='tip-card'>
+        <div class='tip-number'>3</div>
+        <div>
+          <h3>NOT (!) — Flip It</h3>
+          <p><code>!a</code> returns the opposite boolean. <code>!true</code> is <code>false</code>, <code>!false</code> is <code>true</code>.</p>
+        </div>
+      </div>
+
+      <div class='tip-card'>
+        <div class='tip-number'>4</div>
+        <div>
+          <h3>Order Matters for Performance</h3>
+          <p>Put cheap/likely-to-fail checks first in <code>&&</code> chains. Put cheap/likely-to-succeed checks first in <code>||</code> chains.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </StationLayout>

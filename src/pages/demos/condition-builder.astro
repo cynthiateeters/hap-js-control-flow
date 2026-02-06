@@ -12,755 +12,848 @@ const introContent = `
     <p><strong>Build compound conditions!</strong> Toggle the switches and adjust the slider to see how JavaScript evaluates <code>&&</code>, <code>||</code>, and <code>!</code> operators. Watch the short-circuit behavior in action!</p>
 `;
 ---
+
 <!--
 HAP Educational Content © 2026 Cynthia Teeters. All rights reserved.
 HyBit A. ProtoBot (HAP) character and the apprentice learning methodology are proprietary educational innovations.
 -->
+<MainLayout title="Condition Builder | HAP's Learning Lab" description='Interactive demo to explore JavaScript logical operators. Build compound conditions with AND, OR, and NOT operators.' headerTitle='Condition Builder' headerSubtitle='Station 2 Demo' avatarImage='https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1763230817/hap-scientist_safwtg.jpg' avatarAlt='HAP in scientist mode with lab equipment' introContent={introContent} showNavigation={false} footerReminder='Remember: && stops at first false, || stops at first true!'>
+  <section class='content-section'>
+    <div class='topic-section'>
+      <!-- Controls Section -->
+      <div class='demo-container'>
+        <h2>Robot ID Card Controls</h2>
 
-<MainLayout
-    title="Condition Builder | HAP's Learning Lab"
-    description="Interactive demo to explore JavaScript logical operators. Build compound conditions with AND, OR, and NOT operators."
-    headerTitle="Condition Builder"
-    headerSubtitle="Station 2 Demo"
-    avatarImage="https://res.cloudinary.com/cynthia-teeters/image/upload/f_auto,q_auto,w_200,c_limit/v1763230817/hap-scientist_safwtg.jpg"
-    avatarAlt="HAP in scientist mode with lab equipment"
-    introContent={introContent}
-    showNavigation={false}
-    footerReminder="Remember: && stops at first false, || stops at first true!"
->
+        <div class='controls-grid'>
+          <!-- isOnline Toggle -->
+          <div class='control-item'>
+            <label class='toggle-label'>
+              <span class='toggle-text'><code>isOnline</code></span>
+              <div class='toggle-switch'>
+                <input type='checkbox' id='is-online' checked />
+                <span class='toggle-slider'></span>
+              </div>
+              <span id='online-value' class='toggle-value truthy'>true</span>
+            </label>
+          </div>
 
-    <section class="content-section">
-        <div class="topic-section">
-            <!-- Controls Section -->
-            <div class="demo-container">
-                <h2>Robot ID Card Controls</h2>
+          <!-- isCharging Toggle -->
+          <div class='control-item'>
+            <label class='toggle-label'>
+              <span class='toggle-text'><code>isCharging</code></span>
+              <div class='toggle-switch'>
+                <input type='checkbox' id='is-charging' />
+                <span class='toggle-slider'></span>
+              </div>
+              <span id='charging-value' class='toggle-value falsy'>false</span>
+            </label>
+          </div>
 
-                <div class="controls-grid">
-                    <!-- isOnline Toggle -->
-                    <div class="control-item">
-                        <label class="toggle-label">
-                            <span class="toggle-text"><code>isOnline</code></span>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="is-online" checked>
-                                <span class="toggle-slider"></span>
-                            </div>
-                            <span id="online-value" class="toggle-value truthy">true</span>
-                        </label>
-                    </div>
-
-                    <!-- isCharging Toggle -->
-                    <div class="control-item">
-                        <label class="toggle-label">
-                            <span class="toggle-text"><code>isCharging</code></span>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="is-charging">
-                                <span class="toggle-slider"></span>
-                            </div>
-                            <span id="charging-value" class="toggle-value falsy">false</span>
-                        </label>
-                    </div>
-
-                    <!-- energyLevel Slider -->
-                    <div class="control-item slider-control">
-                        <label class="slider-label">
-                            <span class="slider-text"><code>energyLevel</code></span>
-                            <input type="range" id="energy-level" min="0" max="100" value="75">
-                            <span id="energy-value" class="slider-value">75</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Compound Conditions Display -->
-            <div class="demo-section mt-2">
-                <h3>Compound Conditions</h3>
-                <p class="mb-1">Watch how these expressions evaluate as you change the controls:</p>
-
-                <div class="conditions-grid">
-                    <!-- Condition 1: canWork -->
-                    <div class="condition-card" id="condition-1">
-                        <div class="condition-code">
-                            <code>isOnline && energyLevel > 20</code>
-                        </div>
-                        <div class="condition-breakdown">
-                            <span class="operand" id="c1-op1">isOnline</span>
-                            <span class="operator">&&</span>
-                            <span class="operand" id="c1-op2">energyLevel > 20</span>
-                        </div>
-                        <div class="condition-result">
-                            <span class="result-label">Result:</span>
-                            <span class="result-value" id="c1-result">true</span>
-                        </div>
-                        <div class="short-circuit-info" id="c1-info">
-                            Both conditions checked
-                        </div>
-                    </div>
-
-                    <!-- Condition 2: needsAttention -->
-                    <div class="condition-card" id="condition-2">
-                        <div class="condition-code">
-                            <code>!isOnline || energyLevel < 25</code>
-                        </div>
-                        <div class="condition-breakdown">
-                            <span class="operand" id="c2-op1">!isOnline</span>
-                            <span class="operator">||</span>
-                            <span class="operand" id="c2-op2">energyLevel < 25</span>
-                        </div>
-                        <div class="condition-result">
-                            <span class="result-label">Result:</span>
-                            <span class="result-value" id="c2-result">false</span>
-                        </div>
-                        <div class="short-circuit-info" id="c2-info">
-                            Both conditions checked
-                        </div>
-                    </div>
-
-                    <!-- Condition 3: readyForHardWork -->
-                    <div class="condition-card" id="condition-3">
-                        <div class="condition-code">
-                            <code>isOnline && !isCharging && energyLevel > 50</code>
-                        </div>
-                        <div class="condition-breakdown">
-                            <span class="operand" id="c3-op1">isOnline</span>
-                            <span class="operator">&&</span>
-                            <span class="operand" id="c3-op2">!isCharging</span>
-                            <span class="operator">&&</span>
-                            <span class="operand" id="c3-op3">energyLevel > 50</span>
-                        </div>
-                        <div class="condition-result">
-                            <span class="result-label">Result:</span>
-                            <span class="result-value" id="c3-result">true</span>
-                        </div>
-                        <div class="short-circuit-info" id="c3-info">
-                            All conditions checked
-                        </div>
-                    </div>
-
-                    <!-- Condition 4: hasPowerSource -->
-                    <div class="condition-card" id="condition-4">
-                        <div class="condition-code">
-                            <code>energyLevel > 0 || isCharging</code>
-                        </div>
-                        <div class="condition-breakdown">
-                            <span class="operand" id="c4-op1">energyLevel > 0</span>
-                            <span class="operator">||</span>
-                            <span class="operand" id="c4-op2">isCharging</span>
-                        </div>
-                        <div class="condition-result">
-                            <span class="result-label">Result:</span>
-                            <span class="result-value" id="c4-result">true</span>
-                        </div>
-                        <div class="short-circuit-info" id="c4-info">
-                            Short-circuited at first condition!
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Default Value Pattern -->
-            <div class="demo-section mt-2">
-                <h3>Default Value Pattern</h3>
-                <p class="mb-1">See how <code>||</code> returns the first truthy value:</p>
-
-                <div class="default-value-demo">
-                    <div class="default-input">
-                        <label for="nickname-input"><code>nickname = </code></label>
-                        <input type="text" id="nickname-input" placeholder='""' value="">
-                    </div>
-                    <div class="default-expression">
-                        <code>nickname || "HyBit A. ProtoBot"</code>
-                    </div>
-                    <div class="default-result">
-                        <span class="result-label">displayName:</span>
-                        <span class="result-value" id="display-name-result">"HyBit A. ProtoBot"</span>
-                    </div>
-                    <div class="default-explanation" id="default-explanation">
-                        nickname is empty (falsy), so it returns the second value
-                    </div>
-                </div>
-            </div>
-
-            <!-- Back to Station Link -->
-            <div class="demo-nav mt-2">
-                <a href="/stations/station2/" class="demo-back-link">← Back to Station 2: Combining Conditions</a>
-            </div>
+          <!-- energyLevel Slider -->
+          <div class='control-item slider-control'>
+            <label class='slider-label'>
+              <span class='slider-text'><code>energyLevel</code></span>
+              <input type='range' id='energy-level' min='0' max='100' value='75' />
+              <span id='energy-value' class='slider-value'>75</span>
+            </label>
+          </div>
         </div>
-    </section>
+      </div>
 
+      <!-- Compound Conditions Display -->
+      <div class='demo-section mt-2'>
+        <h3>Compound Conditions</h3>
+        <p class='mb-1'>Watch how these expressions evaluate as you change the controls:</p>
+
+        <div class='conditions-grid'>
+          <!-- Condition 1: canWork -->
+          <div class='condition-card' id='condition-1'>
+            <div class='condition-code'>
+              <code>isOnline && energyLevel > 20</code>
+            </div>
+            <div class='condition-breakdown'>
+              <span class='operand' id='c1-op1'>isOnline</span>
+              <span class='operator'>&&</span>
+              <span class='operand' id='c1-op2'>energyLevel > 20</span>
+            </div>
+            <div class='condition-result'>
+              <span class='result-label'>Result:</span>
+              <span class='result-value' id='c1-result'>true</span>
+            </div>
+            <div class='short-circuit-info' id='c1-info'>Both conditions checked</div>
+          </div>
+
+          <!-- Condition 2: needsAttention -->
+          <div class='condition-card' id='condition-2'>
+            <div class='condition-code'>
+              <code>!isOnline || energyLevel < 25</code>
+            </div>
+            <div class='condition-breakdown'>
+              <span class='operand' id='c2-op1'>!isOnline</span>
+              <span class='operator'>||</span>
+              <span class='operand' id='c2-op2'>energyLevel < 25</span>
+            </div>
+            <div class='condition-result'>
+              <span class='result-label'>Result:</span>
+              <span class='result-value' id='c2-result'>false</span>
+            </div>
+            <div class='short-circuit-info' id='c2-info'>Both conditions checked</div>
+          </div>
+
+          <!-- Condition 3: readyForHardWork -->
+          <div class='condition-card' id='condition-3'>
+            <div class='condition-code'>
+              <code>isOnline && !isCharging && energyLevel > 50</code>
+            </div>
+            <div class='condition-breakdown'>
+              <span class='operand' id='c3-op1'>isOnline</span>
+              <span class='operator'>&&</span>
+              <span class='operand' id='c3-op2'>!isCharging</span>
+              <span class='operator'>&&</span>
+              <span class='operand' id='c3-op3'>energyLevel > 50</span>
+            </div>
+            <div class='condition-result'>
+              <span class='result-label'>Result:</span>
+              <span class='result-value' id='c3-result'>true</span>
+            </div>
+            <div class='short-circuit-info' id='c3-info'>All conditions checked</div>
+          </div>
+
+          <!-- Condition 4: hasPowerSource -->
+          <div class='condition-card' id='condition-4'>
+            <div class='condition-code'>
+              <code>energyLevel > 0 || isCharging</code>
+            </div>
+            <div class='condition-breakdown'>
+              <span class='operand' id='c4-op1'>energyLevel > 0</span>
+              <span class='operator'>||</span>
+              <span class='operand' id='c4-op2'>isCharging</span>
+            </div>
+            <div class='condition-result'>
+              <span class='result-label'>Result:</span>
+              <span class='result-value' id='c4-result'>true</span>
+            </div>
+            <div class='short-circuit-info' id='c4-info'>Short-circuited at first condition!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Default Value Pattern -->
+      <div class='demo-section mt-2'>
+        <h3>Default Value Pattern</h3>
+        <p class='mb-1'>See how <code>||</code> returns the first truthy value:</p>
+
+        <div class='default-value-demo'>
+          <div class='default-input'>
+            <label for='nickname-input'><code>nickname = </code></label>
+            <input type='text' id='nickname-input' placeholder='""' value='' />
+            <button id='test-nickname-btn' class='test-btn'>Test</button>
+          </div>
+          <p class='input-hint'>Try: <code>"hello"</code>, <code>42</code>, <code>0</code>, <code>null</code>, <code>undefined</code>, <code>""</code>, <code>[]</code></p>
+          <div class='default-expression'>
+            <code>nickname || "HyBit A. ProtoBot"</code>
+          </div>
+          <div class='default-result'>
+            <span class='result-label'>displayName:</span>
+            <span class='result-value' id='display-name-result'>"HyBit A. ProtoBot"</span>
+          </div>
+          <div class='default-explanation' id='default-explanation'>nickname is empty (falsy), so it returns the second value</div>
+        </div>
+      </div>
+
+      <!-- Back to Station Link -->
+      <div class='demo-nav mt-2'>
+        <a href='/stations/station2/' class='demo-back-link'>← Back to Station 2: Combining Conditions</a>
+      </div>
+    </div>
+  </section>
 </MainLayout>
 
 <style>
-    .demo-container {
-        background: hsl(220, 20%, 97%);
-        border-radius: 12px;
-        padding: 1.5rem;
-        border: 1px solid hsl(220, 20%, 90%);
-    }
+  .demo-container {
+    background: hsl(220, 20%, 97%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid hsl(220, 20%, 90%);
+  }
 
-    .controls-grid {
-        display: grid;
-        gap: 1rem;
-    }
+  .controls-grid {
+    display: grid;
+    gap: 1rem;
+  }
 
-    .control-item {
-        padding: 1rem;
-        background: hsl(0, 0%, 100%);
-        border-radius: 8px;
-        border: 1px solid hsl(220, 20%, 88%);
-    }
+  .control-item {
+    padding: 1rem;
+    background: hsl(0, 0%, 100%);
+    border-radius: 8px;
+    border: 1px solid hsl(220, 20%, 88%);
+  }
 
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+  }
+
+  .toggle-text {
+    min-width: 120px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 32px;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: hsl(0, 52%, 70%);
+    transition: 0.3s;
+    border-radius: 32px;
+  }
+
+  .toggle-slider:before {
+    position: absolute;
+    content: '';
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+  }
+
+  input:checked + .toggle-slider {
+    background-color: hsl(142, 52%, 50%);
+  }
+
+  input:checked + .toggle-slider:before {
+    transform: translateX(28px);
+  }
+
+  .toggle-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    min-width: 50px;
+  }
+
+  .toggle-value.truthy {
+    color: hsl(142, 52%, 35%);
+  }
+
+  .toggle-value.falsy {
+    color: hsl(0, 52%, 45%);
+  }
+
+  .slider-control {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slider-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .slider-text {
+    min-width: 120px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  input[type='range'] {
+    flex: 1;
+    min-width: 150px;
+    height: 8px;
+    border-radius: 4px;
+    background: hsl(220, 20%, 85%);
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: hsl(32, 76%, 63%);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px hsl(0, 0%, 0%, 0.2);
+  }
+
+  .slider-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: hsl(32, 76%, 45%);
+    min-width: 40px;
+    text-align: right;
+  }
+
+  .demo-section h3 {
+    color: hsl(220, 20%, 30%);
+    margin-bottom: 0.5rem;
+  }
+
+  .conditions-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .condition-card {
+    background: hsl(220, 20%, 98%);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 2px solid hsl(220, 20%, 88%);
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .condition-card.result-true {
+    border-color: hsl(142, 52%, 60%);
+    background: hsl(142, 52%, 97%);
+  }
+
+  .condition-card.result-false {
+    border-color: hsl(0, 52%, 70%);
+    background: hsl(0, 52%, 98%);
+  }
+
+  .condition-code {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid hsl(220, 20%, 90%);
+  }
+
+  .condition-code code {
+    background: hsl(220, 20%, 92%);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .condition-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+  }
+
+  .operand {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition:
+      background 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .operand.evaluated-true {
+    background: hsl(142, 52%, 85%);
+    color: hsl(142, 52%, 25%);
+  }
+
+  .operand.evaluated-false {
+    background: hsl(0, 52%, 90%);
+    color: hsl(0, 52%, 35%);
+  }
+
+  .operand.skipped {
+    background: hsl(220, 10%, 90%);
+    color: hsl(220, 10%, 50%);
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  .operator {
+    color: hsl(220, 20%, 50%);
+    font-weight: 700;
+  }
+
+  .condition-result {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-label {
+    color: hsl(220, 20%, 50%);
+    font-size: 0.875rem;
+  }
+
+  .result-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+  }
+
+  .result-value.truthy {
+    background: hsl(142, 52%, 85%);
+    color: hsl(142, 52%, 25%);
+  }
+
+  .result-value.falsy {
+    background: hsl(0, 52%, 90%);
+    color: hsl(0, 52%, 35%);
+  }
+
+  .result-value.error {
+    background: hsl(0, 70%, 50%);
+    color: hsl(0, 0%, 100%);
+  }
+
+  .short-circuit-info {
+    font-size: 0.75rem;
+    color: hsl(220, 20%, 50%);
+    font-style: italic;
+  }
+
+  .short-circuit-info.short-circuited {
+    color: hsl(32, 76%, 45%);
+    font-weight: 600;
+  }
+
+  .default-value-demo {
+    background: hsl(220, 20%, 98%);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid hsl(220, 20%, 90%);
+  }
+
+  .default-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .default-input input {
+    padding: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 2px solid hsl(220, 20%, 80%);
+    border-radius: 6px;
+    width: 200px;
+  }
+
+  .default-input input:focus {
+    outline: none;
+    border-color: hsl(32, 76%, 63%);
+  }
+
+  .input-hint {
+    font-size: 0.75rem;
+    color: hsl(220, 20%, 50%);
+    margin-top: 0.5rem;
+  }
+
+  .test-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: hsl(32, 76%, 63%);
+    color: hsl(0, 0%, 100%);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .test-btn:hover {
+    background: hsl(32, 76%, 53%);
+  }
+
+  .default-expression {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: hsl(220, 20%, 95%);
+    border-radius: 4px;
+  }
+
+  .default-result {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .default-explanation {
+    font-size: 1.15rem;
+    color: hsl(220, 20%, 50%);
+    font-style: italic;
+  }
+
+  .demo-nav {
+    text-align: center;
+  }
+
+  .demo-back-link {
+    color: hsl(32, 76%, 50%);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .demo-back-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
     .toggle-label {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        cursor: pointer;
-    }
-
-    .toggle-text {
-        min-width: 120px;
-        font-family: 'JetBrains Mono', monospace;
-    }
-
-    .toggle-switch {
-        position: relative;
-        width: 60px;
-        height: 32px;
-    }
-
-    .toggle-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .toggle-slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: hsl(0, 52%, 70%);
-        transition: 0.3s;
-        border-radius: 32px;
-    }
-
-    .toggle-slider:before {
-        position: absolute;
-        content: "";
-        height: 24px;
-        width: 24px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: 0.3s;
-        border-radius: 50%;
-    }
-
-    input:checked + .toggle-slider {
-        background-color: hsl(142, 52%, 50%);
-    }
-
-    input:checked + .toggle-slider:before {
-        transform: translateX(28px);
-    }
-
-    .toggle-value {
-        font-family: 'JetBrains Mono', monospace;
-        font-weight: 600;
-        min-width: 50px;
-    }
-
-    .toggle-value.truthy {
-        color: hsl(142, 52%, 35%);
-    }
-
-    .toggle-value.falsy {
-        color: hsl(0, 52%, 45%);
-    }
-
-    .slider-control {
-        display: flex;
-        flex-direction: column;
+      flex-wrap: wrap;
     }
 
     .slider-label {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .slider-text {
-        min-width: 120px;
-        font-family: 'JetBrains Mono', monospace;
+    input[type='range'] {
+      width: 100%;
     }
-
-    input[type="range"] {
-        flex: 1;
-        min-width: 150px;
-        height: 8px;
-        border-radius: 4px;
-        background: hsl(220, 20%, 85%);
-        outline: none;
-        -webkit-appearance: none;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: hsl(32, 76%, 63%);
-        cursor: pointer;
-        border: 2px solid white;
-        box-shadow: 0 2px 4px hsl(0, 0%, 0%, 0.2);
-    }
-
-    .slider-value {
-        font-family: 'JetBrains Mono', monospace;
-        font-weight: 600;
-        color: hsl(32, 76%, 45%);
-        min-width: 40px;
-        text-align: right;
-    }
-
-    .demo-section h3 {
-        color: hsl(220, 20%, 30%);
-        margin-bottom: 0.5rem;
-    }
-
-    .conditions-grid {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .condition-card {
-        background: hsl(220, 20%, 98%);
-        border-radius: 8px;
-        padding: 1rem;
-        border: 2px solid hsl(220, 20%, 88%);
-        transition: border-color 0.3s ease, background 0.3s ease;
-    }
-
-    .condition-card.result-true {
-        border-color: hsl(142, 52%, 60%);
-        background: hsl(142, 52%, 97%);
-    }
-
-    .condition-card.result-false {
-        border-color: hsl(0, 52%, 70%);
-        background: hsl(0, 52%, 98%);
-    }
-
-    .condition-code {
-        font-size: 0.875rem;
-        margin-bottom: 0.75rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid hsl(220, 20%, 90%);
-    }
-
-    .condition-code code {
-        background: hsl(220, 20%, 92%);
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-    }
-
-    .condition-breakdown {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.875rem;
-    }
-
-    .operand {
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    .operand.evaluated-true {
-        background: hsl(142, 52%, 85%);
-        color: hsl(142, 52%, 25%);
-    }
-
-    .operand.evaluated-false {
-        background: hsl(0, 52%, 90%);
-        color: hsl(0, 52%, 35%);
-    }
-
-    .operand.skipped {
-        background: hsl(220, 10%, 90%);
-        color: hsl(220, 10%, 50%);
-        text-decoration: line-through;
-        opacity: 0.6;
-    }
-
-    .operator {
-        color: hsl(220, 20%, 50%);
-        font-weight: 700;
-    }
-
-    .condition-result {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .result-label {
-        color: hsl(220, 20%, 50%);
-        font-size: 0.875rem;
-    }
-
-    .result-value {
-        font-family: 'JetBrains Mono', monospace;
-        font-weight: 700;
-        padding: 0.25rem 0.75rem;
-        border-radius: 4px;
-    }
-
-    .result-value.truthy {
-        background: hsl(142, 52%, 85%);
-        color: hsl(142, 52%, 25%);
-    }
-
-    .result-value.falsy {
-        background: hsl(0, 52%, 90%);
-        color: hsl(0, 52%, 35%);
-    }
-
-    .short-circuit-info {
-        font-size: 0.75rem;
-        color: hsl(220, 20%, 50%);
-        font-style: italic;
-    }
-
-    .short-circuit-info.short-circuited {
-        color: hsl(32, 76%, 45%);
-        font-weight: 600;
-    }
-
-    .default-value-demo {
-        background: hsl(220, 20%, 98%);
-        border-radius: 8px;
-        padding: 1rem;
-        border: 1px solid hsl(220, 20%, 90%);
-    }
-
-    .default-input {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .default-input input {
-        padding: 0.5rem;
-        font-family: 'JetBrains Mono', monospace;
-        border: 2px solid hsl(220, 20%, 80%);
-        border-radius: 6px;
-        width: 200px;
-    }
-
-    .default-input input:focus {
-        outline: none;
-        border-color: hsl(32, 76%, 63%);
-    }
-
-    .default-expression {
-        margin-bottom: 0.75rem;
-        padding: 0.5rem;
-        background: hsl(220, 20%, 95%);
-        border-radius: 4px;
-    }
-
-    .default-result {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .default-explanation {
-        font-size: 0.875rem;
-        color: hsl(220, 20%, 50%);
-        font-style: italic;
-    }
-
-    .demo-nav {
-        text-align: center;
-    }
-
-    .demo-back-link {
-        color: hsl(32, 76%, 50%);
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .demo-back-link:hover {
-        text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-        .toggle-label {
-            flex-wrap: wrap;
-        }
-
-        .slider-label {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        input[type="range"] {
-            width: 100%;
-        }
-    }
+  }
 </style>
 
 <script>
-    // Get control elements
-    const isOnlineCheckbox = document.getElementById('is-online') as HTMLInputElement;
-    const isChargingCheckbox = document.getElementById('is-charging') as HTMLInputElement;
-    const energyLevelSlider = document.getElementById('energy-level') as HTMLInputElement;
-    const nicknameInput = document.getElementById('nickname-input') as HTMLInputElement;
+  // Get control elements
+  const isOnlineCheckbox = document.getElementById('is-online') as HTMLInputElement;
+  const isChargingCheckbox = document.getElementById('is-charging') as HTMLInputElement;
+  const energyLevelSlider = document.getElementById('energy-level') as HTMLInputElement;
+  const nicknameInput = document.getElementById('nickname-input') as HTMLInputElement;
+  const testNicknameBtn = document.getElementById('test-nickname-btn');
 
-    // Get display elements
-    const onlineValue = document.getElementById('online-value');
-    const chargingValue = document.getElementById('charging-value');
-    const energyValue = document.getElementById('energy-value');
+  // Get display elements
+  const onlineValue = document.getElementById('online-value');
+  const chargingValue = document.getElementById('charging-value');
+  const energyValue = document.getElementById('energy-value');
 
-    function updateAllConditions() {
-        const isOnline = isOnlineCheckbox.checked;
-        const isCharging = isChargingCheckbox.checked;
-        const energyLevel = parseInt(energyLevelSlider.value);
+  function updateAllConditions() {
+    const isOnline = isOnlineCheckbox.checked;
+    const isCharging = isChargingCheckbox.checked;
+    const energyLevel = parseInt(energyLevelSlider.value);
 
-        // Update control displays
-        if (onlineValue) {
-            onlineValue.textContent = String(isOnline);
-            onlineValue.className = `toggle-value ${isOnline ? 'truthy' : 'falsy'}`;
-        }
-        if (chargingValue) {
-            chargingValue.textContent = String(isCharging);
-            chargingValue.className = `toggle-value ${isCharging ? 'truthy' : 'falsy'}`;
-        }
-        if (energyValue) {
-            energyValue.textContent = String(energyLevel);
-        }
-
-        // Condition 1: isOnline && energyLevel > 20
-        updateCondition1(isOnline, energyLevel);
-
-        // Condition 2: !isOnline || energyLevel < 25
-        updateCondition2(isOnline, energyLevel);
-
-        // Condition 3: isOnline && !isCharging && energyLevel > 50
-        updateCondition3(isOnline, isCharging, energyLevel);
-
-        // Condition 4: energyLevel > 0 || isCharging
-        updateCondition4(energyLevel, isCharging);
+    // Update control displays
+    if (onlineValue) {
+      onlineValue.textContent = String(isOnline);
+      onlineValue.className = `toggle-value ${isOnline ? 'truthy' : 'falsy'}`;
+    }
+    if (chargingValue) {
+      chargingValue.textContent = String(isCharging);
+      chargingValue.className = `toggle-value ${isCharging ? 'truthy' : 'falsy'}`;
+    }
+    if (energyValue) {
+      energyValue.textContent = String(energyLevel);
     }
 
-    function updateCondition1(isOnline: boolean, energyLevel: number) {
-        const card = document.getElementById('condition-1');
-        const op1 = document.getElementById('c1-op1');
-        const op2 = document.getElementById('c1-op2');
-        const result = document.getElementById('c1-result');
-        const info = document.getElementById('c1-info');
+    // Condition 1: isOnline && energyLevel > 20
+    updateCondition1(isOnline, energyLevel);
 
-        const energyCheck = energyLevel > 20;
-        const finalResult = isOnline && energyCheck;
+    // Condition 2: !isOnline || energyLevel < 25
+    updateCondition2(isOnline, energyLevel);
 
-        // Update operand states
-        if (op1) {
-            op1.className = `operand evaluated-${isOnline}`;
-        }
+    // Condition 3: isOnline && !isCharging && energyLevel > 50
+    updateCondition3(isOnline, isCharging, energyLevel);
 
-        if (!isOnline) {
-            // Short-circuited
-            if (op2) op2.className = 'operand skipped';
-            if (info) {
-                info.textContent = 'Short-circuited! First condition is false';
-                info.className = 'short-circuit-info short-circuited';
-            }
-        } else {
-            if (op2) op2.className = `operand evaluated-${energyCheck}`;
-            if (info) {
-                info.textContent = 'Both conditions checked';
-                info.className = 'short-circuit-info';
-            }
-        }
+    // Condition 4: energyLevel > 0 || isCharging
+    updateCondition4(energyLevel, isCharging);
+  }
 
-        if (result) {
-            result.textContent = String(finalResult);
-            result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
-        }
+  function updateCondition1(isOnline: boolean, energyLevel: number) {
+    const card = document.getElementById('condition-1');
+    const op1 = document.getElementById('c1-op1');
+    const op2 = document.getElementById('c1-op2');
+    const result = document.getElementById('c1-result');
+    const info = document.getElementById('c1-info');
 
-        if (card) {
-            card.className = `condition-card result-${finalResult}`;
-        }
+    const energyCheck = energyLevel > 20;
+    const finalResult = isOnline && energyCheck;
+
+    // Update operand states
+    if (op1) {
+      op1.className = `operand evaluated-${isOnline}`;
     }
 
-    function updateCondition2(isOnline: boolean, energyLevel: number) {
-        const card = document.getElementById('condition-2');
-        const op1 = document.getElementById('c2-op1');
-        const op2 = document.getElementById('c2-op2');
-        const result = document.getElementById('c2-result');
-        const info = document.getElementById('c2-info');
-
-        const notOnline = !isOnline;
-        const lowEnergy = energyLevel < 25;
-        const finalResult = notOnline || lowEnergy;
-
-        if (op1) {
-            op1.className = `operand evaluated-${notOnline}`;
-        }
-
-        if (notOnline) {
-            // Short-circuited
-            if (op2) op2.className = 'operand skipped';
-            if (info) {
-                info.textContent = 'Short-circuited! First condition is true';
-                info.className = 'short-circuit-info short-circuited';
-            }
-        } else {
-            if (op2) op2.className = `operand evaluated-${lowEnergy}`;
-            if (info) {
-                info.textContent = 'Both conditions checked';
-                info.className = 'short-circuit-info';
-            }
-        }
-
-        if (result) {
-            result.textContent = String(finalResult);
-            result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
-        }
-
-        if (card) {
-            card.className = `condition-card result-${finalResult}`;
-        }
+    if (!isOnline) {
+      // Short-circuited
+      if (op2) op2.className = 'operand skipped';
+      if (info) {
+        info.textContent = 'Short-circuited! First condition is false';
+        info.className = 'short-circuit-info short-circuited';
+      }
+    } else {
+      if (op2) op2.className = `operand evaluated-${energyCheck}`;
+      if (info) {
+        info.textContent = 'Both conditions checked';
+        info.className = 'short-circuit-info';
+      }
     }
 
-    function updateCondition3(isOnline: boolean, isCharging: boolean, energyLevel: number) {
-        const card = document.getElementById('condition-3');
-        const op1 = document.getElementById('c3-op1');
-        const op2 = document.getElementById('c3-op2');
-        const op3 = document.getElementById('c3-op3');
-        const result = document.getElementById('c3-result');
-        const info = document.getElementById('c3-info');
-
-        const notCharging = !isCharging;
-        const highEnergy = energyLevel > 50;
-        const finalResult = isOnline && notCharging && highEnergy;
-
-        if (op1) {
-            op1.className = `operand evaluated-${isOnline}`;
-        }
-
-        if (!isOnline) {
-            if (op2) op2.className = 'operand skipped';
-            if (op3) op3.className = 'operand skipped';
-            if (info) {
-                info.textContent = 'Short-circuited at first condition!';
-                info.className = 'short-circuit-info short-circuited';
-            }
-        } else if (!notCharging) {
-            if (op2) op2.className = `operand evaluated-${notCharging}`;
-            if (op3) op3.className = 'operand skipped';
-            if (info) {
-                info.textContent = 'Short-circuited at second condition!';
-                info.className = 'short-circuit-info short-circuited';
-            }
-        } else {
-            if (op2) op2.className = `operand evaluated-${notCharging}`;
-            if (op3) op3.className = `operand evaluated-${highEnergy}`;
-            if (info) {
-                info.textContent = 'All conditions checked';
-                info.className = 'short-circuit-info';
-            }
-        }
-
-        if (result) {
-            result.textContent = String(finalResult);
-            result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
-        }
-
-        if (card) {
-            card.className = `condition-card result-${finalResult}`;
-        }
+    if (result) {
+      result.textContent = String(finalResult);
+      result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
     }
 
-    function updateCondition4(energyLevel: number, isCharging: boolean) {
-        const card = document.getElementById('condition-4');
-        const op1 = document.getElementById('c4-op1');
-        const op2 = document.getElementById('c4-op2');
-        const result = document.getElementById('c4-result');
-        const info = document.getElementById('c4-info');
+    if (card) {
+      card.className = `condition-card result-${finalResult}`;
+    }
+  }
 
-        const hasEnergy = energyLevel > 0;
-        const finalResult = hasEnergy || isCharging;
+  function updateCondition2(isOnline: boolean, energyLevel: number) {
+    const card = document.getElementById('condition-2');
+    const op1 = document.getElementById('c2-op1');
+    const op2 = document.getElementById('c2-op2');
+    const result = document.getElementById('c2-result');
+    const info = document.getElementById('c2-info');
 
-        if (op1) {
-            op1.className = `operand evaluated-${hasEnergy}`;
-        }
+    const notOnline = !isOnline;
+    const lowEnergy = energyLevel < 25;
+    const finalResult = notOnline || lowEnergy;
 
-        if (hasEnergy) {
-            if (op2) op2.className = 'operand skipped';
-            if (info) {
-                info.textContent = 'Short-circuited! First condition is true';
-                info.className = 'short-circuit-info short-circuited';
-            }
-        } else {
-            if (op2) op2.className = `operand evaluated-${isCharging}`;
-            if (info) {
-                info.textContent = 'Both conditions checked';
-                info.className = 'short-circuit-info';
-            }
-        }
-
-        if (result) {
-            result.textContent = String(finalResult);
-            result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
-        }
-
-        if (card) {
-            card.className = `condition-card result-${finalResult}`;
-        }
+    if (op1) {
+      op1.className = `operand evaluated-${notOnline}`;
     }
 
-    function updateDefaultValue() {
-        const nickname = nicknameInput?.value || '';
-        const robotName = "HyBit A. ProtoBot";
-        const displayName = nickname || robotName;
-
-        const resultEl = document.getElementById('display-name-result');
-        const explanationEl = document.getElementById('default-explanation');
-
-        if (resultEl) {
-            resultEl.textContent = `"${displayName}"`;
-            resultEl.className = `result-value ${nickname ? 'truthy' : 'falsy'}`;
-        }
-
-        if (explanationEl) {
-            if (nickname) {
-                explanationEl.textContent = 'nickname is truthy, so it returns the first value';
-            } else {
-                explanationEl.textContent = 'nickname is empty (falsy), so it returns the second value';
-            }
-        }
+    if (notOnline) {
+      // Short-circuited
+      if (op2) op2.className = 'operand skipped';
+      if (info) {
+        info.textContent = 'Short-circuited! First condition is true';
+        info.className = 'short-circuit-info short-circuited';
+      }
+    } else {
+      if (op2) op2.className = `operand evaluated-${lowEnergy}`;
+      if (info) {
+        info.textContent = 'Both conditions checked';
+        info.className = 'short-circuit-info';
+      }
     }
 
-    // Add event listeners
-    isOnlineCheckbox?.addEventListener('change', updateAllConditions);
-    isChargingCheckbox?.addEventListener('change', updateAllConditions);
-    energyLevelSlider?.addEventListener('input', updateAllConditions);
-    nicknameInput?.addEventListener('input', updateDefaultValue);
+    if (result) {
+      result.textContent = String(finalResult);
+      result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
+    }
 
-    // Initialize
-    updateAllConditions();
-    updateDefaultValue();
+    if (card) {
+      card.className = `condition-card result-${finalResult}`;
+    }
+  }
+
+  function updateCondition3(isOnline: boolean, isCharging: boolean, energyLevel: number) {
+    const card = document.getElementById('condition-3');
+    const op1 = document.getElementById('c3-op1');
+    const op2 = document.getElementById('c3-op2');
+    const op3 = document.getElementById('c3-op3');
+    const result = document.getElementById('c3-result');
+    const info = document.getElementById('c3-info');
+
+    const notCharging = !isCharging;
+    const highEnergy = energyLevel > 50;
+    const finalResult = isOnline && notCharging && highEnergy;
+
+    if (op1) {
+      op1.className = `operand evaluated-${isOnline}`;
+    }
+
+    if (!isOnline) {
+      if (op2) op2.className = 'operand skipped';
+      if (op3) op3.className = 'operand skipped';
+      if (info) {
+        info.textContent = 'Short-circuited at first condition!';
+        info.className = 'short-circuit-info short-circuited';
+      }
+    } else if (!notCharging) {
+      if (op2) op2.className = `operand evaluated-${notCharging}`;
+      if (op3) op3.className = 'operand skipped';
+      if (info) {
+        info.textContent = 'Short-circuited at second condition!';
+        info.className = 'short-circuit-info short-circuited';
+      }
+    } else {
+      if (op2) op2.className = `operand evaluated-${notCharging}`;
+      if (op3) op3.className = `operand evaluated-${highEnergy}`;
+      if (info) {
+        info.textContent = 'All conditions checked';
+        info.className = 'short-circuit-info';
+      }
+    }
+
+    if (result) {
+      result.textContent = String(finalResult);
+      result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
+    }
+
+    if (card) {
+      card.className = `condition-card result-${finalResult}`;
+    }
+  }
+
+  function updateCondition4(energyLevel: number, isCharging: boolean) {
+    const card = document.getElementById('condition-4');
+    const op1 = document.getElementById('c4-op1');
+    const op2 = document.getElementById('c4-op2');
+    const result = document.getElementById('c4-result');
+    const info = document.getElementById('c4-info');
+
+    const hasEnergy = energyLevel > 0;
+    const finalResult = hasEnergy || isCharging;
+
+    if (op1) {
+      op1.className = `operand evaluated-${hasEnergy}`;
+    }
+
+    if (hasEnergy) {
+      if (op2) op2.className = 'operand skipped';
+      if (info) {
+        info.textContent = 'Short-circuited! First condition is true';
+        info.className = 'short-circuit-info short-circuited';
+      }
+    } else {
+      if (op2) op2.className = `operand evaluated-${isCharging}`;
+      if (info) {
+        info.textContent = 'Both conditions checked';
+        info.className = 'short-circuit-info';
+      }
+    }
+
+    if (result) {
+      result.textContent = String(finalResult);
+      result.className = `result-value ${finalResult ? 'truthy' : 'falsy'}`;
+    }
+
+    if (card) {
+      card.className = `condition-card result-${finalResult}`;
+    }
+  }
+
+  function parseInputValue(str: string): { value: any; display: string; explanation: string } {
+    const trimmed = str.trim();
+
+    // Empty input = empty string
+    if (trimmed === '') {
+      return { value: '', display: '""', explanation: 'empty string (falsy)' };
+    }
+
+    // Check for quoted strings
+    if ((trimmed.startsWith('"') && trimmed.endsWith('"') && trimmed.length >= 2) ||
+        (trimmed.startsWith("'") && trimmed.endsWith("'") && trimmed.length >= 2)) {
+      const stringVal = trimmed.slice(1, -1);
+      return {
+        value: stringVal,
+        display: `"${stringVal}"`,
+        explanation: stringVal === '' ? 'empty string (falsy)' : `string "${stringVal}" (truthy)`,
+      };
+    }
+
+    // Check for keywords
+    if (trimmed === 'null') {
+      return { value: null, display: 'null', explanation: 'null (falsy)' };
+    }
+    if (trimmed === 'undefined') {
+      return { value: undefined, display: 'undefined', explanation: 'undefined (falsy)' };
+    }
+    if (trimmed === 'false') {
+      return { value: false, display: 'false', explanation: 'boolean false (falsy)' };
+    }
+    if (trimmed === 'true') {
+      return { value: true, display: 'true', explanation: 'boolean true (truthy)' };
+    }
+    if (trimmed === 'NaN') {
+      return { value: NaN, display: 'NaN', explanation: 'NaN (falsy)' };
+    }
+    if (trimmed === '[]') {
+      return { value: [], display: '[]', explanation: 'empty array (truthy!)' };
+    }
+    if (trimmed === '{}') {
+      return { value: {}, display: '{}', explanation: 'empty object (truthy!)' };
+    }
+
+    // Check for numbers
+    if (!isNaN(Number(trimmed)) && trimmed !== '') {
+      const num = Number(trimmed);
+      return {
+        value: num,
+        display: trimmed,
+        explanation: num === 0 ? 'zero (falsy)' : `number ${trimmed} (truthy)`,
+      };
+    }
+
+    // Unquoted text = ReferenceError
+    return { value: 'ERROR', display: trimmed, explanation: `ReferenceError: ${trimmed} is not defined` };
+  }
+
+  function updateDefaultValue() {
+    const inputStr = nicknameInput?.value || '';
+    const { value: nickname, display, explanation } = parseInputValue(inputStr);
+    const robotName = 'HyBit A. ProtoBot';
+
+    const resultEl = document.getElementById('display-name-result');
+    const explanationEl = document.getElementById('default-explanation');
+
+    // Handle ReferenceError case - code would crash
+    if (nickname === 'ERROR') {
+      if (resultEl) {
+        resultEl.textContent = '💥 Error!';
+        resultEl.className = 'result-value error';
+      }
+      if (explanationEl) {
+        explanationEl.textContent = `${explanation} — code crashes before reaching the fallback! Use quotes for strings.`;
+      }
+      return;
+    }
+
+    const displayName = nickname || robotName;
+
+    if (resultEl) {
+      // Show the actual result with proper formatting
+      const resultDisplay = typeof displayName === 'string' ? `"${displayName}"` : String(displayName);
+      resultEl.textContent = resultDisplay;
+      resultEl.className = `result-value ${nickname ? 'truthy' : 'falsy'}`;
+    }
+
+    if (explanationEl) {
+      if (nickname) {
+        explanationEl.textContent = `nickname is ${explanation}, so it returns the first value`;
+      } else {
+        explanationEl.textContent = `nickname is ${explanation}, so it returns the second value`;
+      }
+    }
+  }
+
+  // Add event listeners
+  isOnlineCheckbox?.addEventListener('change', updateAllConditions);
+  isChargingCheckbox?.addEventListener('change', updateAllConditions);
+  energyLevelSlider?.addEventListener('input', updateAllConditions);
+
+  // Test button click
+  testNicknameBtn?.addEventListener('click', updateDefaultValue);
+
+  // Enter key in input
+  nicknameInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      updateDefaultValue();
+    }
+  });
+
+  // Initialize
+  updateAllConditions();
+  updateDefaultValue();
 </script>
